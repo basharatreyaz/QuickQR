@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Support - QuickQR SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .contact-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #0f172a 100%);
+      color: #ffffff;
+      padding: 4.5rem 1.5rem 3.5rem;
+      text-align: center;
+      position: relative;
+    }
+    .contact-hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .contact-hero p {
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .contact-container {
+      max-width: 1040px;
+      margin: -2.5rem auto 5rem;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 2.5rem;
+      position: relative;
+      z-index: 10;
+    }
+    .contact-form-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-xl);
+    }
+    .contact-info-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .info-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .info-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+    .info-content h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.2rem;
+    }
+    .info-content p {
+      font-size: 0.85rem;
+      color: var(--slate-600);
+      line-height: 1.5;
+      margin: 0;
+    }
+    @media (max-width: 860px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+        margin-top: -1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">
+      <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+      QuickQR <span class="brand-tag">v2.0</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-house"></i> Home</a></li>
+      <li><a href="index.html#features" class="nav-link"><i class="fas fa-bolt"></i> Features</a></li>
+      <li><a href="pricing.html" class="nav-link"><i class="fas fa-crown"></i> Pricing</a></li>
+      <li><a href="faq.html" class="nav-link"><i class="fas fa-circle-question"></i> FAQ</a></li>
+      <li><a href="docs.html" class="nav-link"><i class="fas fa-book"></i> API Docs</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-auth-actions">
+      <a href="login.html" class="btn btn-outline btn-sm">Sign In</a>
+      <a href="register.html" class="btn btn-primary btn-sm"><i class="fas fa-rocket"></i> Get Started Free</a>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="contact-hero">
+    <div class="legal-badge" style="background:rgba(99,102,241,0.25);color:#a5b4fc;display:inline-flex;padding:0.35rem 0.85rem;border-radius:9999px;font-weight:700;font-size:0.8rem;margin-bottom:1rem;">
+      <i class="fas fa-headset"></i> We're Here to Help
+    </div>
+    <h1>Get in Touch with Our Team</h1>
+    <p>Have questions about dynamic campaigns, enterprise high-volume redirects, or need technical assistance? Send us a message.</p>
+  </header>
+
+  <!-- Main Content Layout -->
+  <div class="contact-container">
+
+    <!-- Contact Form Card -->
+    <div class="contact-form-card">
+      <h2 style="font-size:1.5rem;font-weight:800;color:var(--slate-900);margin-bottom:0.4rem;">Send Us a Message</h2>
+      <p style="color:var(--slate-500);font-size:0.9rem;margin-bottom:1.75rem;">Fill out the form below and our team will get back to you within 2-4 hours.</p>
+
+      <form id="contact-form">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:1rem;">
+          <div class="form-group">
+            <label class="form-label" for="contact-name">Your Full Name</label>
+            <input type="text" id="contact-name" class="form-control" placeholder="Alex Morgan" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-email">Email Address</label>
+            <input type="email" id="contact-email" class="form-control" placeholder="alex@company.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="contact-category">Inquiry Topic</label>
+          <select id="contact-category" class="form-control">
+            <option value="support">Customer & Account Support</option>
+            <option value="enterprise">Enterprise Plans & Custom Limits</option>
+            <option value="api">Developer API & Integration</option>
+            <option value="billing">Billing & Invoice Inquiries</option>
+            <option value="abuse">Report Abuse / Phishing QR Code</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="contact-subject">Subject</label>
+          <input type="text" id="contact-subject" class="form-control" placeholder="How can we assist you?" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="contact-message">Message</label>
+          <textarea id="contact-message" class="form-control" rows="5" placeholder="Provide details about your question, campaign, or request..." required></textarea>
+        </div>
+
+        <button type="submit" id="btn-submit" class="btn btn-primary" style="width:100%;padding:0.85rem;font-size:1rem;">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+      </form>
+    </div>
+
+    <!-- Contact Info & SLA Card -->
+    <div class="contact-info-card">
+      <h3 style="font-size:1.15rem;font-weight:800;color:var(--slate-900);margin-bottom:0.25rem;">Direct Channels</h3>
+      
+      <div class="info-item">
+        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+        <div class="info-content">
+          <h4>Customer Success</h4>
+          <p>support@quickqr.io</p>
+          <p style="color:var(--success);font-weight:600;font-size:0.8rem;margin-top:0.2rem;">Avg response &lt; 2 hrs</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon"><i class="fas fa-building"></i></div>
+        <div class="info-content">
+          <h4>Enterprise Inquiries</h4>
+          <p>sales@quickqr.io</p>
+          <p style="color:var(--slate-500);font-size:0.8rem;margin-top:0.2rem;">Custom volume SLAs</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon" style="background:var(--danger-light);color:var(--danger);"><i class="fas fa-shield-virus"></i></div>
+        <div class="info-content">
+          <h4>Report Abuse</h4>
+          <p>abuse@quickqr.io</p>
+          <p style="color:var(--danger);font-size:0.8rem;margin-top:0.2rem;">Priority triage &lt; 15 min</p>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--slate-100);padding-top:1.25rem;">
+        <h4 style="font-size:0.9rem;font-weight:700;margin-bottom:0.5rem;color:var(--slate-800);">Quick Links</h4>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.4rem;font-size:0.875rem;">
+          <li><a href="faq.html" style="color:var(--primary);text-decoration:none;"><i class="fas fa-angle-right"></i> Knowledge Base & FAQ</a></li>
+          <li><a href="docs.html" style="color:var(--primary);text-decoration:none;"><i class="fas fa-angle-right"></i> API Reference</a></li>
+          <li><a href="pricing.html" style="color:var(--primary);text-decoration:none;"><i class="fas fa-angle-right"></i> Pricing Tiers</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modern Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <a href="index.html" class="footer-brand-title">
+          <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+          QuickQR
+        </a>
+        <p class="footer-desc">Next-generation dynamic QR infrastructure with privacy-preserving telemetry.</p>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigation</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pricing.html">Pricing & Plans</a></li>
+          <li><a href="faq.html">Help & FAQ</a></li>
+          <li><a href="docs.html">Developer API</a></li>
+          <li><a href="contact.html" style="color:var(--primary);font-weight:600;">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Legal & Security</h4>
+        <ul class="footer-links-list">
+          <li><a href="privacy.html">Privacy Policy & GDPR</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 QuickQR SaaS Platform. All rights reserved.</div>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-submit');
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const category = document.getElementById('contact-category').value;
+      const subject = document.getElementById('contact-subject').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending message...';
+
+      try {
+        const fullSubject = `[${category.toUpperCase()}] ${subject}`;
+        const res = await API.post('/contact.php', { name, email, subject: fullSubject, message });
+        btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+        API.showToast(res.message || `Thank you, ${name}! We have received your message.`, 'success');
+        document.getElementById('contact-form').reset();
+      } catch (err) {
+        API.showToast(err.message || 'Failed to send message. Please try again.', 'error');
+      } finally {
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+        }, 2500);
+      }
+    });
+
+    (async () => {
+      try {
+        const res = await API.get('/auth/me.php', {}, { skipAuthRedirect: true });
+        const user = res.data?.user || res.data;
+        if (user && user.id) {
+          const navAuth = document.getElementById('nav-auth-actions');
+          if (navAuth) {
+            navAuth.innerHTML = `
+              <a href="dashboard.html" class="btn btn-primary btn-sm"><i class="fas fa-th-large"></i> Go to Dashboard</a>
+            `;
+          }
+          if (user.name && !document.getElementById('contact-name').value) {
+            document.getElementById('contact-name').value = user.name;
+          }
+          if (user.email && !document.getElementById('contact-email').value) {
+            document.getElementById('contact-email').value = user.email;
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Console - QuickQR SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-logo">
+          <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+          QuickQR
+        </a>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-item"><a href="dashboard.html" class="sidebar-link"><i class="fas fa-th-large"></i> Dashboard</a></li>
+        <li class="sidebar-item"><a href="qr-create.html" class="sidebar-link"><i class="fas fa-plus-circle"></i> Create QR Code</a></li>
+        <li class="sidebar-item"><a href="analytics.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+        <li class="sidebar-item"><a href="pricing.html" class="sidebar-link"><i class="fas fa-crown"></i> Plans & Billing</a></li>
+        <li class="sidebar-item"><a href="settings.html" class="sidebar-link"><i class="fas fa-cog"></i> Settings</a></li>
+        <li class="sidebar-item"><a href="admin.html" class="sidebar-link active" style="color:var(--primary);"><i class="fas fa-shield-halved"></i> Admin Panel</a></li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-snippet">
+          <div class="user-avatar auth-user-avatar" style="background:var(--slate-800);">A</div>
+          <div class="user-info">
+            <div class="user-name auth-user-name">Administrator</div>
+            <div class="user-plan-tag"><span class="badge badge-primary">Admin</span></div>
+          </div>
+        </div>
+        <button onclick="Auth.logout()" class="btn btn-outline btn-sm" title="Log Out" style="padding:0.4rem 0.6rem;">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="page-title">
+          <h1>System Administration</h1>
+          <p>Platform metrics, users, campaigns, limits, and settings</p>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <!-- System Metric Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Total Registered Users</p>
+              <div class="stat-value" id="admin-stat-users">-</div>
+            </div>
+            <div class="stat-icon primary"><i class="fas fa-users"></i></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Total QR Codes</p>
+              <div class="stat-value" id="admin-stat-qrs">-</div>
+            </div>
+            <div class="stat-icon secondary"><i class="fas fa-qrcode"></i></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Total Scans Recorded</p>
+              <div class="stat-value" id="admin-stat-scans">-</div>
+            </div>
+            <div class="stat-icon success"><i class="fas fa-chart-line"></i></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Scans Today</p>
+              <div class="stat-value" id="admin-stat-today">-</div>
+            </div>
+            <div class="stat-icon warning"><i class="fas fa-bolt"></i></div>
+          </div>
+        </div>
+
+        <!-- Admin Tabs -->
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchAdminTab('users')"><i class="fas fa-user-group"></i> Users</button>
+          <button class="tab-btn" onclick="switchAdminTab('qrs')"><i class="fas fa-qrcode"></i> All QR Codes</button>
+          <button class="tab-btn" onclick="switchAdminTab('plans')"><i class="fas fa-sliders"></i> Plans & Limits</button>
+          <button class="tab-btn" onclick="switchAdminTab('payment')"><i class="fab fa-paypal" style="color:#0079C1;"></i> PayPal & Payments</button>
+          <button class="tab-btn" onclick="switchAdminTab('settings')"><i class="fas fa-wrench"></i> Settings</button>
+          <button class="tab-btn" onclick="switchAdminTab('logs')"><i class="fas fa-clock-rotate-left"></i> Audit Logs</button>
+        </div>
+
+        <!-- Tab 1: Users -->
+        <div id="tab-users" class="admin-tab-pane">
+          <div class="data-card">
+            <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--slate-100);display:flex;justify-content:space-between;align-items:center;">
+              <input type="text" id="admin-user-search" class="form-control" placeholder="Search user by name or email..." style="max-width:320px;">
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Role</th>
+                    <th>Plan</th>
+                    <th>QRs / Scans</th>
+                    <th>Status</th>
+                    <th>Joined</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-users-tbody">
+                  <tr><td colspan="7" style="text-align:center;padding:2rem;">Loading users...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: All QR Codes -->
+        <div id="tab-qrs" class="admin-tab-pane" style="display:none;">
+          <div class="data-card">
+            <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--slate-100);">
+              <input type="text" id="admin-qr-search" class="form-control" placeholder="Search QR by name, code, or owner..." style="max-width:320px;">
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Name / Label</th>
+                    <th>Owner</th>
+                    <th>Short Code</th>
+                    <th>Type</th>
+                    <th>Scans</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th style="text-align:right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-qrs-tbody">
+                  <tr><td colspan="8" style="text-align:center;padding:2rem;">Loading QR codes...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Plans & Limits -->
+        <div id="tab-plans" class="admin-tab-pane" style="display:none;">
+          <div class="data-card" style="padding:1.5rem;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;">
+              <div>
+                <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:0.25rem;">Configurable SaaS Tier Limits</h3>
+                <p style="font-size:0.875rem;color:var(--slate-500);margin:0;">
+                  Adjust limits and capabilities dynamically without code changes.
+                </p>
+              </div>
+            </div>
+
+            <!-- Super Admin Billing Quick Toggle Banner -->
+            <div id="admin-billing-banner" style="background:#fef3c7;border:1px solid #fde68a;border-radius:var(--radius-lg);padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+              <div>
+                <strong style="color:#92400e;display:flex;align-items:center;gap:0.5rem;font-size:0.95rem;">
+                  <i class="fas fa-crown"></i> Billing System Status: <span id="admin-billing-state-text" class="badge badge-warning">Disabled (Hidden from Users)</span>
+                </strong>
+                <p style="color:#b45309;font-size:0.825rem;margin:0.25rem 0 0 0;">
+                  When disabled, all pricing pages, upgrade buttons, plan tags, and subscription links are hidden from non-admin users.
+                </p>
+              </div>
+              <button type="button" onclick="toggleBillingQuick()" id="btn-quick-toggle-billing" class="btn btn-primary btn-sm">
+                <i class="fas fa-toggle-on"></i> Turn On Billing
+              </button>
+            </div>
+
+            <div id="admin-plans-container" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:1.5rem;">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Platform Settings -->
+        <div id="tab-settings" class="admin-tab-pane" style="display:none;">
+          <div class="creator-card" style="max-width:650px;">
+            <h3><i class="fas fa-sliders" style="color:var(--primary);"></i> Global Settings</h3>
+            <form id="admin-settings-form">
+              <div class="form-group">
+                <label class="form-label">Application Name</label>
+                <input type="text" id="set-app-name" name="app_name" class="form-control" required>
+              </div>
+              <div class="form-group" style="background:var(--slate-50);padding:1.15rem;border-radius:var(--radius-lg);border:1px solid var(--slate-200);margin-bottom:1.25rem;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+                  <label class="form-label" style="font-weight:700;margin-bottom:0;color:var(--slate-900);">
+                    <i class="fas fa-crown" style="color:var(--warning);margin-right:0.35rem;"></i> Billing & Plans System
+                  </label>
+                  <span id="billing-status-badge" class="badge badge-neutral">Disabled</span>
+                </div>
+                <p style="font-size:0.8rem;color:var(--slate-500);margin-bottom:0.75rem;">
+                  Turn billing on or off globally. When turned off, pricing and plan upgrades are completely hidden from regular users.
+                </p>
+                <select id="set-enable-billing" name="enable_billing" class="form-control" style="font-weight:600;">
+                  <option value="0">Turn Off (Hide Billing & Pricing from users)</option>
+                  <option value="1">Turn On (Show Billing & Pricing to users)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Allow New User Registrations</label>
+                <select id="set-allow-reg" name="allow_registration" class="form-control">
+                  <option value="1">Enabled (Open to Public)</option>
+                  <option value="0">Disabled (Closed)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Auth Rate Limit (Max attempts / min)</label>
+                <input type="number" id="set-auth-limit" name="rate_limit_auth_max" class="form-control" value="10">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Redirect Rate Limit (Max requests / min / IP)</label>
+                <input type="number" id="set-redirect-limit" name="rate_limit_redirect_max" class="form-control" value="120">
+              </div>
+              <button type="submit" id="btn-save-settings" class="btn btn-primary btn-sm">
+                <i class="fas fa-save"></i> Save Settings
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Tab: PayPal & Payments -->
+        <div id="tab-payment" class="admin-tab-pane" style="display:none;">
+          <div style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:1.5rem;align-items:start;">
+            
+            <!-- PayPal Configuration Form -->
+            <div class="creator-card" style="margin:0;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+                <h3 style="margin:0;display:flex;align-items:center;gap:0.6rem;">
+                  <i class="fab fa-paypal" style="color:#0079C1;font-size:1.4rem;"></i>
+                  <span>PayPal Gateway Settings</span>
+                </h3>
+                <span id="paypal-live-status-badge" class="badge badge-neutral">Not Configured</span>
+              </div>
+
+              <p style="font-size:0.875rem;color:var(--slate-500);margin-bottom:1.5rem;">
+                Configure your PayPal REST API credentials below. When enabled, users will be able to upgrade their plans with PayPal and debit/credit cards.
+              </p>
+
+              <form id="admin-paypal-form">
+                <div class="form-group">
+                  <label class="form-label" style="font-weight:700;">PayPal Integration Status</label>
+                  <select id="paypal-status" name="paypal_enabled" class="form-control" style="font-weight:600;">
+                    <option value="1">Enabled (Accept PayPal Payments)</option>
+                    <option value="0">Disabled (PayPal Hidden / Inactive)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="font-weight:700;">Environment / Mode</label>
+                  <select id="paypal-mode" name="paypal_mode" class="form-control">
+                    <option value="sandbox">Sandbox (Testing / Simulated)</option>
+                    <option value="live">Live (Production / Real Payments)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="font-weight:700;">PayPal Client ID</label>
+                  <input type="text" id="paypal-client-id" name="paypal_client_id" class="form-control" placeholder="e.g. AXXxx123456..." autocomplete="off">
+                  <span style="font-size:0.75rem;color:var(--slate-400);">From your PayPal Developer Dashboard REST API App.</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="font-weight:700;">PayPal Secret Key</label>
+                  <div style="position:relative;">
+                    <input type="password" id="paypal-secret" name="paypal_secret" class="form-control" placeholder="e.g. EXXxx987654..." autocomplete="off" style="padding-right:2.5rem;">
+                    <button type="button" onclick="toggleSecretVisibility('paypal-secret', this)" style="position:absolute;right:0.6rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--slate-400);cursor:pointer;">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                  <span style="font-size:0.75rem;color:var(--slate-400);">Stored securely on server. Used for server-side order creation and capture.</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" style="font-weight:700;">Store Currency</label>
+                  <select id="paypal-currency" name="paypal_currency" class="form-control">
+                    <option value="USD">USD - US Dollar ($)</option>
+                    <option value="EUR">EUR - Euro (€)</option>
+                    <option value="GBP">GBP - British Pound (£)</option>
+                    <option value="CAD">CAD - Canadian Dollar ($)</option>
+                    <option value="AUD">AUD - Australian Dollar ($)</option>
+                    <option value="INR">INR - Indian Rupee (₹)</option>
+                  </select>
+                </div>
+
+                <div id="paypal-test-alert" style="display:none;padding:0.85rem;border-radius:var(--radius-md);margin-bottom:1rem;font-size:0.85rem;"></div>
+
+                <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.5rem;">
+                  <button type="submit" id="btn-save-paypal" class="btn btn-primary btn-sm">
+                    <i class="fas fa-save"></i> Save PayPal Settings
+                  </button>
+                  <button type="button" onclick="testPayPalConnection()" id="btn-test-paypal" class="btn btn-outline btn-sm">
+                    <i class="fas fa-plug-circle-check"></i> Test Connection
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Setup Instructions & Webhook Helper -->
+            <div>
+              <div class="creator-card" style="margin:0 0 1.5rem 0;background:var(--slate-50);border:1px solid var(--slate-200);">
+                <h4 style="font-size:0.95rem;font-weight:700;color:var(--slate-900);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem;">
+                  <i class="fas fa-circle-question" style="color:var(--primary);"></i> How to get PayPal credentials:
+                </h4>
+                <ol style="font-size:0.825rem;color:var(--slate-600);line-height:1.6;padding-left:1.25rem;margin:0;">
+                  <li>Log in to <a href="https://developer.paypal.com" target="_blank" style="color:var(--primary);font-weight:600;">developer.paypal.com</a>.</li>
+                  <li>Go to <strong>Apps & Credentials</strong> in dashboard.</li>
+                  <li>Select <strong>Sandbox</strong> (for testing) or <strong>Live</strong> (for production).</li>
+                  <li>Click <strong>Create App</strong> and name it (e.g. QuickQR).</li>
+                  <li>Copy the <strong>Client ID</strong> and <strong>Secret Key</strong> into the fields on the left.</li>
+                  <li>Click <strong>Test Connection</strong> to verify, then <strong>Save</strong>!</li>
+                </ol>
+              </div>
+
+              <div class="creator-card" style="margin:0;background:var(--slate-50);border:1px solid var(--slate-200);">
+                <h4 style="font-size:0.95rem;font-weight:700;color:var(--slate-900);margin-bottom:0.5rem;">
+                  <i class="fas fa-satellite-dish" style="color:var(--secondary);"></i> Webhook / IPN Endpoint
+                </h4>
+                <p style="font-size:0.8rem;color:var(--slate-500);margin-bottom:0.75rem;">
+                  Optional: Paste this URL into your PayPal Developer App Webhooks to receive asynchronous event notifications:
+                </p>
+                <div style="display:flex;gap:0.5rem;align-items:center;">
+                  <input type="text" id="paypal-webhook-url-input" class="form-control" style="font-family:monospace;font-size:0.75rem;" readonly>
+                  <button type="button" onclick="App.copyToClipboard(document.getElementById('paypal-webhook-url-input').value, 'Webhook URL copied!')" class="btn btn-outline btn-sm" title="Copy URL">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Transaction Logs Card -->
+          <div class="data-card" style="margin-top:2rem;">
+            <div style="padding:1rem 1.25rem;border-bottom:1px solid var(--slate-100);display:flex;justify-content:space-between;align-items:center;">
+              <h4 style="font-size:1rem;font-weight:700;margin:0;color:var(--slate-900);display:flex;align-items:center;gap:0.5rem;">
+                <i class="fas fa-receipt" style="color:var(--primary);"></i> PayPal Transaction History
+              </h4>
+              <button onclick="loadPayments()" class="btn btn-outline btn-sm" style="font-size:0.75rem;padding:0.25rem 0.6rem;">
+                <i class="fas fa-rotate"></i> Refresh Transactions
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                    <th>Plan</th>
+                    <th>Amount</th>
+                    <th>Order ID</th>
+                    <th>Transaction ID</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-payments-tbody">
+                  <tr><td colspan="7" style="text-align:center;padding:2rem;">Loading payment history...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 5: Audit Logs -->
+        <div id="tab-logs" class="admin-tab-pane" style="display:none;">
+          <div class="data-card">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Details</th>
+                    <th>IP Address</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-logs-tbody">
+                  <tr><td colspan="5" style="text-align:center;padding:2rem;">Loading audit logs...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let currentAdminTab = 'users';
+
+    async function initAdmin() {
+      await Auth.requireAdmin();
+      loadSystemStats();
+      loadUsers();
+      loadAllQrs();
+      loadPlans();
+      loadSettings();
+      loadPayPalSettings();
+      setupSearchListeners();
+    }
+
+    function switchAdminTab(tab) {
+      currentAdminTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      document.querySelectorAll('.admin-tab-pane').forEach(p => p.style.display = 'none');
+      document.getElementById(`tab-${tab}`).style.display = 'block';
+
+      if (tab === 'logs') loadLogs();
+      if (tab === 'payment') {
+        loadPayPalSettings();
+        loadPayments();
+      }
+    }
+
+    async function loadSystemStats() {
+      try {
+        const res = await API.get('/admin/stats.php');
+        const { stats, recent_logs } = res.data;
+
+        document.getElementById('admin-stat-users').textContent = stats.total_users;
+        document.getElementById('admin-stat-qrs').textContent = stats.total_qrs;
+        document.getElementById('admin-stat-scans').textContent = Number(stats.total_scans).toLocaleString();
+        document.getElementById('admin-stat-today').textContent = stats.today_scans;
+
+        renderLogs(recent_logs);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function loadUsers(search = '') {
+      try {
+        const res = await API.get('/admin/users.php', { search });
+        const users = res.data.users || [];
+        const tbody = document.getElementById('admin-users-tbody');
+
+        if (users.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;">No users found.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = users.map(u => {
+          const isActive = u.status === 'active';
+          return `
+            <tr>
+              <td>
+                <div style="font-weight:700;color:var(--slate-900);">${escapeHtml(u.name)}</div>
+                <div style="font-size:0.775rem;color:var(--slate-500);">${escapeHtml(u.email)}</div>
+              </td>
+              <td>
+                <select onchange="changeUserRole(${u.id}, this.value)" class="form-control" style="font-size:0.75rem;padding:0.2rem 0.4rem;width:auto;display:inline-block;font-weight:600;">
+                  <option value="user" ${u.role === 'user' ? 'selected' : ''}>User</option>
+                  <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
+                </select>
+              </td>
+              <td>
+                <select onchange="changeUserPlan(${u.id}, this.value)" class="form-control" style="font-size:0.75rem;padding:0.2rem 0.4rem;width:auto;display:inline-block;font-weight:600;color:var(--primary);">
+                  <option value="1" ${u.plan_name === 'Free' ? 'selected' : ''}>Free</option>
+                  <option value="2" ${u.plan_name === 'Pro' ? 'selected' : ''}>Pro</option>
+                  <option value="3" ${u.plan_name === 'Business' ? 'selected' : ''}>Business</option>
+                </select>
+              </td>
+              <td>${u.qr_count} QRs &bull; ${u.total_scans} scans</td>
+              <td>
+                <span class="badge ${isActive ? 'badge-success' : 'badge-danger'}">
+                  ${isActive ? 'Active' : 'Disabled'}
+                </span>
+              </td>
+              <td>${App.formatDate(u.created_at)}</td>
+              <td>
+                <button onclick="toggleUserStatus(${u.id}, '${isActive ? 'disabled' : 'active'}')" class="btn btn-outline btn-sm" style="font-size:0.75rem;padding:0.25rem 0.5rem;">
+                  ${isActive ? '<i class="fas fa-ban" style="color:var(--danger);"></i> Disable' : '<i class="fas fa-check" style="color:var(--success);"></i> Activate'}
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      } catch (err) {
+        API.showToast('Failed to load users', 'error');
+      }
+    }
+
+    async function changeUserRole(userId, role) {
+      if (!confirm(`Are you sure you want to change this user's role to ${role}?`)) {
+        loadUsers();
+        return;
+      }
+      try {
+        await API.post('/admin/user-status.php', { user_id: userId, role: role });
+        API.showToast(`User role updated to ${role}!`, 'success');
+        loadUsers();
+      } catch (err) {
+        API.showToast(err.message || 'Failed to update role', 'error');
+        loadUsers();
+      }
+    }
+
+    async function changeUserPlan(userId, planId) {
+      try {
+        await API.post('/admin/user-status.php', { user_id: userId, plan_id: planId });
+        API.showToast('User plan updated successfully!', 'success');
+        loadUsers();
+      } catch (err) {
+        API.showToast(err.message || 'Failed to update plan', 'error');
+        loadUsers();
+      }
+    }
+
+    async function toggleUserStatus(userId, newStatus) {
+      if (!confirm(`Are you sure you want to change user status to ${newStatus}?`)) return;
+      try {
+        await API.post('/admin/user-status.php', { user_id: userId, status: newStatus });
+        API.showToast(`User status updated to ${newStatus}`, 'success');
+        loadUsers();
+      } catch (err) {
+        API.showToast(err.message || 'Update failed', 'error');
+      }
+    }
+
+    async function loadAllQrs(search = '') {
+      try {
+        const res = await API.get('/admin/qrs.php', { search });
+        const items = res.data.items || [];
+        const tbody = document.getElementById('admin-qrs-tbody');
+
+        if (items.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:2rem;">No QR codes found.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = items.map(q => `
+          <tr>
+            <td>
+              <div style="font-weight:700;color:var(--slate-900);">${escapeHtml(q.name)}</div>
+              <div style="font-size:0.75rem;color:var(--slate-500);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(q.destination)}</div>
+            </td>
+            <td>
+              <div style="font-size:0.85rem;">${escapeHtml(q.user_name)}</div>
+              <div style="font-size:0.75rem;color:var(--slate-400);">${escapeHtml(q.user_email)}</div>
+            </td>
+            <td><a href="${q.short_url}" target="_blank" style="font-family:monospace;font-size:0.8rem;">/r/${q.short_code}</a></td>
+            <td><span class="badge badge-neutral">${q.type}</span></td>
+            <td><strong>${q.scan_count}</strong></td>
+            <td><span class="badge ${q.status === 'active' ? 'badge-success' : 'badge-warning'}">${q.status}</span></td>
+            <td>${App.formatDate(q.created_at)}</td>
+            <td style="text-align:right;">
+              <div style="display:inline-flex;gap:0.4rem;align-items:center;">
+                <a href="${API.getRoot()}/public/analytics.html?id=${q.id}" class="btn btn-outline btn-sm" title="View Analytics" style="font-size:0.75rem;padding:0.25rem 0.5rem;"><i class="fas fa-chart-line"></i></a>
+                <a href="${API.baseUrl}/qr/download.php?id=${q.id}&format=png" target="_blank" class="btn btn-outline btn-sm" title="Download PNG" style="font-size:0.75rem;padding:0.25rem 0.5rem;"><i class="fas fa-download"></i></a>
+                <button onclick="adminToggleQr(${q.id})" class="btn btn-outline btn-sm" title="${q.status === 'active' ? 'Pause QR' : 'Activate QR'}" style="font-size:0.75rem;padding:0.25rem 0.5rem;color:${q.status === 'active' ? 'var(--warning)' : 'var(--success)'};">
+                  <i class="fas ${q.status === 'active' ? 'fa-pause' : 'fa-play'}"></i>
+                </button>
+                <button onclick="adminDeleteQr(${q.id})" class="btn btn-outline btn-sm" title="Delete QR" style="font-size:0.75rem;padding:0.25rem 0.5rem;color:var(--danger);">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function adminToggleQr(qrId) {
+      try {
+        const res = await API.post('/qr/toggle-status.php', { id: qrId });
+        API.showToast(res.message || 'QR code status updated', 'success');
+        loadAllQrs(document.getElementById('admin-qr-search').value);
+      } catch (err) {
+        API.showToast(err.message || 'Failed to update status', 'error');
+      }
+    }
+
+    async function adminDeleteQr(qrId) {
+      if (!confirm('Are you sure you want to permanently delete this QR code?')) return;
+      try {
+        await API.post('/qr/delete.php', { id: qrId });
+        API.showToast('QR code deleted successfully', 'success');
+        loadAllQrs(document.getElementById('admin-qr-search').value);
+        loadAdminStats();
+      } catch (err) {
+        API.showToast(err.message || 'Failed to delete QR code', 'error');
+      }
+    }
+
+    async function loadPlans() {
+      try {
+        const res = await API.get('/admin/plans.php');
+        const plans = res.data || [];
+        const container = document.getElementById('admin-plans-container');
+
+        container.innerHTML = plans.map(p => `
+          <div style="background:var(--slate-50);border:1px solid var(--slate-200);border-radius:var(--radius-lg);padding:1.25rem;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                <h4 style="font-size:1.15rem;font-weight:700;color:var(--slate-900);margin:0;">${escapeHtml(p.name)} Plan</h4>
+                <span class="badge ${p.id === 2 ? 'badge-primary' : 'badge-neutral'}">ID #${p.id}</span>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label" style="font-size:0.8rem;margin-bottom:0.25rem;">Monthly Price ($)</label>
+                  <input type="number" step="0.01" id="plan-${p.id}-price" class="form-control" value="${p.price_monthly}">
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label" style="font-size:0.8rem;margin-bottom:0.25rem;">Yearly Price ($)</label>
+                  <input type="number" step="0.01" id="plan-${p.id}-price-yearly" class="form-control" value="${p.price_yearly || 0}">
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom:0.75rem;">
+                <label class="form-label" style="font-size:0.8rem;margin-bottom:0.25rem;">Max Dynamic QR Codes <small style="color:var(--slate-400);">(0 or 999999 = Unlimited)</small></label>
+                <input type="number" id="plan-${p.id}-qr-limit" class="form-control" value="${p.qr_limit}">
+              </div>
+              <div class="form-group" style="margin-bottom:1rem;">
+                <label class="form-label" style="font-size:0.8rem;margin-bottom:0.25rem;">Max Monthly Scans <small style="color:var(--slate-400);">(0 or 1000000 = 1M+)</small></label>
+                <input type="number" id="plan-${p.id}-scan-limit" class="form-control" value="${p.scan_limit}">
+              </div>
+
+              <!-- Feature Permissions Toggles -->
+              <div style="background:#ffffff;border:1px solid var(--slate-200);border-radius:var(--radius-md);padding:0.75rem 0.85rem;margin-bottom:1.25rem;">
+                <div style="font-size:0.75rem;font-weight:700;color:var(--slate-600);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">
+                  Capabilities & Features
+                </div>
+                <div style="display:flex;flex-direction:column;gap:0.4rem;font-size:0.825rem;color:var(--slate-700);">
+                  <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
+                    <input type="checkbox" id="plan-${p.id}-colors" ${Number(p.allow_custom_colors) ? 'checked' : ''}>
+                    <span>Custom Hex Colors & Styles</span>
+                  </label>
+                  <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
+                    <input type="checkbox" id="plan-${p.id}-logo" ${Number(p.allow_logo) ? 'checked' : ''}>
+                    <span>Center Brand Logo Upload</span>
+                  </label>
+                  <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
+                    <input type="checkbox" id="plan-${p.id}-svg" ${Number(p.allow_svg) ? 'checked' : ''}>
+                    <span>Vector SVG Exports</span>
+                  </label>
+                  <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
+                    <input type="checkbox" id="plan-${p.id}-analytics" ${Number(p.allow_advanced_analytics) ? 'checked' : ''}>
+                    <span>Advanced Telemetry & Geo</span>
+                  </label>
+                  <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;">
+                    <input type="checkbox" id="plan-${p.id}-api" ${Number(p.allow_api) ? 'checked' : ''}>
+                    <span>Developer REST API Access</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="savePlanConfig(${p.id})" class="btn btn-primary btn-sm" style="width:100%;">
+              <i class="fas fa-save"></i> Save ${escapeHtml(p.name)} Limits
+            </button>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function savePlanConfig(planId) {
+      const price = parseFloat(document.getElementById(`plan-${planId}-price`).value) || 0;
+      const priceYearly = parseFloat(document.getElementById(`plan-${planId}-price-yearly`).value) || 0;
+      const qrLimit = parseInt(document.getElementById(`plan-${planId}-qr-limit`).value, 10);
+      const scanLimit = parseInt(document.getElementById(`plan-${planId}-scan-limit`).value, 10);
+      const allowColors = document.getElementById(`plan-${planId}-colors`)?.checked ? 1 : 0;
+      const allowLogo = document.getElementById(`plan-${planId}-logo`)?.checked ? 1 : 0;
+      const allowSvg = document.getElementById(`plan-${planId}-svg`)?.checked ? 1 : 0;
+      const allowAnalytics = document.getElementById(`plan-${planId}-analytics`)?.checked ? 1 : 0;
+      const allowApi = document.getElementById(`plan-${planId}-api`)?.checked ? 1 : 0;
+
+      try {
+        await API.post('/admin/plans.php', {
+          id: planId,
+          price_monthly: price,
+          price_yearly: priceYearly,
+          qr_limit: qrLimit,
+          scan_limit: scanLimit,
+          allow_custom_colors: allowColors,
+          allow_logo: allowLogo,
+          allow_svg: allowSvg,
+          allow_advanced_analytics: allowAnalytics,
+          allow_api: allowApi
+        });
+        API.showToast('Plan configuration & capabilities saved!', 'success');
+      } catch (err) {
+        API.showToast(err.message || 'Failed to save plan', 'error');
+      }
+    }
+
+    function updateBillingStatusDisplay(enabled) {
+      const badge = document.getElementById('billing-status-badge');
+      const bannerText = document.getElementById('admin-billing-state-text');
+      const banner = document.getElementById('admin-billing-banner');
+      const quickBtn = document.getElementById('btn-quick-toggle-billing');
+
+      if (badge) {
+        badge.textContent = enabled ? 'Enabled' : 'Disabled';
+        badge.className = `badge ${enabled ? 'badge-success' : 'badge-neutral'}`;
+      }
+      if (bannerText) {
+        bannerText.textContent = enabled ? 'Enabled (Visible to Users)' : 'Disabled (Hidden from Users)';
+        bannerText.className = `badge ${enabled ? 'badge-success' : 'badge-warning'}`;
+      }
+      if (banner) {
+        banner.style.background = enabled ? '#ecfdf5' : '#fef3c7';
+        banner.style.borderColor = enabled ? '#a7f3d0' : '#fde68a';
+      }
+      if (quickBtn) {
+        quickBtn.innerHTML = enabled
+          ? '<i class="fas fa-toggle-off"></i> Turn Off Billing'
+          : '<i class="fas fa-toggle-on"></i> Turn On Billing';
+        quickBtn.className = `btn btn-sm ${enabled ? 'btn-outline' : 'btn-primary'}`;
+      }
+    }
+
+    async function toggleBillingQuick() {
+      const select = document.getElementById('set-enable-billing');
+      const currentVal = select ? select.value : '0';
+      const newVal = (currentVal === '1') ? '0' : '1';
+
+      try {
+        await API.post('/admin/settings.php', { enable_billing: newVal });
+        if (select) select.value = newVal;
+        updateBillingStatusDisplay(newVal === '1');
+        API.showToast(newVal === '1' ? 'Billing is now ENABLED for users.' : 'Billing is now DISABLED (hidden from users).', 'success');
+      } catch (err) {
+        API.showToast(err.message || 'Failed to toggle billing', 'error');
+      }
+    }
+
+    async function loadSettings() {
+      try {
+        const res = await API.get('/admin/settings.php');
+        const s = res.data || {};
+        if (s.app_name) document.getElementById('set-app-name').value = s.app_name;
+        if (s.allow_registration !== undefined) document.getElementById('set-allow-reg').value = s.allow_registration;
+        if (s.enable_billing !== undefined) {
+          const select = document.getElementById('set-enable-billing');
+          if (select) select.value = s.enable_billing;
+          updateBillingStatusDisplay(s.enable_billing === '1');
+        }
+        if (s.rate_limit_auth_max) document.getElementById('set-auth-limit').value = s.rate_limit_auth_max;
+        if (s.rate_limit_redirect_max) document.getElementById('set-redirect-limit').value = s.rate_limit_redirect_max;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.getElementById('set-enable-billing')?.addEventListener('change', (e) => {
+      updateBillingStatusDisplay(e.target.value === '1');
+    });
+
+    document.getElementById('admin-settings-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-save-settings');
+      btn.disabled = true;
+
+      const payload = {
+        app_name: document.getElementById('set-app-name').value,
+        allow_registration: document.getElementById('set-allow-reg').value,
+        enable_billing: document.getElementById('set-enable-billing').value,
+        rate_limit_auth_max: document.getElementById('set-auth-limit').value,
+        rate_limit_redirect_max: document.getElementById('set-redirect-limit').value
+      };
+
+      try {
+        await API.post('/admin/settings.php', payload);
+        API.showToast('Platform settings saved successfully!', 'success');
+        updateBillingStatusDisplay(payload.enable_billing === '1');
+      } catch (err) {
+        API.showToast(err.message || 'Settings update failed', 'error');
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    function renderLogs(logs) {
+      const tbody = document.getElementById('admin-logs-tbody');
+      if (!tbody || !logs) return;
+
+      tbody.innerHTML = logs.map(l => `
+        <tr>
+          <td>${l.created_at}</td>
+          <td>${l.user_email || 'System'}</td>
+          <td><span class="badge badge-primary">${escapeHtml(l.action)}</span></td>
+          <td style="font-size:0.8rem;color:var(--slate-600);">${escapeHtml(l.details || '-')}</td>
+          <td><code>${escapeHtml(l.ip_address || '-')}</code></td>
+        </tr>
+      `).join('');
+    }
+
+    async function loadLogs() {
+      try {
+        const res = await API.get('/admin/stats.php');
+        renderLogs(res.data.recent_logs);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function setupSearchListeners() {
+      let uDebounce, qDebounce;
+      document.getElementById('admin-user-search').addEventListener('input', (e) => {
+        clearTimeout(uDebounce);
+        uDebounce = setTimeout(() => loadUsers(e.target.value.trim()), 300);
+      });
+
+      document.getElementById('admin-qr-search').addEventListener('input', (e) => {
+        clearTimeout(qDebounce);
+        qDebounce = setTimeout(() => loadAllQrs(e.target.value.trim()), 300);
+      });
+    }
+
+    function toggleSecretVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+      } else {
+        input.type = 'password';
+        btn.innerHTML = '<i class="fas fa-eye"></i>';
+      }
+    }
+
+    async function loadPayPalSettings() {
+      const webhookInput = document.getElementById('paypal-webhook-url-input');
+      if (webhookInput) {
+        webhookInput.value = `${window.location.origin}${API.getRoot()}/api/payment/paypal/webhook.php`;
+      }
+
+      try {
+        const res = await API.get('/admin/settings.php');
+        const s = res.data || {};
+
+        if (s.paypal_enabled !== undefined) document.getElementById('paypal-status').value = s.paypal_enabled;
+        if (s.paypal_mode !== undefined) document.getElementById('paypal-mode').value = s.paypal_mode;
+        if (s.paypal_client_id !== undefined) document.getElementById('paypal-client-id').value = s.paypal_client_id;
+        if (s.paypal_secret !== undefined) document.getElementById('paypal-secret').value = s.paypal_secret;
+        if (s.paypal_currency !== undefined) document.getElementById('paypal-currency').value = s.paypal_currency;
+
+        const badge = document.getElementById('paypal-live-status-badge');
+        if (badge) {
+          const hasCreds = Boolean(s.paypal_client_id && s.paypal_secret);
+          const isEnabled = s.paypal_enabled === '1';
+          if (isEnabled && hasCreds) {
+            badge.textContent = s.paypal_mode === 'live' ? 'Live & Active' : 'Sandbox & Active';
+            badge.className = 'badge badge-success';
+          } else if (hasCreds) {
+            badge.textContent = 'Configured (Disabled)';
+            badge.className = 'badge badge-warning';
+          } else {
+            badge.textContent = 'Not Configured';
+            badge.className = 'badge badge-neutral';
+          }
+        }
+      } catch (err) {
+        console.error('Error loading PayPal settings:', err);
+      }
+    }
+
+    document.getElementById('admin-paypal-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-save-paypal');
+      btn.disabled = true;
+
+      const payload = {
+        paypal_enabled: document.getElementById('paypal-status').value,
+        paypal_mode: document.getElementById('paypal-mode').value,
+        paypal_client_id: document.getElementById('paypal-client-id').value.trim(),
+        paypal_secret: document.getElementById('paypal-secret').value.trim(),
+        paypal_currency: document.getElementById('paypal-currency').value
+      };
+
+      try {
+        await API.post('/admin/settings.php', payload);
+        API.showToast('PayPal settings saved successfully!', 'success');
+        loadPayPalSettings();
+      } catch (err) {
+        API.showToast(err.message || 'Failed to save PayPal settings', 'error');
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    async function testPayPalConnection() {
+      const clientId = document.getElementById('paypal-client-id').value.trim();
+      const secret = document.getElementById('paypal-secret').value.trim();
+      const mode = document.getElementById('paypal-mode').value;
+      const alertBox = document.getElementById('paypal-test-alert');
+      const btn = document.getElementById('btn-test-paypal');
+
+      if (!clientId || !secret) {
+        API.showToast('Please enter both Client ID and Secret Key to test connection.', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Testing...';
+      alertBox.style.display = 'none';
+
+      try {
+        const res = await API.post('/payment/paypal/test-connection.php', {
+          client_id: clientId,
+          secret: secret,
+          mode: mode
+        });
+        alertBox.style.display = 'block';
+        alertBox.style.background = '#ecfdf5';
+        alertBox.style.border = '1px solid #a7f3d0';
+        alertBox.style.color = '#065f46';
+        alertBox.innerHTML = `<i class="fas fa-check-circle"></i> <strong>Success!</strong> ${res.message}`;
+        API.showToast('PayPal connection verified!', 'success');
+      } catch (err) {
+        alertBox.style.display = 'block';
+        alertBox.style.background = '#fef2f2';
+        alertBox.style.border = '1px solid #fecaca';
+        alertBox.style.color = '#991b1b';
+        let html = `<i class="fas fa-times-circle"></i> <strong>Connection Failed:</strong> ${err.message}`;
+        if (err.details?.suggested_mode) {
+          html += `
+            <div style="margin-top:0.75rem;">
+              <button type="button" onclick="document.getElementById('paypal-mode').value='${err.details.suggested_mode}';testPayPalConnection();" class="btn btn-sm btn-primary" style="font-size:0.8rem;padding:0.35rem 0.75rem;">
+                <i class="fas fa-magic"></i> Switch Mode to ${err.details.suggested_mode.toUpperCase()} & Re-test
+              </button>
+            </div>
+          `;
+        }
+        alertBox.innerHTML = html;
+        API.showToast(err.message || 'PayPal test failed', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-plug-circle-check"></i> Test Connection';
+      }
+    }
+
+    async function loadPayments() {
+      const tbody = document.getElementById('admin-payments-tbody');
+      if (!tbody) return;
+
+      try {
+        const res = await API.get('/admin/payments.php');
+        const payments = res.data?.payments || [];
+
+        if (payments.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2.5rem;color:var(--slate-400);"><i class="fas fa-receipt" style="font-size:1.5rem;margin-bottom:0.5rem;display:block;"></i>No PayPal transactions recorded yet.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = payments.map(p => {
+          const isCompleted = p.status === 'completed';
+          const badgeClass = isCompleted ? 'badge-success' : (p.status === 'pending' ? 'badge-warning' : 'badge-danger');
+          return `
+            <tr>
+              <td>${App.formatDate(p.created_at)}</td>
+              <td>
+                <div style="font-weight:700;color:var(--slate-900);">${escapeHtml(p.user_name || 'User #' + p.user_id)}</div>
+                <div style="font-size:0.75rem;color:var(--slate-500);">${escapeHtml(p.user_email || p.payer_email || '-')}</div>
+              </td>
+              <td><span class="badge badge-primary">${escapeHtml(p.plan_name || 'Plan #' + p.plan_id)}</span></td>
+              <td><strong>$${Number(p.amount).toFixed(2)} ${escapeHtml(p.currency)}</strong></td>
+              <td><code style="font-size:0.75rem;">${escapeHtml(p.order_id || '-')}</code></td>
+              <td><code style="font-size:0.75rem;">${escapeHtml(p.transaction_id || '-')}</code></td>
+              <td><span class="badge ${badgeClass}">${p.status.toUpperCase()}</span></td>
+            </tr>
+          `;
+        }).join('');
+      } catch (err) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--danger);">Failed to load transactions.</td></tr>';
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    document.addEventListener('DOMContentLoaded', initAdmin);
+  </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - QuickQR SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-logo">
+          <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+          QuickQR
+        </a>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <a href="dashboard.html" class="sidebar-link active">
+            <i class="fas fa-th-large"></i> Dashboard
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="qr-create.html" class="sidebar-link">
+            <i class="fas fa-plus-circle"></i> Create QR Code
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="analytics.html" class="sidebar-link">
+            <i class="fas fa-chart-line"></i> Analytics
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="pricing.html" class="sidebar-link">
+            <i class="fas fa-crown"></i> Plans & Billing
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="settings.html" class="sidebar-link">
+            <i class="fas fa-cog"></i> Settings
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="docs.html" class="sidebar-link">
+            <i class="fas fa-book"></i> API Docs
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="faq.html" class="sidebar-link">
+            <i class="fas fa-circle-question"></i> Help & FAQ
+          </a>
+        </li>
+        <li class="sidebar-item admin-only" style="display:none;">
+          <a href="admin.html" class="sidebar-link" style="color:var(--primary);">
+            <i class="fas fa-shield-halved"></i> Admin Panel
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-snippet">
+          <div class="user-avatar auth-user-avatar">U</div>
+          <div class="user-info">
+            <div class="user-name auth-user-name">Loading...</div>
+            <div class="user-plan-tag"><span class="auth-user-plan badge badge-primary" style="font-size:0.65rem;">Free</span></div>
+          </div>
+        </div>
+        <button onclick="Auth.logout()" class="btn btn-outline btn-sm" title="Log Out" style="padding:0.4rem 0.6rem;">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <button onclick="App.toggleSidebar()" class="btn btn-outline btn-sm" style="display:none;" id="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="page-title">
+            <h1>My QR Codes</h1>
+            <p>Manage, customize, and view performance metrics for all your codes</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:0.75rem;">
+          <a href="qr-create.html" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Create Dynamic QR
+          </a>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <!-- Overview Stats Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Total Codes</p>
+              <div class="stat-value" id="stat-total-qrs">-</div>
+            </div>
+            <div class="stat-icon primary"><i class="fas fa-qrcode"></i></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Active Campaigns</p>
+              <div class="stat-value" id="stat-active-qrs">-</div>
+            </div>
+            <div class="stat-icon success"><i class="fas fa-circle-check"></i></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <p>Total Scans</p>
+              <div class="stat-value" id="stat-total-scans">-</div>
+            </div>
+            <div class="stat-icon secondary"><i class="fas fa-chart-simple"></i></div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div style="background:#fff;border:1px solid var(--slate-200);border-radius:var(--radius-xl);padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:0.75rem;flex:1;min-width:240px;">
+            <i class="fas fa-search" style="color:var(--slate-400);"></i>
+            <input type="text" id="search-input" class="form-control" placeholder="Search by name, destination, or short code..." style="border:none;box-shadow:none;padding:0.4rem 0;">
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <select id="status-filter" class="form-control" style="width:auto;">
+              <option value="">All Statuses</option>
+              <option value="active">Active Only</option>
+              <option value="paused">Paused Only</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- QR Codes Grid -->
+        <div id="qr-loading" style="text-align:center;padding:3rem;color:var(--slate-400);">
+          <i class="fas fa-spinner fa-spin fa-2x"></i>
+          <p style="margin-top:0.75rem;font-size:0.9rem;">Loading your QR codes...</p>
+        </div>
+
+        <div id="qr-empty" class="empty-state" style="display:none;background:#fff;border-radius:var(--radius-xl);border:1px solid var(--slate-200);">
+          <div class="empty-state-icon"><i class="fas fa-qrcode"></i></div>
+          <h3>No QR codes found</h3>
+          <p>Get started by creating your first dynamic QR code with custom colors, destination, and analytics.</p>
+          <a href="qr-create.html" class="btn btn-primary"><i class="fas fa-plus"></i> Create QR Code</a>
+        </div>
+
+        <div id="qr-grid" class="qr-grid" style="display:none;"></div>
+
+        <!-- Pagination -->
+        <div id="pagination-container"></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-overlay" id="delete-modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3>Delete QR Code</h3>
+        <button class="modal-close" onclick="App.closeModal('delete-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--slate-600);margin-bottom:1rem;">
+          Are you sure you want to delete <strong id="delete-qr-name">this QR code</strong>?
+        </p>
+        <p style="font-size:0.825rem;color:var(--danger);background:var(--danger-light);padding:0.75rem;border-radius:var(--radius-md);">
+          <i class="fas fa-exclamation-triangle"></i> Scans pointing to this code's short URL will immediately stop resolving.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="App.closeModal('delete-modal')">Cancel</button>
+        <button class="btn btn-danger" onclick="Dashboard.confirmDelete()"><i class="fas fa-trash-alt"></i> Delete Forever</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Dashboard.init();
+      if (window.innerWidth <= 900) {
+        document.getElementById('mobile-menu-btn').style.display = 'inline-flex';
+      }
+    });
+  </script>
+</body>
+</html>

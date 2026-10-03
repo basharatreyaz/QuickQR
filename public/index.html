@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickQR - Dynamic QR Code Generator & SaaS Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .hero {
+      padding: 4.5rem 2rem 3.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-content {
+      text-align: left;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--primary-light);
+      color: var(--primary-text);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.825rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--slate-900);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2.2vw, 1.125rem);
+      color: var(--slate-600);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .hero-trust-list {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      color: var(--slate-500);
+      font-size: 0.875rem;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 3rem 1.5rem 2.5rem;
+        gap: 2.5rem;
+      }
+      .hero-content {
+        text-align: center;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+      .hero-trust-list {
+        justify-content: center;
+        gap: 0.75rem 1.25rem;
+        margin-top: 1.5rem;
+      }
+    }
+    @media (max-width: 540px) {
+      .hero {
+        padding: 2.25rem 1rem 1.75rem;
+        gap: 2rem;
+      }
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-actions .btn {
+        width: 100%;
+      }
+      .hero-trust-list {
+        font-size: 0.8rem;
+        gap: 0.5rem 1rem;
+      }
+    }
+    .features-section {
+      padding: 5rem 2rem;
+      background: #ffffff;
+      border-top: 1px solid var(--slate-200);
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .section-header {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 3.5rem;
+    }
+    .section-header h2 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 0.75rem;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      transition: var(--transition);
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+    }
+    .feature-icon {
+      width: 3.25rem;
+      height: 3.25rem;
+      border-radius: var(--radius-lg);
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Live Stats Banner */
+    .live-stats-wrapper {
+      max-width: 1200px;
+      margin: 1rem auto 4rem;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 10;
+    }
+    .live-stats-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-2xl);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+      padding: 1.75rem 2rem;
+    }
+    .live-stats-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(16, 185, 129, 0.1);
+      color: #065f46;
+      padding: 0.3rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse-ring 1.8s infinite;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .live-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+    @media (max-width: 900px) {
+      .live-stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .live-stats-grid { grid-template-columns: 1fr; }
+    }
+    .live-stat-box {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.15rem 1.25rem;
+      background: var(--slate-50);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--slate-200);
+      transition: var(--transition);
+    }
+    .live-stat-box:hover {
+      background: #ffffff;
+      box-shadow: var(--shadow-sm);
+      border-color: var(--primary-light);
+    }
+    .live-stat-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .live-stat-icon-wrap.primary { background: #e0e7ff; color: #4338ca; }
+    .live-stat-icon-wrap.success { background: #dcfce7; color: #15803d; }
+    .live-stat-icon-wrap.secondary { background: #e0f2fe; color: #0369a1; }
+    .live-stat-icon-wrap.warning { background: #fef3c7; color: #b45309; }
+    .live-stat-val {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.2;
+    }
+    .live-stat-lbl {
+      font-size: 0.8rem;
+      color: var(--slate-500);
+      font-weight: 600;
+    }
+
+    /* Homepage Instant QR Creator Widget */
+    .home-qr-widget {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-2xl);
+      box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.12);
+      padding: 1.5rem;
+      position: relative;
+      text-align: left;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .home-qr-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .home-qr-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+    }
+    .home-qr-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+    .home-type-tabs {
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      padding-bottom: 0.4rem;
+      margin-bottom: 1rem;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+    }
+    .home-type-tabs::-webkit-scrollbar {
+      display: none;
+    }
+    .home-type-tab {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      color: var(--slate-600);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 0.8rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
+      transition: var(--transition);
+      user-select: none;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+    }
+    .home-type-tab:hover {
+      background: var(--slate-100);
+      color: var(--slate-900);
+    }
+    .home-type-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+    }
+    .home-tab-panel {
+      display: none;
+    }
+    .home-tab-panel.active {
+      display: block;
+      animation: homeTabFade 0.2s ease;
+    }
+    @keyframes homeTabFade {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .home-form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    @media (max-width: 480px) {
+      .home-form-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+      }
+    }
+    .home-design-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--slate-100);
+      flex-wrap: wrap;
+    }
+    .home-style-pills {
+      display: flex;
+      gap: 0.25rem;
+      background: var(--slate-100);
+      padding: 0.2rem;
+      border-radius: var(--radius-md);
+    }
+    .home-style-pill {
+      padding: 0.3rem 0.55rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-align: center;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .home-style-pill.active {
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+    .home-color-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .home-color-swatches {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .home-swatch {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 1px var(--slate-200);
+      transition: transform 0.15s;
+    }
+    .home-swatch:hover, .home-swatch.active {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+    .home-color-input-btn {
+      width: 26px;
+      height: 26px;
+      padding: 0;
+      border: 1px solid var(--slate-200);
+      border-radius: 6px;
+      cursor: pointer;
+      background: transparent;
+    }
+    .home-preview-box {
+      background: var(--slate-50);
+      border: 1px dashed var(--slate-200);
+      border-radius: var(--radius-xl);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      margin: 0.85rem 0;
+      position: relative;
+    }
+    .home-preview-box svg, .home-preview-box img {
+      max-width: 190px;
+      max-height: 190px;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.06));
+    }
+    .home-action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 0.5rem;
+    }
+    .home-copy-label {
+      display: none;
+    }
+    .home-upgrade-note {
+      margin-top: 0.85rem;
+      padding: 0.65rem 0.85rem;
+      background: rgba(79, 70, 229, 0.04);
+      border: 1px solid rgba(79, 70, 229, 0.15);
+      border-radius: var(--radius-lg);
+      font-size: 0.78rem;
+      color: var(--slate-600);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .home-upgrade-note a {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .home-upgrade-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== Global Mobile & Tablet Responsiveness ===== */
+    @media (max-width: 860px) {
+      .navbar {
+        padding: 0.75rem 1.25rem;
+      }
+      .announcement-bar {
+        padding: 0.45rem 2.25rem 0.45rem 1rem;
+        font-size: 0.75rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        text-align: left;
+      }
+      .announcement-dismiss {
+        right: 0.65rem;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .live-stats-wrapper {
+        padding: 0 1rem;
+        margin: 0.5rem auto 3rem;
+      }
+      .live-stats-card {
+        padding: 1.25rem 1rem;
+        border-radius: var(--radius-xl);
+      }
+      .live-stat-val {
+        font-size: 1.35rem;
+      }
+      .features-section {
+        padding: 3.5rem 1.25rem;
+      }
+      .section-header {
+        margin-bottom: 2rem;
+      }
+      .section-header h2 {
+        font-size: 1.75rem;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .feature-card {
+        padding: 1.5rem;
+      }
+      .cta-banner-section {
+        padding: 0 1rem;
+        margin: 3.5rem auto -2rem;
+      }
+      .cta-banner-card {
+        padding: 2.25rem 1.25rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+        border-radius: var(--radius-xl);
+      }
+      .cta-content h2 {
+        font-size: 1.65rem;
+      }
+      .cta-actions {
+        justify-content: center;
+        width: 100%;
+        flex-direction: column;
+      }
+      .cta-actions .btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .footer {
+        padding: 3.5rem 1.25rem 2rem;
+        margin-top: 4rem;
+      }
+      .footer-newsletter-wrap {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+        padding-bottom: 2rem;
+      }
+      .footer-newsletter-form {
+        flex-direction: column;
+        max-width: 100%;
+        width: 100%;
+      }
+      .footer-newsletter-form button {
+        width: 100%;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+      .footer-trust-badges {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .home-qr-widget {
+        padding: 1.15rem 0.95rem;
+        border-radius: var(--radius-xl);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .home-design-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.65rem;
+      }
+      .home-style-pills {
+        width: 100%;
+      }
+      .home-color-controls {
+        justify-content: space-between;
+        width: 100%;
+      }
+      .home-upgrade-note {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 0.7rem 1rem;
+      }
+      .brand-logo {
+        font-size: 1.15rem;
+      }
+      .brand-logo .logo-icon {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.95rem;
+      }
+      .home-action-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+      }
+      #btn-home-copy-qr {
+        grid-column: 1 / -1;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+      }
+      .home-copy-label {
+        display: inline;
+      }
+      .home-preview-box {
+        min-height: 175px;
+        padding: 0.75rem;
+      }
+      .home-preview-box svg, .home-preview-box img {
+        max-width: 165px;
+        max-height: 165px;
+      }
+    }
+
+    /* Hero Social Proof */
+    .hero-social-proof {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .avatar-stack {
+      display: flex;
+      align-items: center;
+    }
+    .avatar-stack-item {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      margin-left: -8px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .avatar-stack-item:first-child { margin-left: 0; }
+
+    /* Logo Cloud */
+    .logo-cloud-section {
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+      border-top: 1px solid var(--slate-200);
+      border-bottom: 1px solid var(--slate-200);
+      background: #ffffff;
+    }
+    .logo-cloud-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--slate-400);
+      margin-bottom: 1.75rem;
+    }
+    .logo-cloud-grid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3.5rem;
+      flex-wrap: wrap;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .logo-item {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--slate-400);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+      user-select: none;
+      letter-spacing: -0.02em;
+    }
+    .logo-item:hover {
+      color: var(--slate-700);
+      transform: translateY(-2px);
+    }
+
+    /* How It Works Section */
+    .how-it-works-section {
+      padding: 5.5rem 2rem;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    @media (max-width: 860px) {
+      .steps-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+    .step-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-2xl);
+      padding: 2.25rem 2rem;
+      position: relative;
+      transition: var(--transition);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px -5px rgba(0,0,0,0.08);
+      border-color: var(--primary-light);
+    }
+    .step-number {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-lg);
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Bento Grid Features */
+    .bento-section {
+      padding: 5.5rem 2rem;
+      background: #ffffff;
+      border-top: 1px solid var(--slate-200);
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 960px) {
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .bento-grid { grid-template-columns: 1fr; }
+    }
+    .bento-card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-2xl);
+      padding: 2.25rem 2rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.08);
+      transform: translateY(-3px);
+      background: #ffffff;
+    }
+    .bento-card.span-2 {
+      grid-column: span 2;
+    }
+    @media (max-width: 640px) {
+      .bento-card.span-2 { grid-column: span 1; }
+    }
+    .bento-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .bento-icon-wrap.indigo { background: #e0e7ff; color: #4338ca; }
+    .bento-icon-wrap.sky { background: #e0f2fe; color: #0284c7; }
+    .bento-icon-wrap.emerald { background: #dcfce7; color: #059669; }
+    .bento-icon-wrap.amber { background: #fef3c7; color: #d97706; }
+    .bento-icon-wrap.rose { background: #ffe4e6; color: #e11d48; }
+    .bento-icon-wrap.purple { background: #f3e8ff; color: #7e22ce; }
+
+    .bento-mockup {
+      margin-top: 1.5rem;
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      font-size: 0.825rem;
+    }
+
+    /* Comparison Section */
+    .comparison-section {
+      padding: 5.5rem 2rem;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+    }
+    .comp-table-wrap {
+      max-width: 950px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-2xl);
+      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
+      overflow-x: auto;
+    }
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .comp-table th, .comp-table td {
+      padding: 1.15rem 1.5rem;
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .comp-table th {
+      background: var(--slate-50);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--slate-900);
+    }
+    .comp-table td {
+      font-size: 0.9rem;
+      color: var(--slate-700);
+    }
+    .comp-highlight {
+      background: rgba(79, 70, 229, 0.04);
+      font-weight: 600;
+      color: var(--primary) !important;
+    }
+
+    /* Use Cases Grid */
+    .use-cases-section {
+      padding: 5.5rem 2rem;
+      background: #ffffff;
+      border-top: 1px solid var(--slate-200);
+    }
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 1024px) {
+      .use-cases-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 580px) {
+      .use-cases-grid { grid-template-columns: 1fr; }
+    }
+    .use-case-card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+      transition: var(--transition);
+    }
+    .use-case-card:hover {
+      background: #ffffff;
+      border-color: var(--primary-light);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06);
+      transform: translateY(-3px);
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+      padding: 5.5rem 2rem;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+    @media (max-width: 860px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+    .testimonial-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-2xl);
+      padding: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+      transition: var(--transition);
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px -5px rgba(0,0,0,0.08);
+      border-color: var(--primary-light);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      padding: 5.5rem 2rem;
+      background: #ffffff;
+      border-top: 1px solid var(--slate-200);
+    }
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .faq-item {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .faq-item.active {
+      background: #ffffff;
+      border-color: var(--primary-light);
+      box-shadow: 0 8px 20px -4px rgba(79, 70, 229, 0.08);
+    }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 1.25rem 1.5rem;
+      background: transparent;
+      border: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+    }
+    .faq-question i {
+      transition: transform 0.25s ease;
+      color: var(--slate-400);
+      font-size: 0.9rem;
+    }
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+      color: var(--primary);
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 1.5rem 1.25rem;
+      color: var(--slate-600);
+      font-size: 0.925rem;
+      line-height: 1.6;
+    }
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar" id="announcement-bar">
+    <span>
+      <i class="fas fa-sparkles"></i> <strong>New:</strong> Real-time scan telemetry and PayPal gateway are now live!
+    </span>
+    <a href="pricing.html" class="announcement-link billing-only">Explore Plans &rarr;</a>
+    <button class="announcement-dismiss" onclick="document.getElementById('announcement-bar').style.display='none'" title="Dismiss">&times;</button>
+  </div>
+
+  <!-- Modern Sticky Glass Navbar -->
+  <nav class="navbar" id="main-navbar">
+    <a href="index.html" class="brand-logo">
+      <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+      QuickQR <span class="brand-tag">v2.0</span>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link active"><i class="fas fa-house" style="font-size:0.85rem;"></i> Home</a></li>
+      <li><a href="#how-it-works" class="nav-link"><i class="fas fa-route" style="font-size:0.85rem;"></i> How It Works</a></li>
+      <li><a href="#features" class="nav-link"><i class="fas fa-bolt" style="font-size:0.85rem;"></i> Features</a></li>
+      <li><a href="#use-cases" class="nav-link"><i class="fas fa-briefcase" style="font-size:0.85rem;"></i> Use Cases</a></li>
+      <li><a href="#comparison" class="nav-link"><i class="fas fa-scale-balanced" style="font-size:0.85rem;"></i> Compare</a></li>
+      <li><a href="#faq" class="nav-link"><i class="fas fa-circle-question" style="font-size:0.85rem;"></i> FAQ</a></li>
+      <li class="billing-nav-item"><a href="pricing.html" class="nav-link"><i class="fas fa-crown" style="font-size:0.85rem;"></i> Pricing</a></li>
+    </ul>
+
+    <!-- Desktop Action Buttons -->
+    <div class="nav-actions" id="nav-auth-actions">
+      <a href="login.html" class="btn btn-outline btn-sm">Sign In</a>
+      <a href="register.html" class="btn btn-primary btn-sm"><i class="fas fa-rocket"></i> Get Started Free</a>
+    </div>
+
+    <!-- Mobile Hamburger Button -->
+    <button class="mobile-toggle-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu" onclick="toggleMobileNav()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;padding:0;margin:0;">
+        <li><a href="index.html" class="nav-link active"><i class="fas fa-house"></i> Home</a></li>
+        <li><a href="#how-it-works" class="nav-link" onclick="toggleMobileNav()"><i class="fas fa-route"></i> How It Works</a></li>
+        <li><a href="#features" class="nav-link" onclick="toggleMobileNav()"><i class="fas fa-bolt"></i> Features</a></li>
+        <li><a href="#use-cases" class="nav-link" onclick="toggleMobileNav()"><i class="fas fa-briefcase"></i> Use Cases</a></li>
+        <li><a href="#comparison" class="nav-link" onclick="toggleMobileNav()"><i class="fas fa-scale-balanced"></i> Compare</a></li>
+        <li><a href="#faq" class="nav-link" onclick="toggleMobileNav()"><i class="fas fa-circle-question"></i> FAQ</a></li>
+        <li class="billing-nav-item"><a href="pricing.html" class="nav-link"><i class="fas fa-crown"></i> Pricing</a></li>
+      </ul>
+      <div style="border-top:1px solid var(--slate-100);padding-top:1rem;display:flex;flex-direction:column;gap:0.75rem;" id="mobile-auth-actions">
+        <a href="login.html" class="btn btn-outline" style="justify-content:center;">Sign In</a>
+        <a href="register.html" class="btn btn-primary" style="justify-content:center;"><i class="fas fa-rocket"></i> Get Started Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-bolt"></i> Modern Dynamic QR Codes
+      </div>
+      <h1>Create, Edit & Track <span>Dynamic QR Codes</span> Anywhere.</h1>
+      <p>
+        Change your destination URL anytime without reprinting your materials. Gain deep insights into scans, device types, geolocations, and campaign conversions.
+      </p>
+      <div class="hero-actions">
+        <a href="register.html" class="btn btn-primary btn-lg">
+          <i class="fas fa-rocket"></i> Start Free Today
+        </a>
+        <a href="#how-it-works" class="btn btn-outline btn-lg">
+          <i class="fas fa-circle-play"></i> See How It Works
+        </a>
+      </div>
+      <div class="hero-social-proof">
+        <div class="avatar-stack">
+          <div class="avatar-stack-item" style="background:#4f46e5;">SL</div>
+          <div class="avatar-stack-item" style="background:#0ea5e9;">MR</div>
+          <div class="avatar-stack-item" style="background:#10b981;">AC</div>
+          <div class="avatar-stack-item" style="background:#f59e0b;">EK</div>
+          <div class="avatar-stack-item" style="background:#8b5cf6;">+2k</div>
+        </div>
+        <div style="font-size:0.85rem;color:var(--slate-600);display:flex;align-items:center;gap:0.4rem;flex-wrap:wrap;">
+          <span style="color:#f59e0b;display:inline-flex;gap:1px;">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </span>
+          <span><strong>4.9/5</strong> rating from 10,000+ teams</span>
+        </div>
+      </div>
+      <div class="hero-trust-list">
+        <span><i class="fas fa-check-circle" style="color:var(--success);"></i> Free plan included</span>
+        <span><i class="fas fa-check-circle" style="color:var(--success);"></i> No credit card needed</span>
+        <span><i class="fas fa-check-circle" style="color:var(--success);"></i> Privacy-friendly</span>
+      </div>
+    </div>
+
+    <!-- Instant QR Generator Playground (No Login Required) -->
+    <div class="home-qr-widget">
+      <div class="home-qr-header">
+        <h3 class="home-qr-title">
+          <i class="fas fa-wand-magic-sparkles" style="color:var(--primary);"></i> Instant QR Generator
+        </h3>
+        <span class="home-qr-badge">
+          <i class="fas fa-check-circle"></i> 100% Free • No Login
+        </span>
+      </div>
+
+      <!-- Type Switcher Tabs -->
+      <div class="home-type-tabs" id="home-type-tabs">
+        <button type="button" class="home-type-tab active" data-type="url"><i class="fas fa-globe"></i> Website</button>
+        <button type="button" class="home-type-tab" data-type="text"><i class="fas fa-align-left"></i> Text</button>
+        <button type="button" class="home-type-tab" data-type="wifi"><i class="fas fa-wifi"></i> Wi-Fi</button>
+        <button type="button" class="home-type-tab" data-type="email"><i class="fas fa-envelope"></i> Email</button>
+        <button type="button" class="home-type-tab" data-type="phone"><i class="fas fa-phone"></i> Phone</button>
+        <button type="button" class="home-type-tab" data-type="sms"><i class="fas fa-comment-dots"></i> SMS</button>
+      </div>
+
+      <!-- Tab Input Panels -->
+      <div id="home-tab-panels">
+        <!-- URL Panel -->
+        <div class="home-tab-panel active" id="home-panel-url">
+          <div class="form-group" style="margin-bottom:0.4rem;">
+            <label class="form-label" style="font-size:0.78rem;margin-bottom:0.25rem;">Target Website URL</label>
+            <input type="url" id="home-input-url" class="form-control" style="font-size:0.875rem;" value="https://google.com" placeholder="https://yourbrand.com">
+          </div>
+        </div>
+
+        <!-- Text Panel -->
+        <div class="home-tab-panel" id="home-panel-text">
+          <div class="form-group" style="margin-bottom:0.4rem;">
+            <label class="form-label" style="font-size:0.78rem;margin-bottom:0.25rem;">Plain Text Message</label>
+            <textarea id="home-input-text" class="form-control" rows="2" style="font-size:0.875rem;" placeholder="Enter message, note, code, or serial number...">QuickQR Free Generator</textarea>
+          </div>
+        </div>
+
+        <!-- Wi-Fi Panel -->
+        <div class="home-tab-panel" id="home-panel-wifi">
+          <div class="home-form-grid-2" style="margin-bottom:0.4rem;">
+            <div>
+              <label class="form-label" style="font-size:0.75rem;margin-bottom:0.2rem;">Network SSID</label>
+              <input type="text" id="home-input-wifi-ssid" class="form-control" style="font-size:0.8rem;padding:0.45rem 0.6rem;" value="Office_WiFi" placeholder="SSID">
+            </div>
+            <div>
+              <label class="form-label" style="font-size:0.75rem;margin-bottom:0.2rem;">Password</label>
+              <input type="text" id="home-input-wifi-pass" class="form-control" style="font-size:0.8rem;padding:0.45rem 0.6rem;" value="supersecret123" placeholder="Password">
+            </div>
+          </div>
+          <div>
+            <label class="form-label" style="font-size:0.75rem;margin-bottom:0.2rem;">Security Type</label>
+            <select id="home-input-wifi-enc" class="form-control" style="font-size:0.8rem;padding:0.4rem 0.6rem;">
+              <option value="WPA" selected>WPA/WPA2/WPA3 (Recommended)</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass">None (Open Network)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Email Panel -->
+        <div class="home-tab-panel" id="home-panel-email">
+          <div class="form-group" style="margin-bottom:0.4rem;">
+            <label class="form-label" style="font-size:0.75rem;margin-bottom:0.2rem;">Recipient Email</label>
+            <input type="email" id="home-input-email-to" class="form-control" style="font-size:0.85rem;padding:0.45rem 0.6rem;" value="contact@mybrand.com" placeholder="name@example.com">
+          </div>
+          <div class="home-form-grid-2">
+            <div>
+              <label class="form-label" style="font-size:0.75rem;margin-bottom:0.2rem;">Subject</label>
+              <input type="text" id="home-input-email-sub" class="form-control" style="font-size:0.8rem;padding:0.45rem 0.6rem;" value="Hello from QuickQR" placeholder="Subject">
+            </div>
+            <div>
+              <label class="form-label" style="font-size:0.75rem;margin-bottom:0.2rem;">Body</label>
+              <input type="text" id="home-input-email-body" class="form-control" style="font-size:0.8rem;padding:0.45rem 0.6rem;" value="I scanned your QR code!" placeholder="Body message">
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone Panel -->
+        <div class="home-tab-panel" id="home-panel-phone">
+          <div class="form-group" style="margin-bottom:0.4rem;">
+            <label class="form-label" style="font-size:0.78rem;margin-bottom:0.25rem;">Phone Number (with Country Code)</label>
+            <input type="tel" id="home-input-phone" class="form-control" style="font-size:0.875rem;" value="+15551234567" placeholder="+1 (555) 000-0000">
+          </div>
+        </div>
+
+        <!-- SMS Panel -->
+        <div class="home-tab-panel" id="home-panel-sms">
+          <div class="home-form-grid-2">
+            <div>
+              <label class="form-label" style="font-size:0.75rem;margin-bottom:0.2rem;">Phone Number</label>
+              <input type="tel" id="home-input-sms-num" class="form-control" style="font-size:0.8rem;padding:0.45rem 0.6rem;" value="+15551234567" placeholder="+1...">
+            </div>
+            <div>
+              <label class="form-label" style="font-size:0.75rem;margin-bottom:0.2rem;">SMS Message</label>
+              <input type="text" id="home-input-sms-msg" class="form-control" style="font-size:0.8rem;padding:0.45rem 0.6rem;" value="Special Promo Code" placeholder="Message text">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Styling & Color Options -->
+      <div class="home-design-row">
+        <!-- Style Pill Switcher -->
+        <div class="home-style-pills" id="home-style-pills">
+          <button type="button" class="home-style-pill active" data-style="dots"><i class="fas fa-braille"></i> Dots</button>
+          <button type="button" class="home-style-pill" data-style="square"><i class="fas fa-square"></i> Square</button>
+          <button type="button" class="home-style-pill" data-style="rounded"><i class="fas fa-circle-notch"></i> Rounded</button>
+        </div>
+
+        <!-- Color Controls -->
+        <div class="home-color-controls">
+          <div class="home-color-swatches" id="home-color-swatches">
+            <span class="home-swatch" data-color="#0f172a" style="background:#0f172a;" title="Obsidian"></span>
+            <span class="home-swatch active" data-color="#4f46e5" style="background:#4f46e5;" title="Indigo"></span>
+            <span class="home-swatch" data-color="#059669" style="background:#059669;" title="Emerald"></span>
+            <span class="home-swatch" data-color="#e11d48" style="background:#e11d48;" title="Rose"></span>
+          </div>
+          <input type="color" id="home-qr-fg" class="home-color-input-btn" value="#4f46e5" title="Custom QR Color">
+          <input type="color" id="home-qr-bg" class="home-color-input-btn" value="#ffffff" title="Background Color">
+        </div>
+      </div>
+
+      <!-- Live QR Preview Canvas -->
+      <div class="home-preview-box" id="home-qr-preview">
+        <i class="fas fa-spinner fa-spin" style="color:var(--slate-400);font-size:1.5rem;"></i>
+      </div>
+
+      <!-- Instant Download & Action Bar (100% Free / No Login) -->
+      <div class="home-action-grid">
+        <button type="button" id="btn-home-dl-png" class="btn btn-primary btn-sm" style="display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.6rem 0.75rem;font-weight:700;">
+          <i class="fas fa-download"></i> Download PNG
+        </button>
+        <button type="button" id="btn-home-dl-svg" class="btn btn-outline btn-sm" style="display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.6rem 0.75rem;font-weight:700;">
+          <i class="fas fa-file-code"></i> Download SVG
+        </button>
+        <button type="button" id="btn-home-copy-qr" class="btn btn-outline btn-sm" style="padding:0.6rem 0.8rem;" title="Copy QR to Clipboard">
+          <i class="fas fa-copy"></i> <span class="home-copy-label">Copy</span>
+        </button>
+      </div>
+
+      <!-- Dynamic Upgrade Upsell -->
+      <div class="home-upgrade-note">
+        <span><i class="fas fa-chart-line" style="color:var(--primary);margin-right:0.25rem;"></i> <strong>Dynamic QR:</strong> Track scans, geo analytics & update link anytime.</span>
+        <a href="register.html">Start Free &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Logo Cloud -->
+  <section class="logo-cloud-section">
+    <div class="logo-cloud-title">Trusted by innovative marketing teams and creators worldwide</div>
+    <div class="logo-cloud-grid">
+      <div class="logo-item"><i class="fas fa-gem" style="color:var(--primary);"></i> NOVA RETAIL</div>
+      <div class="logo-item"><i class="fas fa-layer-group" style="color:var(--secondary);"></i> PULSE MEDIA</div>
+      <div class="logo-item"><i class="fas fa-utensils" style="color:#10b981;"></i> BISTRO FORWARD</div>
+      <div class="logo-item"><i class="fas fa-cubes" style="color:#f59e0b;"></i> STACKFLOW</div>
+      <div class="logo-item"><i class="fas fa-calendar-check" style="color:#8b5cf6;"></i> EVENT PRO</div>
+      <div class="logo-item"><i class="fas fa-globe" style="color:#0ea5e9;"></i> OMNI SCALE</div>
+    </div>
+  </section>
+
+  <!-- Live QR Stats Bar -->
+  <section class="live-stats-wrapper" id="live-stats">
+    <div class="live-stats-card">
+      <div class="live-stats-header">
+        <div class="live-badge">
+          <span class="pulse-dot"></span>
+          <span>Live Platform Telemetry</span>
+        </div>
+        <div style="font-size:0.8rem;color:var(--slate-400);display:flex;align-items:center;gap:0.4rem;">
+          <i class="fas fa-arrows-rotate fa-spin" style="--fa-animation-duration: 4s;"></i> Real-time QR activity
+        </div>
+      </div>
+      <div class="live-stats-grid">
+        <div class="live-stat-box">
+          <div class="live-stat-icon-wrap primary"><i class="fas fa-qrcode"></i></div>
+          <div>
+            <div class="live-stat-val" id="stat-total-qrs"><i class="fas fa-spinner fa-spin" style="font-size:1.1rem;color:var(--slate-300);"></i></div>
+            <div class="live-stat-lbl">Dynamic QRs Created</div>
+          </div>
+        </div>
+
+        <div class="live-stat-box">
+          <div class="live-stat-icon-wrap secondary"><i class="fas fa-chart-line"></i></div>
+          <div>
+            <div class="live-stat-val" id="stat-total-scans"><i class="fas fa-spinner fa-spin" style="font-size:1.1rem;color:var(--slate-300);"></i></div>
+            <div class="live-stat-lbl">Total Scans Recorded</div>
+          </div>
+        </div>
+
+        <div class="live-stat-box">
+          <div class="live-stat-icon-wrap success"><i class="fas fa-satellite-dish"></i></div>
+          <div>
+            <div class="live-stat-val" id="stat-active-qrs"><i class="fas fa-spinner fa-spin" style="font-size:1.1rem;color:var(--slate-300);"></i></div>
+            <div class="live-stat-lbl">Active Live Campaigns</div>
+          </div>
+        </div>
+
+        <div class="live-stat-box">
+          <div class="live-stat-icon-wrap warning"><i class="fas fa-bolt"></i></div>
+          <div>
+            <div class="live-stat-val" id="stat-today-scans"><i class="fas fa-spinner fa-spin" style="font-size:1.1rem;color:var(--slate-300);"></i></div>
+            <div class="live-stat-lbl">Scans Tracked Today</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works-section" id="how-it-works">
+    <div class="section-header">
+      <span class="badge badge-primary" style="margin-bottom:0.75rem;"><i class="fas fa-route"></i> Simple 3-Step Workflow</span>
+      <h2>How QuickQR Works</h2>
+      <p style="color:var(--slate-600);font-size:1.05rem;">From generation to analytics in under 60 seconds. No complex setup required.</p>
+    </div>
+
+    <div class="steps-grid">
+      <!-- Step 1 -->
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:0.6rem;color:var(--slate-900);">Choose & Configure</h3>
+        <p style="color:var(--slate-600);font-size:0.925rem;line-height:1.6;">
+          Select your destination type: Website URL, Wi-Fi login, vCard digital business card, Email, Phone, or Plain Text. Configure your destination in a single click.
+        </p>
+        <div style="margin-top:1.25rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span class="badge" style="background:var(--slate-100);color:var(--slate-700);font-size:0.75rem;"><i class="fas fa-link"></i> URLs</span>
+          <span class="badge" style="background:var(--slate-100);color:var(--slate-700);font-size:0.75rem;"><i class="fas fa-wifi"></i> Wi-Fi</span>
+          <span class="badge" style="background:var(--slate-100);color:var(--slate-700);font-size:0.75rem;"><i class="fas fa-address-card"></i> vCard</span>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:0.6rem;color:var(--slate-900);">Style & Personalize</h3>
+        <p style="color:var(--slate-600);font-size:0.925rem;line-height:1.6;">
+          Customize module styles with Classic Squares, Rounded Corners, or Circular Dots. Match your exact brand hex colors and preview in real-time.
+        </p>
+        <div style="margin-top:1.25rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span class="badge" style="background:var(--slate-100);color:var(--slate-700);font-size:0.75rem;"><i class="fas fa-palette"></i> Hex Colors</span>
+          <span class="badge" style="background:var(--slate-100);color:var(--slate-700);font-size:0.75rem;"><i class="fas fa-circle-dot"></i> Dot Modules</span>
+          <span class="badge" style="background:var(--slate-100);color:var(--slate-700);font-size:0.75rem;"><i class="fas fa-shield-alt"></i> Error Recovery</span>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:0.6rem;color:var(--slate-900);">Deploy & Track Anywhere</h3>
+        <p style="color:var(--slate-600);font-size:0.925rem;line-height:1.6;">
+          Download infinite-resolution vector SVG or 300 DPI PNG. Print on packaging, menus, or posters. Update your target URL anytime without reprinting!
+        </p>
+        <div style="margin-top:1.25rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <span class="badge" style="background:var(--slate-100);color:var(--slate-700);font-size:0.75rem;"><i class="fas fa-arrows-rotate"></i> Instant Edit</span>
+          <span class="badge" style="background:var(--slate-100);color:var(--slate-700);font-size:0.75rem;"><i class="fas fa-chart-line"></i> Live Scans</span>
+          <span class="badge" style="background:var(--slate-100);color:var(--slate-700);font-size:0.75rem;"><i class="fas fa-file-code"></i> Print Vector</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modern Bento Grid Features -->
+  <section class="bento-section" id="features">
+    <div class="section-header">
+      <span class="badge badge-primary" style="margin-bottom:0.75rem;"><i class="fas fa-bolt"></i> Cutting-Edge Features</span>
+      <h2>Engineered for High-Converting QR Campaigns</h2>
+      <p style="color:var(--slate-600);font-size:1.05rem;">From local coffee shops to multinational product packaging, QuickQR delivers unmatched speed and reliability.</p>
+    </div>
+
+    <div class="bento-grid">
+      <!-- Bento 1 (Span 2) -->
+      <div class="bento-card span-2">
+        <div class="bento-icon-wrap indigo"><i class="fas fa-shuffle"></i></div>
+        <div style="max-width:550px;">
+          <h3 style="font-size:1.35rem;font-weight:800;color:var(--slate-900);margin-bottom:0.5rem;">Never Reprint Again: Dynamic Destination Switching</h3>
+          <p style="color:var(--slate-600);font-size:0.95rem;line-height:1.6;">
+            Did your campaign landing page change? Did an event location shift at the last minute? Simply update the destination in your dashboard. The printed QR graphic never changes, saving thousands in reprint expenses.
+          </p>
+        </div>
+        <div class="bento-mockup" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:0.75rem;">
+            <span class="badge badge-success"><i class="fas fa-check"></i> Live</span>
+            <code style="color:var(--slate-800);font-size:0.85rem;">quickqr.io/r/promo2026</code>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;color:var(--slate-500);font-size:0.8rem;">
+            <i class="fas fa-arrow-right" style="color:var(--primary);"></i>
+            <span>Redirects to: <strong>https://mybrand.com/fall-collection</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento 2 -->
+      <div class="bento-card">
+        <div class="bento-icon-wrap sky"><i class="fas fa-chart-pie"></i></div>
+        <h3 style="font-size:1.15rem;font-weight:700;color:var(--slate-900);margin-bottom:0.5rem;">Real-Time Telemetry</h3>
+        <p style="color:var(--slate-600);font-size:0.9rem;line-height:1.6;">
+          Inspect every scan in real time. Filter by geographic country, city, mobile vs desktop device, OS (iOS/Android), and scanner browser.
+        </p>
+        <div style="margin-top:auto;padding-top:1rem;display:flex;align-items:center;gap:0.75rem;font-size:0.8rem;color:var(--slate-500);">
+          <span><i class="fas fa-mobile-screen" style="color:var(--secondary);"></i> 68% Mobile</span>
+          <span><i class="fas fa-laptop" style="color:var(--primary);"></i> 26% Desktop</span>
+          <span><i class="fas fa-tablet-screen-button"></i> 6% Tablet</span>
+        </div>
+      </div>
+
+      <!-- Bento 3 -->
+      <div class="bento-card">
+        <div class="bento-icon-wrap emerald"><i class="fas fa-layer-group"></i></div>
+        <h3 style="font-size:1.15rem;font-weight:700;color:var(--slate-900);margin-bottom:0.5rem;">Commercial Vector Exports</h3>
+        <p style="color:var(--slate-600);font-size:0.9rem;line-height:1.6;">
+          Download infinite-resolution vector SVG files that never pixelate on building wraps, retail packaging, business cards, or 4K digital screens.
+        </p>
+        <div style="margin-top:auto;padding-top:1rem;display:flex;gap:0.4rem;">
+          <span class="badge" style="background:#ecfdf5;color:#059669;font-size:0.75rem;">SVG Vector</span>
+          <span class="badge" style="background:#ecfdf5;color:#059669;font-size:0.75rem;">300 DPI PNG</span>
+        </div>
+      </div>
+
+      <!-- Bento 4 -->
+      <div class="bento-card">
+        <div class="bento-icon-wrap amber"><i class="fas fa-bolt-lightning"></i></div>
+        <h3 style="font-size:1.15rem;font-weight:700;color:var(--slate-900);margin-bottom:0.5rem;">Sub-15ms Redis Engine</h3>
+        <p style="color:var(--slate-600);font-size:0.9rem;line-height:1.6;">
+          Our in-memory Redis caching fast-path resolves redirects instantly with sub-15ms latency, ensuring your scanners never experience lag or downtime.
+        </p>
+        <div style="margin-top:auto;padding-top:1rem;font-size:0.8rem;color:var(--slate-500);">
+          <i class="fas fa-gauge-high" style="color:#d97706;"></i> 99.99% Uptime Guarantee
+        </div>
+      </div>
+
+      <!-- Bento 5 -->
+      <div class="bento-card">
+        <div class="bento-icon-wrap purple"><i class="fas fa-calendar-xmark"></i></div>
+        <h3 style="font-size:1.15rem;font-weight:700;color:var(--slate-900);margin-bottom:0.5rem;">Smart Expiry & Pausing</h3>
+        <p style="color:var(--slate-600);font-size:0.9rem;line-height:1.6;">
+          Set automated expiration timestamps for limited-time seasonal promos, or pause and resume QR campaigns with a single toggle.
+        </p>
+        <div style="margin-top:auto;padding-top:1rem;font-size:0.8rem;color:var(--slate-500);">
+          <i class="fas fa-clock" style="color:#7e22ce;"></i> Automated Promo Lifecycle
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real-World Use Cases Section -->
+  <section class="use-cases-section" id="use-cases">
+    <div class="section-header">
+      <span class="badge badge-primary" style="margin-bottom:0.75rem;"><i class="fas fa-briefcase"></i> Versatile Applications</span>
+      <h2>Built for Every Industry</h2>
+      <p style="color:var(--slate-600);font-size:1.05rem;">See how businesses across the globe use dynamic QR codes to drive engagement.</p>
+    </div>
+
+    <div class="use-cases-grid">
+      <div class="use-case-card">
+        <div style="font-size:2rem;margin-bottom:1rem;">🍽️</div>
+        <h3 style="font-size:1.15rem;font-weight:700;color:var(--slate-900);margin-bottom:0.5rem;">Restaurants & Menus</h3>
+        <p style="color:var(--slate-600);font-size:0.875rem;line-height:1.6;">
+          Update daily lunch specials and drinks menus without printing paper menus. Offer table-side ordering and instant Wi-Fi connection.
+        </p>
+      </div>
+
+      <div class="use-case-card">
+        <div style="font-size:2rem;margin-bottom:1rem;">📦</div>
+        <h3 style="font-size:1.15rem;font-weight:700;color:var(--slate-900);margin-bottom:0.5rem;">Packaging & Retail</h3>
+        <p style="color:var(--slate-600);font-size:0.875rem;line-height:1.6;">
+          Embed interactive assembly guides, warranty registrations, certificate of authenticity, and repeat purchase links directly on product boxes.
+        </p>
+      </div>
+
+      <div class="use-case-card">
+        <div style="font-size:2rem;margin-bottom:1rem;">🏢</div>
+        <h3 style="font-size:1.15rem;font-weight:700;color:var(--slate-900);margin-bottom:0.5rem;">Real Estate & Signboards</h3>
+        <p style="color:var(--slate-600);font-size:0.875rem;line-height:1.6;">
+          Place trackable QRs on property sale signs to link prospective buyers to virtual 3D walkthroughs, photo galleries, and agent calendars.
+        </p>
+      </div>
+
+      <div class="use-case-card">
+        <div style="font-size:2rem;margin-bottom:1rem;">💼</div>
+        <h3 style="font-size:1.15rem;font-weight:700;color:var(--slate-900);margin-bottom:0.5rem;">vCards & Networking</h3>
+        <p style="color:var(--slate-600);font-size:0.875rem;line-height:1.6;">
+          Modernize your business cards. Allow clients to tap or scan to automatically save your phone, email, company, and LinkedIn to their contact list.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Static vs Dynamic Comparison Table -->
+  <section class="comparison-section" id="comparison">
+    <div class="section-header">
+      <span class="badge badge-primary" style="margin-bottom:0.75rem;"><i class="fas fa-scale-balanced"></i> Why Choose Dynamic?</span>
+      <h2>Static vs Dynamic QR Codes</h2>
+      <p style="color:var(--slate-600);font-size:1.05rem;">Understanding why modern marketing campaigns rely exclusively on dynamic codes.</p>
+    </div>
+
+    <div class="comp-table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th style="width:40%;">Feature</th>
+            <th style="width:30%;">Traditional Static QR</th>
+            <th style="width:30%;" class="comp-highlight"><i class="fas fa-bolt" style="color:var(--primary);"></i> QuickQR Dynamic</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Editable Destination URL</strong></td>
+            <td><span style="color:var(--danger);"><i class="fas fa-times-circle"></i> No (Permanent)</span></td>
+            <td class="comp-highlight"><span style="color:var(--success);"><i class="fas fa-check-circle"></i> Yes, Anytime</span></td>
+          </tr>
+          <tr>
+            <td><strong>Real-Time Scan Telemetry</strong></td>
+            <td><span style="color:var(--danger);"><i class="fas fa-times-circle"></i> Blind (0 Tracking)</span></td>
+            <td class="comp-highlight"><span style="color:var(--success);"><i class="fas fa-check-circle"></i> Full Geo & Device Stats</span></td>
+          </tr>
+          <tr>
+            <td><strong>Reprint Prevention</strong></td>
+            <td><span style="color:var(--danger);"><i class="fas fa-times-circle"></i> Re-print on typo or link change</span></td>
+            <td class="comp-highlight"><span style="color:var(--success);"><i class="fas fa-check-circle"></i> Update in 5 seconds</span></td>
+          </tr>
+          <tr>
+            <td><strong>Scheduled Expiration & Pause</strong></td>
+            <td><span style="color:var(--danger);"><i class="fas fa-times-circle"></i> Cannot be paused</span></td>
+            <td class="comp-highlight"><span style="color:var(--success);"><i class="fas fa-check-circle"></i> Automated Expiry Dates</span></td>
+          </tr>
+          <tr>
+            <td><strong>Vector SVG & 300 DPI Export</strong></td>
+            <td><span style="color:var(--slate-500);"><i class="fas fa-minus-circle"></i> Often low-res bitmap</span></td>
+            <td class="comp-highlight"><span style="color:var(--success);"><i class="fas fa-check-circle"></i> Infinite Vector SVG</span></td>
+          </tr>
+          <tr>
+            <td><strong>Custom Styling & Center Logo</strong></td>
+            <td><span style="color:var(--slate-500);"><i class="fas fa-minus-circle"></i> Basic Black & White</span></td>
+            <td class="comp-highlight"><span style="color:var(--success);"><i class="fas fa-check-circle"></i> Custom Dots & Colors</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Wall of Love Testimonials -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="section-header">
+      <span class="badge badge-primary" style="margin-bottom:0.75rem;"><i class="fas fa-heart"></i> Customer Reviews</span>
+      <h2>Loved by Over 10,000 Teams</h2>
+      <p style="color:var(--slate-600);font-size:1.05rem;">Here is what marketing leaders and agency founders have to say about QuickQR.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <!-- Testimonial 1 -->
+      <div class="testimonial-card">
+        <div>
+          <div style="color:#f59e0b;font-size:0.9rem;margin-bottom:0.85rem;">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p style="color:var(--slate-700);font-size:0.95rem;line-height:1.65;font-style:italic;">
+            "When our event hall changed 48 hours before our annual conference, QuickQR literally saved us over $6,000 in banner reprinting costs. We updated the link in 10 seconds!"
+          </p>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;border-top:1px solid var(--slate-100);padding-top:1rem;">
+          <div style="width:42px;height:42px;border-radius:50%;background:#4f46e5;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;">SL</div>
+          <div>
+            <div style="font-weight:700;font-size:0.9rem;color:var(--slate-900);">Sarah Lin</div>
+            <div style="font-size:0.8rem;color:var(--slate-500);">Event Director, PulseCon</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="testimonial-card">
+        <div>
+          <div style="color:#f59e0b;font-size:0.9rem;margin-bottom:0.85rem;">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p style="color:var(--slate-700);font-size:0.95rem;line-height:1.65;font-style:italic;">
+            "Our restaurant franchise uses QuickQR across all 18 locations for digital menus. The real-time telemetry tells us peak lunch hours and most popular tables effortlessly."
+          </p>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;border-top:1px solid var(--slate-100);padding-top:1rem;">
+          <div style="width:42px;height:42px;border-radius:50%;background:#0ea5e9;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;">MR</div>
+          <div>
+            <div style="font-weight:700;font-size:0.9rem;color:var(--slate-900);">Marco Rossi</div>
+            <div style="font-size:0.8rem;color:var(--slate-500);">COO, BistroWorks Hospitality</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="testimonial-card">
+        <div>
+          <div style="color:#f59e0b;font-size:0.9rem;margin-bottom:0.85rem;">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p style="color:var(--slate-700);font-size:0.95rem;line-height:1.65;font-style:italic;">
+            "The print-ready vector SVG downloads are perfection. We print packaging labels for hundreds of SKU items and the QR edges are razor-sharp under 600 DPI press."
+          </p>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;border-top:1px solid var(--slate-100);padding-top:1rem;">
+          <div style="width:42px;height:42px;border-radius:50%;background:#10b981;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;">AC</div>
+          <div>
+            <div style="font-weight:700;font-size:0.9rem;color:var(--slate-900);">Alex Chen</div>
+            <div style="font-size:0.8rem;color:var(--slate-500);">Packaging Design Lead, StudioForm</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive FAQ Section -->
+  <section class="faq-section" id="faq">
+    <div class="section-header">
+      <span class="badge badge-primary" style="margin-bottom:0.75rem;"><i class="fas fa-circle-question"></i> Common Questions</span>
+      <h2>Frequently Asked Questions</h2>
+      <p style="color:var(--slate-600);font-size:1.05rem;">Everything you need to know about our dynamic QR platform.</p>
+    </div>
+
+    <div class="faq-container">
+      <div class="faq-item active">
+        <button class="faq-question">
+          <span>What is the difference between static and dynamic QR codes?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          Static QR codes have the destination data hard-coded directly into the pattern: once generated and printed, they can never be modified. Dynamic QR codes route through a lightweight short link that can be updated at any time in your dashboard without reprinting. Dynamic codes also capture scan analytics like device type, country, and timestamps.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Can I create and download QR codes without logging in?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          Yes! You can use our instant playground on the homepage to generate, customize, and download high-resolution PNG and vector SVG QR codes completely free without creating an account. If you want scan tracking, editable destination URLs, and saved campaigns, you can register for our free account anytime.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Do dynamic QR codes expire?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          Dynamic QR codes on active plans never expire unless you intentionally set an expiration date or pause them in your campaign settings. Scanners will always be redirected smoothly without interruptions.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Can I download vector SVG files for large format printing?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          Absolutely. QuickQR provides infinite-resolution vector SVG exports. Whether you are printing small 1-inch product labels or 50-foot outdoor highway billboards, your QR codes will remain razor sharp with zero blur or pixelation.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Is there a limit on scans?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-answer">
+          Our Free plan includes 1,000 monthly scans, which is ideal for testing and small venues. Our Pro plan includes 50,000 scans per month, and our Business tier offers unlimited scan allowances for enterprise marketing campaigns.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Pre-Footer Section -->
+  <section class="cta-banner-section">
+    <div class="cta-banner-card">
+      <div class="cta-content">
+        <span class="badge" style="background:rgba(255,255,255,0.18);color:#fff;border:1px solid rgba(255,255,255,0.25);margin-bottom:1rem;display:inline-flex;align-items:center;gap:0.4rem;padding:0.35rem 0.8rem;border-radius:9999px;font-size:0.8rem;font-weight:700;">
+          <i class="fas fa-sparkles"></i> Get Started in Under 60 Seconds
+        </span>
+        <h2>Supercharge Your QR Code Campaigns Today</h2>
+        <p>Create dynamic codes that never break, monitor real-time telemetry, and change destinations anytime without reprinting.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="register.html" class="btn btn-white btn-lg"><i class="fas fa-rocket"></i> Create Free Account</a>
+        <a href="pricing.html" class="btn btn-ghost-white btn-lg billing-only"><i class="fas fa-crown"></i> View Plans</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modern Footer -->
+  <footer class="footer">
+    <!-- Newsletter Bar -->
+    <div class="footer-newsletter-wrap">
+      <div class="footer-newsletter-text">
+        <h4><i class="fas fa-paper-plane" style="color:var(--secondary);margin-right:0.5rem;"></i> Stay Updated with QuickQR</h4>
+        <p>Get monthly insights on QR scan analytics, dynamic campaign tips, and feature updates.</p>
+      </div>
+      <form class="footer-newsletter-form" onsubmit="event.preventDefault(); handleNewsletter(this);">
+        <input type="email" class="footer-newsletter-input" placeholder="Enter your email address..." required>
+        <button type="submit" class="btn btn-primary" style="white-space:nowrap;padding:0.65rem 1.25rem;">
+          Subscribe
+        </button>
+      </form>
+    </div>
+
+    <div class="footer-content">
+      <!-- Col 1: Brand & Identity -->
+      <div>
+        <a href="index.html" class="footer-brand-title">
+          <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+          QuickQR
+        </a>
+        <p class="footer-desc">
+          Next-generation dynamic QR infrastructure. Track scans, manage campaigns, analyze traffic geolocations, and update URLs in real-time.
+        </p>
+        <div class="footer-status-pill">
+          <span class="pulse-dot"></span>
+          <span>All Systems Operational (99.99%)</span>
+        </div>
+        <div class="footer-social-links">
+          <a href="https://github.com" target="_blank" rel="noopener" class="footer-social-link" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener" class="footer-social-link" title="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="footer-social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://discord.com" target="_blank" rel="noopener" class="footer-social-link" title="Discord"><i class="fab fa-discord"></i></a>
+        </div>
+      </div>
+
+      <!-- Col 2: Product -->
+      <div>
+        <h4 class="footer-col-title">Product</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Dynamic QRs</a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Scan Telemetry</a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Vector SVG Export <span class="footer-badge-mini">PRO</span></a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Custom Branding</a></li>
+          <li class="billing-nav-item"><a href="pricing.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Plans & Pricing</a></li>
+          <li><a href="docs.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Developer REST API</a></li>
+          <li><a href="faq.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Help & FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Solutions -->
+      <div>
+        <h4 class="footer-col-title">Solutions</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Restaurant Menus</a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Billboard & Print Ads</a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Event Passes & Tickets</a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Smart Business Cards</a></li>
+          <li><a href="contact.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Enterprise Solutions</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Platform -->
+      <div>
+        <h4 class="footer-col-title">Platform</h4>
+        <ul class="footer-links-list">
+          <li><a href="login.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Sign In</a></li>
+          <li><a href="register.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Register Free</a></li>
+          <li><a href="dashboard.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> User Dashboard</a></li>
+          <li><a href="privacy.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Privacy & GDPR</a></li>
+          <li><a href="terms.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Terms of Service</a></li>
+          <li><a href="contact.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Contact & Support</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 5: Sandbox Accounts -->
+      <div>
+        <h4 class="footer-col-title">Sandbox Access</h4>
+        <div class="footer-sandbox-card">
+          <div class="footer-sandbox-header">
+            <span><i class="fas fa-terminal"></i> Demo Accounts</span>
+            <span style="font-size:0.7rem;color:#38bdf8;font-weight:600;">Instant Login</span>
+          </div>
+          
+          <div class="footer-sandbox-item">
+            <div>
+              <div style="font-weight:700;color:#f8fafc;font-size:0.75rem;">Super Admin</div>
+              <code>admin@example.com</code>
+            </div>
+            <a href="login.html?fill=admin" class="footer-sandbox-btn" title="Sign in as Admin">
+              <i class="fas fa-arrow-right-to-bracket"></i> Fill
+            </a>
+          </div>
+
+          <div class="footer-sandbox-item">
+            <div>
+              <div style="font-weight:700;color:#f8fafc;font-size:0.75rem;">Standard User</div>
+              <code>demo@example.com</code>
+            </div>
+            <a href="login.html?fill=demo" class="footer-sandbox-btn" title="Sign in as User">
+              <i class="fas fa-arrow-right-to-bracket"></i> Fill
+            </a>
+          </div>
+
+          <div style="font-size:0.7rem;color:#64748b;margin-top:0.6rem;display:flex;align-items:center;gap:0.35rem;">
+            <i class="fas fa-key"></i> Pass: <code style="color:#cbd5e1;">admin123</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div>
+        &copy; 2026 QuickQR SaaS Platform. All rights reserved. Built with PHP &amp; Vanilla JS.
+      </div>
+      
+      <div class="footer-trust-badges">
+        <span class="footer-trust-badge"><i class="fas fa-lock" style="color:#10b981;"></i> 256-Bit SSL Encrypted</span>
+        <span class="footer-trust-badge"><i class="fas fa-shield-halved" style="color:#0ea5e9;"></i> GDPR IP Anonymized</span>
+        <span class="footer-trust-badge"><i class="fab fa-paypal" style="color:#0079C1;"></i> PayPal Verified</span>
+      </div>
+
+      <div>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top-btn" title="Back to top">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // ===== Homepage Instant QR Generator (No Login Required) =====
+    let currentType = 'url';
+    let currentStyle = 'dots';
+    let currentFg = '#4f46e5';
+    let currentBg = '#ffffff';
+    let currentSvg = '';
+    let previewDebounce = null;
+
+    // Type tab switching
+    const typeTabs = document.querySelectorAll('.home-type-tab');
+    typeTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        typeTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentType = tab.dataset.type;
+
+        // Toggle input panels
+        document.querySelectorAll('.home-tab-panel').forEach(panel => {
+          panel.classList.remove('active');
+        });
+        const targetPanel = document.getElementById(`home-panel-${currentType}`);
+        if (targetPanel) targetPanel.classList.add('active');
+
+        updateHomeQr();
+      });
+    });
+
+    // Style pill switching
+    const stylePills = document.querySelectorAll('.home-style-pill');
+    stylePills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        stylePills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentStyle = pill.dataset.style;
+        updateHomeQr();
+      });
+    });
+
+    // Color Swatches & Inputs
+    const colorSwatches = document.querySelectorAll('.home-swatch');
+    const fgInput = document.getElementById('home-qr-fg');
+    const bgInput = document.getElementById('home-qr-bg');
+
+    colorSwatches.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        colorSwatches.forEach(s => s.classList.remove('active'));
+        swatch.classList.add('active');
+        currentFg = swatch.dataset.color;
+        if (fgInput) fgInput.value = currentFg;
+        updateHomeQr();
+      });
+    });
+
+    if (fgInput) {
+      fgInput.addEventListener('input', (e) => {
+        currentFg = e.target.value;
+        colorSwatches.forEach(s => {
+          s.classList.toggle('active', s.dataset.color.toLowerCase() === currentFg.toLowerCase());
+        });
+        updateHomeQr();
+      });
+    }
+
+    if (bgInput) {
+      bgInput.addEventListener('input', (e) => {
+        currentBg = e.target.value;
+        updateHomeQr();
+      });
+    }
+
+    // Input changes listener on all tab panels
+    const tabPanels = document.getElementById('home-tab-panels');
+    if (tabPanels) {
+      tabPanels.addEventListener('input', () => updateHomeQr());
+      tabPanels.addEventListener('change', () => updateHomeQr());
+    }
+
+    function getHomeQrPayload() {
+      let destination = '';
+      let typeData = null;
+
+      switch (currentType) {
+        case 'url':
+          destination = document.getElementById('home-input-url')?.value.trim() || 'https://google.com';
+          typeData = { url: destination };
+          break;
+        case 'text':
+          destination = document.getElementById('home-input-text')?.value.trim() || 'QuickQR';
+          typeData = { text: destination };
+          break;
+        case 'wifi':
+          const ssid = document.getElementById('home-input-wifi-ssid')?.value.trim() || 'Office_WiFi';
+          const pass = document.getElementById('home-input-wifi-pass')?.value || '';
+          const enc = document.getElementById('home-input-wifi-enc')?.value || 'WPA';
+          typeData = { ssid, password: pass, encryption: enc };
+          destination = `WIFI:S:${ssid};T:${enc};P:${pass};;`;
+          break;
+        case 'email':
+          const email = document.getElementById('home-input-email-to')?.value.trim() || 'contact@mybrand.com';
+          const sub = document.getElementById('home-input-email-sub')?.value.trim() || '';
+          const body = document.getElementById('home-input-email-body')?.value.trim() || '';
+          typeData = { email, subject: sub, body };
+          destination = `mailto:${email}` + (sub ? `?subject=${encodeURIComponent(sub)}` : '');
+          break;
+        case 'phone':
+          const phone = document.getElementById('home-input-phone')?.value.trim() || '+15551234567';
+          typeData = { phone };
+          destination = `tel:${phone}`;
+          break;
+        case 'sms':
+          const sPhone = document.getElementById('home-input-sms-num')?.value.trim() || '+15551234567';
+          const sMsg = document.getElementById('home-input-sms-msg')?.value.trim() || '';
+          typeData = { phone: sPhone, message: sMsg };
+          destination = `smsto:${sPhone}` + (sMsg ? `:${sMsg}` : '');
+          break;
+      }
+
+      return {
+        type: currentType,
+        destination,
+        type_data: JSON.stringify(typeData),
+        config: JSON.stringify({
+          fg_color: currentFg,
+          bg_color: currentBg,
+          style: currentStyle,
+          size: 300,
+          margin: 2
+        })
+      };
+    }
+
+    async function updateHomeQr() {
+      clearTimeout(previewDebounce);
+      previewDebounce = setTimeout(async () => {
+        const previewBox = document.getElementById('home-qr-preview');
+        if (!previewBox) return;
+
+        const payload = getHomeQrPayload();
+        try {
+          const res = await API.get('/qr/preview.php', {
+            ...payload,
+            format: 'svg'
+          });
+
+          if (res.data?.svg) {
+            currentSvg = res.data.svg;
+            previewBox.innerHTML = res.data.svg;
+          }
+        } catch (err) {
+          previewBox.innerHTML = '<span style="color:var(--slate-400);font-size:0.85rem;"><i class="fas fa-circle-exclamation"></i> Error updating preview</span>';
+        }
+      }, 150);
+    }
+
+    // Direct Instant Downloads (No Login Required)
+    async function downloadHomePng() {
+      const btn = document.getElementById('btn-home-dl-png');
+      if (!btn) return;
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+      btn.disabled = true;
+
+      try {
+        const payload = getHomeQrPayload();
+        const params = new URLSearchParams({
+          type: payload.type,
+          destination: payload.destination,
+          type_data: payload.type_data,
+          config: payload.config,
+          format: 'png',
+          download: '1'
+        });
+
+        const downloadUrl = (API.getBaseUrl ? API.getBaseUrl() : '/api') + '/qr/preview.php?' + params.toString();
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `quickqr-${currentType}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        if (typeof API.showToast === 'function') {
+          API.showToast('PNG QR code downloaded successfully!', 'success');
+        }
+      } catch (err) {
+        if (typeof API.showToast === 'function') {
+          API.showToast('Failed to download PNG', 'error');
+        }
+      } finally {
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.disabled = false;
+        }, 600);
+      }
+    }
+
+    function downloadHomeSvg() {
+      if (!currentSvg) {
+        if (typeof API.showToast === 'function') API.showToast('Generating QR code...', 'info');
+        return;
+      }
+      try {
+        const blob = new Blob([currentSvg], { type: 'image/svg+xml;charset=utf-8' });
+        const blobUrl = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = `quickqr-${currentType}.svg`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+
+        if (typeof API.showToast === 'function') {
+          API.showToast('Vector SVG downloaded successfully!', 'success');
+        }
+      } catch (err) {
+        if (typeof API.showToast === 'function') {
+          API.showToast('Failed to download SVG', 'error');
+        }
+      }
+    }
+
+    async function copyHomeQr() {
+      const btn = document.getElementById('btn-home-copy-qr');
+      if (!btn || !currentSvg) return;
+      const originalHtml = btn.innerHTML;
+
+      try {
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(currentSvg, 'image/svg+xml');
+        const svgElem = svgDoc.documentElement;
+        const svgString = new XMLSerializer().serializeToString(svgElem);
+        const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        const URLObj = window.URL || window.webkitURL || window;
+        const blobURL = URLObj.createObjectURL(svgBlob);
+
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = 600;
+          canvas.height = 600;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = currentBg || '#ffffff';
+          ctx.fillRect(0, 0, 600, 600);
+          ctx.drawImage(img, 0, 0, 600, 600);
+          URLObj.revokeObjectURL(blobURL);
+
+          canvas.toBlob(async (pngBlob) => {
+            if (pngBlob && navigator.clipboard && navigator.clipboard.write) {
+              try {
+                await navigator.clipboard.write([
+                  new ClipboardItem({ 'image/png': pngBlob })
+                ]);
+                btn.innerHTML = '<i class="fas fa-check" style="color:var(--success);"></i>';
+                if (typeof API.showToast === 'function') {
+                  API.showToast('QR code copied to clipboard!', 'success');
+                }
+                setTimeout(() => { btn.innerHTML = originalHtml; }, 2000);
+                return;
+              } catch (e) {}
+            }
+            if (navigator.clipboard?.writeText) {
+              await navigator.clipboard.writeText(currentSvg);
+              btn.innerHTML = '<i class="fas fa-check" style="color:var(--success);"></i>';
+              if (typeof API.showToast === 'function') {
+                API.showToast('QR SVG markup copied to clipboard!', 'success');
+              }
+              setTimeout(() => { btn.innerHTML = originalHtml; }, 2000);
+            }
+          }, 'image/png');
+        };
+        img.src = blobURL;
+      } catch (err) {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(currentSvg);
+          if (typeof API.showToast === 'function') {
+            API.showToast('QR SVG markup copied!', 'success');
+          }
+        }
+      }
+    }
+
+    document.getElementById('btn-home-dl-png')?.addEventListener('click', downloadHomePng);
+    document.getElementById('btn-home-dl-svg')?.addEventListener('click', downloadHomeSvg);
+    document.getElementById('btn-home-copy-qr')?.addEventListener('click', copyHomeQr);
+
+    // Initial render
+    updateHomeQr();
+
+    // FAQ Accordion Toggle
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Check system config for billing feature flag
+    API.get('/config.php').then(res => {
+      if (res.data && res.data.billing_enabled === false) {
+        document.querySelectorAll('.billing-nav-item, .billing-only, a[href*="pricing.html"]').forEach(el => {
+          el.style.display = 'none';
+        });
+      }
+    }).catch(() => {});
+
+    // Header elevation on scroll
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('main-navbar');
+      if (!navbar) return;
+      if (window.scrollY > 15) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile nav toggle
+    function toggleMobileNav() {
+      const drawer = document.getElementById('mobile-nav-drawer');
+      const toggle = document.getElementById('mobile-menu-toggle');
+      if (!drawer) return;
+      const isOpen = drawer.classList.toggle('open');
+      if (toggle) {
+        toggle.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+      }
+    }
+
+    // Check if already logged in and update nav buttons
+    API.get('/auth/me.php', {}, { skipAuthRedirect: true }).then(res => {
+      if (res.data) {
+        const btnHtml = `
+          <a href="dashboard.html" class="btn btn-primary btn-sm"><i class="fas fa-th-large"></i> Go to Dashboard</a>
+        `;
+        const desktopActions = document.getElementById('nav-auth-actions');
+        if (desktopActions) desktopActions.innerHTML = btnHtml;
+        const mobileActions = document.getElementById('mobile-auth-actions');
+        if (mobileActions) mobileActions.innerHTML = btnHtml;
+      }
+    }).catch(() => {});
+
+    // Live Platform Telemetry
+    function animateValue(el, start, end, duration = 1200) {
+      if (!el) return;
+      if (start === end) {
+        el.textContent = end.toLocaleString();
+        return;
+      }
+      const startTime = performance.now();
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(start + (end - start) * easeProgress);
+        el.textContent = current.toLocaleString();
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          el.textContent = end.toLocaleString();
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
+    async function fetchLiveStats() {
+      try {
+        const res = await API.get('/public-stats.php', {}, { skipAuthRedirect: true });
+        if (res.data) {
+          const stats = [
+            { id: 'stat-total-qrs', val: Number(res.data.total_qrs || 0) },
+            { id: 'stat-total-scans', val: Number(res.data.total_scans || 0) },
+            { id: 'stat-active-qrs', val: Number(res.data.active_qrs || 0) },
+            { id: 'stat-today-scans', val: Number(res.data.today_scans || 0) }
+          ];
+
+          stats.forEach(item => {
+            const el = document.getElementById(item.id);
+            if (!el) return;
+            const prev = Number(el.dataset.currentVal !== undefined ? el.dataset.currentVal : 0);
+            animateValue(el, prev, item.val, 1200);
+            el.dataset.currentVal = item.val;
+          });
+        }
+      } catch (e) {
+        ['stat-total-qrs', 'stat-total-scans', 'stat-active-qrs', 'stat-today-scans'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el && el.dataset.currentVal === undefined) {
+            el.textContent = '0';
+          }
+        });
+      }
+    }
+
+    fetchLiveStats();
+    setInterval(fetchLiveStats, 15000);
+
+    function handleNewsletter(form) {
+      const input = form.querySelector('input[type="email"]');
+      if (!input || !input.value) return;
+      API.showToast(`Thank you! ${input.value} has been subscribed to updates.`, 'success');
+      input.value = '';
+    }
+  </script>
+</body>
+</html>

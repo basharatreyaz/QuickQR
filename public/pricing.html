@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing & Plans - QuickQR SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .pricing-hero {
+      text-align: center;
+      max-width: 680px;
+      margin: 1.5rem auto 2.5rem;
+    }
+    .pricing-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+    }
+    .pricing-hero h2 {
+      font-size: 2.35rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .pricing-hero p {
+      color: var(--slate-500);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    /* Billing Cycle Toggle */
+    .pricing-toggle-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem auto 0.5rem;
+      background: #ffffff;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    }
+    .pricing-toggle-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      cursor: pointer;
+      user-select: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .pricing-toggle-label.active {
+      color: var(--slate-900);
+      font-weight: 700;
+    }
+    .pricing-toggle-switch {
+      width: 52px;
+      height: 28px;
+      background: var(--slate-200);
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      padding: 0;
+      transition: background-color 0.25s ease;
+      outline: none;
+    }
+    .pricing-toggle-switch.yearly {
+      background: var(--primary);
+    }
+    .pricing-toggle-circle {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      background: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: transform 0.25s ease;
+    }
+    .pricing-toggle-switch.yearly .pricing-toggle-circle {
+      transform: translateX(24px);
+    }
+    .pricing-save-badge {
+      background: #ecfdf5;
+      color: #059669;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      border: 1px solid #a7f3d0;
+      letter-spacing: 0.02em;
+    }
+
+    /* Trust Guarantee Strip */
+    .pricing-trust-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.25rem auto 3rem;
+      flex-wrap: wrap;
+      color: var(--slate-500);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .pricing-trust-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .pricing-trust-item i {
+      color: var(--success);
+    }
+
+    /* Pricing Grid */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: stretch;
+    }
+    .pricing-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-2xl);
+      padding: 2.25rem 2rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: var(--transition);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    }
+    .pricing-card:hover {
+      box-shadow: 0 20px 35px -8px rgba(15, 23, 42, 0.08);
+      border-color: var(--slate-300);
+    }
+    .pricing-card.featured {
+      border-color: var(--primary);
+      box-shadow: 0 15px 35px -5px rgba(79, 70, 229, 0.16);
+      transform: scale(1.02);
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -0.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.95rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+    }
+    .plan-price-wrap {
+      margin: 1.25rem 0 0.5rem;
+    }
+    .plan-price {
+      font-size: 2.85rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1;
+    }
+    .plan-period {
+      font-size: 0.95rem;
+      color: var(--slate-500);
+      font-weight: 500;
+    }
+    .plan-billing-subtext {
+      font-size: 0.8rem;
+      color: var(--slate-400);
+      margin-top: 0.35rem;
+      min-height: 1.1rem;
+    }
+    .plan-features {
+      list-style: none;
+      margin: 1.75rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      font-size: 0.9rem;
+      color: var(--slate-700);
+      flex: 1;
+      padding: 0;
+    }
+    .plan-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .plan-features li i.fa-check { color: var(--success); }
+    .plan-features li i.fa-times { color: var(--slate-300); }
+
+    /* Comparison Matrix */
+    .pricing-matrix-wrap {
+      max-width: 1100px;
+      margin: 4.5rem auto 2rem;
+    }
+    .matrix-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .matrix-header h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 0.5rem;
+    }
+    .matrix-header p {
+      color: var(--slate-500);
+      font-size: 1rem;
+    }
+    .pricing-matrix-table-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-2xl);
+      overflow-x: auto;
+      box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
+    }
+    .pricing-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    .pricing-matrix-table th, .pricing-matrix-table td {
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .pricing-matrix-table thead th {
+      background: var(--slate-50);
+      font-weight: 700;
+      color: var(--slate-900);
+      border-bottom: 1px solid var(--slate-200);
+      vertical-align: middle;
+    }
+    .pricing-matrix-table th.col-feature {
+      width: 40%;
+    }
+    .pricing-matrix-table th.col-plan, .pricing-matrix-table td.col-plan {
+      text-align: center;
+      width: 20%;
+    }
+    .pricing-matrix-table tr.category-row td {
+      background: var(--slate-50);
+      font-weight: 800;
+      color: var(--slate-900);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding-top: 1.25rem;
+      padding-bottom: 0.6rem;
+      border-top: 1px solid var(--slate-200);
+    }
+    .pricing-matrix-table td.plan-featured-col {
+      background: rgba(79, 70, 229, 0.02);
+      font-weight: 600;
+    }
+    .pricing-matrix-table thead th.plan-featured-col {
+      background: rgba(79, 70, 229, 0.06);
+      color: var(--primary);
+      position: relative;
+    }
+
+    /* Enterprise Banner */
+    .pricing-enterprise-card {
+      max-width: 1100px;
+      margin: 3.5rem auto 0;
+      background: linear-gradient(135deg, var(--slate-900) 0%, #1e1b4b 100%);
+      border-radius: var(--radius-2xl);
+      padding: 2.75rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.5rem;
+      color: #ffffff;
+      box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.25);
+    }
+    .enterprise-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.12);
+      color: #38bdf8;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      margin-bottom: 0.75rem;
+    }
+
+    /* FAQ Section */
+    .pricing-faq-wrap {
+      max-width: 820px;
+      margin: 4.5rem auto 3rem;
+    }
+    .pricing-faq-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .pricing-faq-header h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 0.5rem;
+    }
+    .pricing-faq-header p {
+      color: var(--slate-500);
+      font-size: 1rem;
+    }
+    .faq-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .faq-item {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .faq-item.active {
+      border-color: var(--primary-light);
+      box-shadow: 0 8px 20px -4px rgba(79, 70, 229, 0.08);
+    }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 1.25rem 1.5rem;
+      background: transparent;
+      border: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+    }
+    .faq-question i {
+      transition: transform 0.25s ease;
+      color: var(--slate-400);
+      font-size: 0.9rem;
+    }
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+      color: var(--primary);
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 1.5rem 1.25rem;
+      color: var(--slate-600);
+      font-size: 0.925rem;
+      line-height: 1.6;
+    }
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    @media (max-width: 860px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 1.5rem auto;
+        gap: 1.75rem;
+      }
+      .pricing-card.featured {
+        transform: none;
+      }
+      .pricing-card {
+        padding: 1.75rem 1.25rem;
+      }
+      .pricing-enterprise-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem 1.5rem;
+      }
+      .pricing-enterprise-card .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Public Navigation for Guests -->
+  <nav class="navbar" id="public-navbar" style="display:none;">
+    <a href="index.html" class="brand-logo">
+      <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+      QuickQR <span class="brand-tag">v2.0</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-house" style="font-size:0.85rem;"></i> Home</a></li>
+      <li><a href="index.html#how-it-works" class="nav-link"><i class="fas fa-route" style="font-size:0.85rem;"></i> How It Works</a></li>
+      <li><a href="index.html#features" class="nav-link"><i class="fas fa-bolt" style="font-size:0.85rem;"></i> Features</a></li>
+      <li><a href="index.html#use-cases" class="nav-link"><i class="fas fa-briefcase" style="font-size:0.85rem;"></i> Use Cases</a></li>
+      <li><a href="#comparison" class="nav-link"><i class="fas fa-scale-balanced" style="font-size:0.85rem;"></i> Compare</a></li>
+      <li><a href="#faq" class="nav-link"><i class="fas fa-circle-question" style="font-size:0.85rem;"></i> FAQ</a></li>
+      <li><a href="pricing.html" class="nav-link active"><i class="fas fa-crown" style="font-size:0.85rem;"></i> Pricing</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-outline btn-sm">Sign In</a>
+      <a href="register.html" class="btn btn-primary btn-sm"><i class="fas fa-rocket"></i> Get Started Free</a>
+    </div>
+
+    <!-- Mobile Hamburger Toggle -->
+    <button class="mobile-toggle-btn" id="pricing-mobile-toggle" aria-label="Toggle menu" onclick="togglePricingMobileNav()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="pricing-mobile-drawer">
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;padding:0;margin:0;">
+        <li><a href="index.html" class="nav-link"><i class="fas fa-house"></i> Home</a></li>
+        <li><a href="index.html#how-it-works" class="nav-link" onclick="togglePricingMobileNav()"><i class="fas fa-route"></i> How It Works</a></li>
+        <li><a href="index.html#features" class="nav-link" onclick="togglePricingMobileNav()"><i class="fas fa-bolt"></i> Features</a></li>
+        <li><a href="index.html#use-cases" class="nav-link" onclick="togglePricingMobileNav()"><i class="fas fa-briefcase"></i> Use Cases</a></li>
+        <li><a href="#comparison" class="nav-link" onclick="togglePricingMobileNav()"><i class="fas fa-scale-balanced"></i> Compare</a></li>
+        <li><a href="#faq" class="nav-link" onclick="togglePricingMobileNav()"><i class="fas fa-circle-question"></i> FAQ</a></li>
+        <li><a href="pricing.html" class="nav-link active"><i class="fas fa-crown"></i> Pricing</a></li>
+      </ul>
+      <div style="border-top:1px solid var(--slate-100);padding-top:1rem;display:flex;flex-direction:column;gap:0.75rem;">
+        <a href="login.html" class="btn btn-outline" style="justify-content:center;">Sign In</a>
+        <a href="register.html" class="btn btn-primary" style="justify-content:center;"><i class="fas fa-rocket"></i> Get Started Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="app-container" id="pricing-app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-logo">
+          <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+          QuickQR
+        </a>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-item"><a href="dashboard.html" class="sidebar-link"><i class="fas fa-th-large"></i> Dashboard</a></li>
+        <li class="sidebar-item"><a href="qr-create.html" class="sidebar-link"><i class="fas fa-plus-circle"></i> Create QR Code</a></li>
+        <li class="sidebar-item"><a href="analytics.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+        <li class="sidebar-item"><a href="pricing.html" class="sidebar-link active"><i class="fas fa-crown"></i> Plans & Billing</a></li>
+        <li class="sidebar-item"><a href="settings.html" class="sidebar-link"><i class="fas fa-cog"></i> Settings</a></li>
+        <li class="sidebar-item admin-only" style="display:none;"><a href="admin.html" class="sidebar-link" style="color:var(--primary);"><i class="fas fa-shield-halved"></i> Admin Panel</a></li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-snippet">
+          <div class="user-avatar auth-user-avatar">U</div>
+          <div class="user-info">
+            <div class="user-name auth-user-name">Loading...</div>
+            <div class="user-plan-tag"><span class="auth-user-plan badge badge-primary" style="font-size:0.65rem;">Free</span></div>
+          </div>
+        </div>
+        <button onclick="Auth.logout()" class="btn btn-outline btn-sm" title="Log Out" style="padding:0.4rem 0.6rem;">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="page-title">
+          <h1>Subscription Plans & Limits</h1>
+          <p>Upgrade or manage your active subscription tier</p>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="pricing-hero">
+          <div class="pricing-hero-badge"><i class="fas fa-crown"></i> Transparent Pricing</div>
+          <h2>Simple, Predictable Plans for Any Scale</h2>
+          <p>Start 100% free and upgrade seamlessly as your dynamic QR campaigns expand. Zero hidden fees, cancel anytime.</p>
+          
+          <div class="pricing-toggle-wrap">
+            <span class="pricing-toggle-label active" id="label-monthly" onclick="setBillingToggle('monthly')">Monthly Billing</span>
+            <button type="button" class="pricing-toggle-switch" id="billing-switch" aria-label="Toggle annual or monthly billing" onclick="toggleBillingPeriod()">
+              <span class="pricing-toggle-circle"></span>
+            </button>
+            <span class="pricing-toggle-label" id="label-yearly" onclick="setBillingToggle('yearly')">
+              Annual Billing <span class="pricing-save-badge">Save 20%</span>
+            </span>
+          </div>
+
+          <div class="pricing-trust-strip">
+            <div class="pricing-trust-item"><i class="fas fa-check-circle"></i> 30-Day Money-Back Guarantee</div>
+            <div class="pricing-trust-item"><i class="fas fa-check-circle"></i> Cancel Anytime with 1 Click</div>
+            <div class="pricing-trust-item"><i class="fas fa-check-circle"></i> No Setup Fees</div>
+            <div class="pricing-trust-item"><i class="fas fa-check-circle"></i> Instant Activation</div>
+          </div>
+        </div>
+
+        <div class="pricing-grid" id="pricing-grid">
+          <!-- Free Plan -->
+          <div class="pricing-card" id="card-plan-1">
+            <h3 style="font-size:1.25rem;font-weight:700;">Free</h3>
+            <p style="color:var(--slate-500);font-size:0.85rem;">For individuals testing dynamic QR technology</p>
+            <div class="plan-price-wrap">
+              <div class="plan-price" id="price-plan-1">$0 <span class="plan-period">/ month</span></div>
+              <div class="plan-billing-subtext" id="subtext-plan-1">Free forever &bull; No card required</div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check"></i> Up to <strong>5</strong> Dynamic QR Codes</li>
+              <li><i class="fas fa-check"></i> 1,000 Scans / month</li>
+              <li><i class="fas fa-check"></i> Real-time Target URL Updates</li>
+              <li><i class="fas fa-check"></i> Standard PNG Downloads</li>
+              <li><i class="fas fa-check"></i> Basic Scan Statistics</li>
+              <li><i class="fas fa-times"></i> Custom Branding Colors</li>
+              <li><i class="fas fa-times"></i> Logo Embedding</li>
+              <li><i class="fas fa-times"></i> High-Res SVG Vector Export</li>
+              <li><i class="fas fa-times"></i> REST API & Webhooks</li>
+            </ul>
+            <button onclick="subscribePlan(1)" id="btn-plan-1" class="btn btn-outline" style="width:100%;">Current Plan</button>
+          </div>
+
+          <!-- Pro Plan -->
+          <div class="pricing-card featured" id="card-plan-2">
+            <div class="pricing-badge">Most Popular</div>
+            <h3 style="font-size:1.25rem;font-weight:700;">Pro</h3>
+            <p style="color:var(--slate-500);font-size:0.85rem;">For growing businesses, creators & marketers</p>
+            <div class="plan-price-wrap">
+              <div class="plan-price" id="price-plan-2">$15 <span class="plan-period">/ month</span></div>
+              <div class="plan-billing-subtext" id="subtext-plan-2">Billed monthly ($15/mo)</div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check"></i> Up to <strong>100</strong> Dynamic QR Codes</li>
+              <li><i class="fas fa-check"></i> 50,000 Scans / month</li>
+              <li><i class="fas fa-check"></i> Real-time Target URL Updates</li>
+              <li><i class="fas fa-check"></i> Advanced Geo & Device Analytics</li>
+              <li><i class="fas fa-check"></i> Custom Hex Colors & Eye Styles</li>
+              <li><i class="fas fa-check"></i> Center Brand Logo Upload</li>
+              <li><i class="fas fa-check"></i> High-Res SVG Vector Export</li>
+              <li><i class="fas fa-check"></i> Expiration Dates & Status Pause</li>
+              <li><i class="fas fa-times"></i> Full REST API Access</li>
+            </ul>
+            <button onclick="subscribePlan(2)" id="btn-plan-2" class="btn btn-primary" style="width:100%;">Upgrade to Pro</button>
+          </div>
+
+          <!-- Business Plan -->
+          <div class="pricing-card" id="card-plan-3">
+            <h3 style="font-size:1.25rem;font-weight:700;">Business</h3>
+            <p style="color:var(--slate-500);font-size:0.85rem;">For high-volume operations & product packaging</p>
+            <div class="plan-price-wrap">
+              <div class="plan-price" id="price-plan-3">$49 <span class="plan-period">/ month</span></div>
+              <div class="plan-billing-subtext" id="subtext-plan-3">Billed monthly ($49/mo)</div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check"></i> <strong>Unlimited</strong> Dynamic QR Codes</li>
+              <li><i class="fas fa-check"></i> 1,000,000+ Scans Included</li>
+              <li><i class="fas fa-check"></i> Real-time Target URL Updates</li>
+              <li><i class="fas fa-check"></i> Advanced Analytics & CSV Export</li>
+              <li><i class="fas fa-check"></i> Custom Branding & Custom Logos</li>
+              <li><i class="fas fa-check"></i> Print-Ready SVG Vector Exports</li>
+              <li><i class="fas fa-check"></i> Developer REST API & Webhooks</li>
+              <li><i class="fas fa-check"></i> Sub-millisecond Redis Caching</li>
+              <li><i class="fas fa-check"></i> Priority Email & Slack Support</li>
+            </ul>
+            <button onclick="subscribePlan(3)" id="btn-plan-3" class="btn btn-outline" style="width:100%;">Upgrade to Business</button>
+          </div>
+        </div>
+
+        <!-- Comprehensive Plan Comparison Matrix -->
+        <div class="pricing-matrix-wrap" id="comparison">
+          <div class="matrix-header">
+            <h3>Detailed Feature Comparison</h3>
+            <p>Compare all features side-by-side to choose the perfect plan for your project.</p>
+          </div>
+
+          <div class="pricing-matrix-table-card" id="pricing-matrix-table-card">
+            <table class="pricing-matrix-table">
+              <thead>
+                <tr>
+                  <th class="col-feature">Features & Capabilities</th>
+                  <th class="col-plan">Free</th>
+                  <th class="col-plan plan-featured-col">Pro <span style="font-size:0.7rem;color:var(--primary);display:block;font-weight:600;">RECOMMENDED</span></th>
+                  <th class="col-plan">Business</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Section 1: Core QR Limits -->
+                <tr class="category-row">
+                  <td colspan="4"><i class="fas fa-qrcode" style="margin-right:0.4rem;color:var(--primary);"></i> QR Code Generation & Limits</td>
+                </tr>
+                <tr>
+                  <td>Active Dynamic QR Codes</td>
+                  <td class="col-plan">5</td>
+                  <td class="col-plan plan-featured-col">100</td>
+                  <td class="col-plan"><strong>Unlimited</strong></td>
+                </tr>
+                <tr>
+                  <td>Monthly Scan Quota</td>
+                  <td class="col-plan">1,000 / mo</td>
+                  <td class="col-plan plan-featured-col">50,000 / mo</td>
+                  <td class="col-plan"><strong>1,000,000+ / mo</strong></td>
+                </tr>
+                <tr>
+                  <td>Dynamic Destination URL Changes</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Unlimited</td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i> Unlimited</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Unlimited</td>
+                </tr>
+                <tr>
+                  <td>Campaign Expiration Dates & Status Pausing</td>
+                  <td class="col-plan"><i class="fas fa-times" style="color:var(--slate-300);"></i></td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i></td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i></td>
+                </tr>
+
+                <!-- Section 2: Custom Design & Branding -->
+                <tr class="category-row">
+                  <td colspan="4"><i class="fas fa-palette" style="margin-right:0.4rem;color:var(--primary);"></i> Design, Styling & Branding</td>
+                </tr>
+                <tr>
+                  <td>Custom Foreground & Background Colors</td>
+                  <td class="col-plan"><i class="fas fa-times" style="color:var(--slate-300);"></i></td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i> Hex & Picker</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Hex & Picker</td>
+                </tr>
+                <tr>
+                  <td>Custom Dot Patterns (Square, Rounded, Dots)</td>
+                  <td class="col-plan">Standard Square</td>
+                  <td class="col-plan plan-featured-col">All Patterns</td>
+                  <td class="col-plan">All Patterns</td>
+                </tr>
+                <tr>
+                  <td>Corner Eye Customization</td>
+                  <td class="col-plan">Standard</td>
+                  <td class="col-plan plan-featured-col">Multiple Styles</td>
+                  <td class="col-plan">Multiple Styles</td>
+                </tr>
+                <tr>
+                  <td>Center Brand Logo Upload</td>
+                  <td class="col-plan"><i class="fas fa-times" style="color:var(--slate-300);"></i></td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i> PNG/JPEG/SVG</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> PNG/JPEG/SVG</td>
+                </tr>
+
+                <!-- Section 3: Formats & Exports -->
+                <tr class="category-row">
+                  <td colspan="4"><i class="fas fa-download" style="margin-right:0.4rem;color:var(--primary);"></i> Downloads & Print Quality</td>
+                </tr>
+                <tr>
+                  <td>Standard Raster PNG Downloads</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> 300px</td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i> Up to 1200px</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Up to 2400px HD</td>
+                </tr>
+                <tr>
+                  <td>Infinite Scalable Vector SVG Exports</td>
+                  <td class="col-plan"><i class="fas fa-times" style="color:var(--slate-300);"></i></td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i> Print-Ready</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Print-Ready</td>
+                </tr>
+                <tr>
+                  <td>Print-Ready Packaging & Billboard Suitability</td>
+                  <td class="col-plan">Web Only</td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i> Commercial Print</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Large Format</td>
+                </tr>
+
+                <!-- Section 4: Analytics & Telemetry -->
+                <tr class="category-row">
+                  <td colspan="4"><i class="fas fa-chart-line" style="margin-right:0.4rem;color:var(--primary);"></i> Analytics & Telemetry</td>
+                </tr>
+                <tr>
+                  <td>Real-Time Scan Counters</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Basic</td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i> Real-Time</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Real-Time</td>
+                </tr>
+                <tr>
+                  <td>Device & Operating System Breakdown</td>
+                  <td class="col-plan"><i class="fas fa-times" style="color:var(--slate-300);"></i></td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i> iOS, Android, Desktop</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Deep Device Telemetry</td>
+                </tr>
+                <tr>
+                  <td>Country & Geolocation Analytics</td>
+                  <td class="col-plan"><i class="fas fa-times" style="color:var(--slate-300);"></i></td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i> Country Distribution</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> City & Country Telemetry</td>
+                </tr>
+                <tr>
+                  <td>Analytics CSV / Excel Export</td>
+                  <td class="col-plan"><i class="fas fa-times" style="color:var(--slate-300);"></i></td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-times" style="color:var(--slate-300);"></i></td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> One-Click Export</td>
+                </tr>
+
+                <!-- Section 5: Developer API & Performance -->
+                <tr class="category-row">
+                  <td colspan="4"><i class="fas fa-code" style="margin-right:0.4rem;color:var(--primary);"></i> Developer API & Speed</td>
+                </tr>
+                <tr>
+                  <td>REST API Access with Bearer Tokens</td>
+                  <td class="col-plan"><i class="fas fa-times" style="color:var(--slate-300);"></i></td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-times" style="color:var(--slate-300);"></i></td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Full CRUD API</td>
+                </tr>
+                <tr>
+                  <td>Sub-millisecond Redis Caching Engine</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Shared</td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i> High Priority</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Dedicated Tier</td>
+                </tr>
+                <tr>
+                  <td>GDPR-Compliant IP Anonymization</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Included</td>
+                  <td class="col-plan plan-featured-col"><i class="fas fa-check" style="color:var(--success);"></i> Included</td>
+                  <td class="col-plan"><i class="fas fa-check" style="color:var(--success);"></i> Included</td>
+                </tr>
+
+                <!-- Section 6: Support & SLA -->
+                <tr class="category-row">
+                  <td colspan="4"><i class="fas fa-headset" style="margin-right:0.4rem;color:var(--primary);"></i> Customer Support</td>
+                </tr>
+                <tr>
+                  <td>Support Channels</td>
+                  <td class="col-plan">Documentation</td>
+                  <td class="col-plan plan-featured-col">Priority Email</td>
+                  <td class="col-plan">24/7 Dedicated Support</td>
+                </tr>
+                <tr>
+                  <td>Guaranteed Uptime SLA</td>
+                  <td class="col-plan">99.5%</td>
+                  <td class="col-plan plan-featured-col">99.9%</td>
+                  <td class="col-plan"><strong>99.99% Enterprise SLA</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Enterprise Callout Banner -->
+        <div class="pricing-enterprise-card">
+          <div>
+            <div class="enterprise-badge"><i class="fas fa-building"></i> High Volume & Enterprise</div>
+            <h3 style="font-size:1.6rem;font-weight:800;margin:0 0 0.65rem;color:#ffffff;">Need millions of scans or custom infrastructure?</h3>
+            <p style="color:#94a3b8;font-size:0.95rem;max-width:620px;line-height:1.6;margin:0;">
+              We provide dedicated Redis instances, custom SLA agreements, custom domains with automatic SSL, SSO integration, and volume discounts for high-throughput brands.
+            </p>
+          </div>
+          <div style="flex-shrink:0;">
+            <a href="mailto:sales@example.com?subject=QuickQR%20Enterprise%20Inquiry" class="btn btn-primary" style="background:#ffffff;color:var(--slate-900);border-color:#ffffff;font-weight:700;white-space:nowrap;">
+              <i class="fas fa-paper-plane" style="color:var(--primary);"></i> Talk to Enterprise Sales
+            </a>
+          </div>
+        </div>
+
+        <!-- Pricing FAQ Accordion -->
+        <div class="pricing-faq-wrap" id="faq">
+          <div class="pricing-faq-header">
+            <h3>Frequently Asked Billing Questions</h3>
+            <p>Everything you need to know about our plans, billing cycles, and policies.</p>
+          </div>
+
+          <div class="faq-container">
+            <div class="faq-item active">
+              <button class="faq-question" type="button">
+                <span>Can I switch plans or cancel my subscription at any time?</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer">
+                Yes, absolutely! You can upgrade, downgrade, or cancel your subscription at any time directly from this Plans & Billing dashboard. If you cancel, your paid features will remain active until the end of your current billing period, and no further charges will occur.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>What happens if my campaigns exceed my monthly scan limit?</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer">
+                We believe your customers should never see a broken link! Your dynamic QR codes will continue to scan and redirect reliably. We will send you an email notification when you reach 80% and 100% of your quota, giving you ample time to upgrade to a higher tier.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>Do dynamic QR codes ever expire or stop working?</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer">
+                Dynamic QR codes stay active permanently as long as your account remains in good standing. Even if you downgrade to the Free tier, your first 5 dynamic codes remain active and scannable without interruption.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>How does the 20% discount on annual billing work?</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer">
+                When you choose Annual Billing, you receive 2 months completely free each year (a 20% discount compared to monthly payments). For example, the Pro plan is reduced from $15/month to $12/month (billed annually as $144), saving you $36 every year.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" type="button">
+                <span>What payment methods do you support?</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="faq-answer">
+                We accept PayPal, all major international credit and debit cards (Visa, MasterCard, American Express, Discover), and PayPal Credit. All transactions are securely processed and 256-bit SSL encrypted.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modern Footer for Guests -->
+  <footer class="footer" id="pricing-footer" style="display:none;margin-top:4rem;">
+    <!-- Newsletter Bar -->
+    <div class="footer-newsletter-wrap">
+      <div class="footer-newsletter-text">
+        <h4><i class="fas fa-paper-plane" style="color:var(--secondary);margin-right:0.5rem;"></i> Stay Updated with QuickQR</h4>
+        <p>Get monthly insights on QR scan analytics, dynamic campaign tips, and feature updates.</p>
+      </div>
+      <form class="footer-newsletter-form" onsubmit="event.preventDefault(); API.showToast('Thank you for subscribing!', 'success'); this.reset();">
+        <input type="email" class="footer-newsletter-input" placeholder="Enter your email address..." required>
+        <button type="submit" class="btn btn-primary" style="white-space:nowrap;padding:0.65rem 1.25rem;">
+          Subscribe
+        </button>
+      </form>
+    </div>
+
+    <div class="footer-content">
+      <!-- Col 1: Brand & Identity -->
+      <div>
+        <a href="index.html" class="footer-brand-title">
+          <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+          QuickQR
+        </a>
+        <p class="footer-desc">
+          Next-generation dynamic QR infrastructure. Track scans, manage campaigns, analyze traffic geolocations, and update URLs in real-time.
+        </p>
+        <div class="footer-status-pill">
+          <span class="pulse-dot"></span>
+          <span>All Systems Operational (99.99%)</span>
+        </div>
+        <div class="footer-social-links">
+          <a href="https://github.com" target="_blank" rel="noopener" class="footer-social-link" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://twitter.com" target="_blank" rel="noopener" class="footer-social-link" title="Twitter / X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="footer-social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://discord.com" target="_blank" rel="noopener" class="footer-social-link" title="Discord"><i class="fab fa-discord"></i></a>
+        </div>
+      </div>
+
+      <!-- Col 2: Product -->
+      <div>
+        <h4 class="footer-col-title">Product</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Dynamic QRs</a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Scan Telemetry</a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Vector SVG Export <span class="footer-badge-mini">PRO</span></a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Custom Branding</a></li>
+          <li><a href="pricing.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Plans & Pricing</a></li>
+          <li><a href="docs.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Developer REST API</a></li>
+          <li><a href="faq.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Help & FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Solutions -->
+      <div>
+        <h4 class="footer-col-title">Solutions</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Restaurant Menus</a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Billboard & Print Ads</a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Event Passes & Tickets</a></li>
+          <li><a href="index.html#features"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Smart Business Cards</a></li>
+          <li><a href="contact.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Enterprise Solutions</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Platform -->
+      <div>
+        <h4 class="footer-col-title">Platform</h4>
+        <ul class="footer-links-list">
+          <li><a href="login.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Sign In</a></li>
+          <li><a href="register.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Register Free</a></li>
+          <li><a href="dashboard.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> User Dashboard</a></li>
+          <li><a href="privacy.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Privacy & GDPR</a></li>
+          <li><a href="terms.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Terms of Service</a></li>
+          <li><a href="contact.html"><i class="fas fa-angle-right" style="font-size:0.75rem;"></i> Contact & Support</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 5: Sandbox Accounts -->
+      <div>
+        <h4 class="footer-col-title">Sandbox Access</h4>
+        <div class="footer-sandbox-card">
+          <div class="footer-sandbox-header">
+            <span><i class="fas fa-terminal"></i> Demo Accounts</span>
+            <span style="font-size:0.7rem;color:#38bdf8;font-weight:600;">Instant Login</span>
+          </div>
+          
+          <div class="footer-sandbox-item">
+            <div>
+              <div style="font-weight:700;color:#f8fafc;font-size:0.75rem;">Super Admin</div>
+              <code>admin@example.com</code>
+            </div>
+            <a href="login.html?fill=admin" class="footer-sandbox-btn" title="Sign in as Admin">
+              <i class="fas fa-arrow-right-to-bracket"></i> Fill
+            </a>
+          </div>
+
+          <div class="footer-sandbox-item">
+            <div>
+              <div style="font-weight:700;color:#f8fafc;font-size:0.75rem;">Standard User</div>
+              <code>demo@example.com</code>
+            </div>
+            <a href="login.html?fill=demo" class="footer-sandbox-btn" title="Sign in as User">
+              <i class="fas fa-arrow-right-to-bracket"></i> Fill
+            </a>
+          </div>
+
+          <div style="font-size:0.7rem;color:#64748b;margin-top:0.6rem;display:flex;align-items:center;gap:0.35rem;">
+            <i class="fas fa-key"></i> Pass: <code style="color:#cbd5e1;">admin123</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div>
+        &copy; 2026 QuickQR SaaS Platform. All rights reserved. Built with PHP &amp; Vanilla JS.
+      </div>
+      
+      <div class="footer-trust-badges">
+        <span class="footer-trust-badge"><i class="fas fa-lock" style="color:#10b981;"></i> 256-Bit SSL Encrypted</span>
+        <span class="footer-trust-badge"><i class="fas fa-shield-halved" style="color:#0ea5e9;"></i> GDPR IP Anonymized</span>
+        <span class="footer-trust-badge"><i class="fab fa-paypal" style="color:#0079C1;"></i> PayPal Verified</span>
+      </div>
+
+      <div>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top-btn" title="Back to top">
+          <i class="fas fa-arrow-up"></i>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PayPal Checkout Modal -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal-container" style="max-width:480px;">
+      <div class="modal-header">
+        <h3 id="checkout-plan-title"><i class="fab fa-paypal" style="color:#0079C1;margin-right:0.4rem;"></i> Upgrade Plan</h3>
+        <button class="modal-close" onclick="App.closeModal('checkout-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="background:var(--slate-50);border:1px solid var(--slate-200);border-radius:var(--radius-lg);padding:1rem;margin-bottom:1.25rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.35rem;">
+            <strong id="checkout-summary-name" style="font-size:1.1rem;color:var(--slate-900);">Pro Plan</strong>
+            <span id="checkout-summary-price" style="font-size:1.2rem;font-weight:800;color:var(--primary);">$15.00 / month</span>
+          </div>
+          <p id="checkout-summary-desc" style="font-size:0.8rem;color:var(--slate-500);margin:0;">
+            Instant activation with dynamic QR codes, analytics, and custom branding.
+          </p>
+        </div>
+
+        <div class="form-group" style="margin-bottom:1.25rem;">
+          <label class="form-label" style="font-weight:700;">Billing Cycle</label>
+          <div style="display:flex;gap:0.75rem;">
+            <label style="flex:1;display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.85rem;border:1px solid var(--slate-200);border-radius:var(--radius-md);cursor:pointer;">
+              <input type="radio" name="checkout_cycle" value="monthly" checked onchange="changeBillingCycle('monthly')">
+              <span style="font-size:0.875rem;font-weight:600;">Monthly</span>
+            </label>
+            <label style="flex:1;display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.85rem;border:1px solid var(--slate-200);border-radius:var(--radius-md);cursor:pointer;">
+              <input type="radio" name="checkout_cycle" value="yearly" onchange="changeBillingCycle('yearly')">
+              <span style="font-size:0.875rem;font-weight:600;">Yearly <small style="color:var(--success);font-weight:700;">(Save 15%)</small></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- PayPal Button Container -->
+        <div id="paypal-wrapper">
+          <div id="paypal-loading" style="text-align:center;padding:1.5rem;color:var(--slate-500);font-size:0.875rem;">
+            <i class="fas fa-spinner fa-spin"></i> Initializing secure PayPal gateway...
+          </div>
+          <div id="paypal-button-container"></div>
+        </div>
+
+        <!-- Fallback if PayPal not yet configured -->
+        <div id="paypal-unconfigured-box" style="display:none;background:#fef3c7;border:1px solid #fde68a;border-radius:var(--radius-lg);padding:1.25rem;text-align:center;">
+          <div style="font-size:1.5rem;color:#b45309;margin-bottom:0.5rem;"><i class="fab fa-paypal"></i></div>
+          <h4 style="font-size:0.95rem;font-weight:700;color:#92400e;margin-bottom:0.35rem;">PayPal Gateway Inactive</h4>
+          <p style="font-size:0.825rem;color:#b45309;margin-bottom:1rem;" id="paypal-unconfigured-msg">
+            Online PayPal checkout is not yet enabled by the administrator. Please configure Client ID & Secret in Admin Panel.
+          </p>
+          <div id="paypal-admin-test-action" style="display:none;">
+            <button onclick="directAdminUpgrade()" class="btn btn-outline btn-sm" style="background:#fff;">
+              <i class="fas fa-shield-halved"></i> Direct Test Upgrade (Admin Only)
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content:space-between;align-items:center;">
+        <span style="font-size:0.75rem;color:var(--slate-400);display:flex;align-items:center;gap:0.35rem;">
+          <i class="fas fa-lock"></i> SSL & PayPal Protected
+        </span>
+        <button class="btn btn-outline btn-sm" onclick="App.closeModal('checkout-modal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let cachedPlans = [];
+    let currentUser = null;
+    let activePlanId = 1;
+    let selectedPlanId = 2;
+    let selectedCycle = 'monthly';
+    let currentBillingCycle = 'monthly';
+    let paypalConfig = null;
+    let paypalButtonsInstance = null;
+
+    function formatQrLimit(limit) {
+      const n = parseInt(limit, 10);
+      if (isNaN(n) || n >= 999999 || n <= 0) return 'Unlimited';
+      return n.toLocaleString();
+    }
+
+    function formatScanLimit(limit) {
+      const n = parseInt(limit, 10);
+      if (isNaN(n) || n >= 9999999 || n <= 0) return 'Unlimited';
+      if (n >= 1000000) return `${(n / 1000000).toLocaleString()}+`;
+      return n.toLocaleString();
+    }
+
+    function toggleBillingPeriod() {
+      setBillingToggle(currentBillingCycle === 'monthly' ? 'yearly' : 'monthly');
+    }
+
+    function setBillingToggle(cycle) {
+      currentBillingCycle = cycle;
+      const isYearly = cycle === 'yearly';
+
+      const switchBtn = document.getElementById('billing-switch');
+      if (switchBtn) {
+        switchBtn.classList.toggle('yearly', isYearly);
+      }
+
+      const lblMonthly = document.getElementById('label-monthly');
+      const lblYearly = document.getElementById('label-yearly');
+      if (lblMonthly) lblMonthly.classList.toggle('active', !isYearly);
+      if (lblYearly) lblYearly.classList.toggle('active', isYearly);
+
+      updatePlanPriceDisplays();
+    }
+
+    function updatePlanPriceDisplays() {
+      if (!cachedPlans || !cachedPlans.length) return;
+      const isYearly = currentBillingCycle === 'yearly';
+
+      cachedPlans.forEach(p => {
+        const priceEl = document.getElementById(`price-plan-${p.id}`);
+        const subtextEl = document.getElementById(`subtext-plan-${p.id}`);
+        if (!priceEl) return;
+
+        const monthlyPrice = parseFloat(p.price_monthly) || 0;
+
+        if (monthlyPrice === 0) {
+          priceEl.innerHTML = `$0 <span class="plan-period">/ month</span>`;
+          if (subtextEl) subtextEl.textContent = 'Free forever • No card required';
+        } else if (isYearly) {
+          const annualTotal = Math.round(monthlyPrice * 10);
+          const effectiveMonthly = (annualTotal / 12).toFixed(2);
+          priceEl.innerHTML = `$${effectiveMonthly} <span class="plan-period">/ month</span>`;
+          if (subtextEl) subtextEl.textContent = `Billed $${annualTotal} annually (2 Months Free)`;
+        } else {
+          const displayPrice = monthlyPrice % 1 === 0 ? monthlyPrice.toFixed(0) : monthlyPrice.toFixed(2);
+          priceEl.innerHTML = `$${displayPrice} <span class="plan-period">/ month</span>`;
+          if (subtextEl) subtextEl.textContent = `Billed monthly ($${displayPrice}/mo)`;
+        }
+      });
+    }
+
+    function renderPricingCards(plans) {
+      const grid = document.getElementById('pricing-grid');
+      if (!grid || !plans || !plans.length) return;
+
+      const isYearly = currentBillingCycle === 'yearly';
+
+      grid.innerHTML = plans.map(p => {
+        const monthlyPrice = parseFloat(p.price_monthly) || 0;
+        const isFree = monthlyPrice === 0;
+        const isFeatured = p.slug === 'pro' || p.id === 2;
+
+        let priceHtml = '';
+        let subtext = '';
+
+        if (isFree) {
+          priceHtml = `$0 <span class="plan-period">/ month</span>`;
+          subtext = 'Free forever &bull; No card required';
+        } else if (isYearly) {
+          const annualTotal = Math.round(monthlyPrice * 10);
+          const effectiveMonthly = (annualTotal / 12).toFixed(2);
+          priceHtml = `$${effectiveMonthly} <span class="plan-period">/ month</span>`;
+          subtext = `Billed $${annualTotal} annually (2 Months Free)`;
+        } else {
+          const displayPrice = monthlyPrice % 1 === 0 ? monthlyPrice.toFixed(0) : monthlyPrice.toFixed(2);
+          priceHtml = `$${displayPrice} <span class="plan-period">/ month</span>`;
+          subtext = `Billed monthly ($${displayPrice}/mo)`;
+        }
+
+        const qrLimitStr = formatQrLimit(p.qr_limit);
+        const scanLimitStr = formatScanLimit(p.scan_limit);
+
+        const featuresList = [
+          {
+            enabled: true,
+            html: qrLimitStr === 'Unlimited' 
+              ? `<strong>Unlimited</strong> Dynamic QR Codes` 
+              : `Up to <strong>${escapeHtml(qrLimitStr)}</strong> Dynamic QR Codes`
+          },
+          {
+            enabled: true,
+            html: scanLimitStr === 'Unlimited' 
+              ? `<strong>Unlimited</strong> Scans Included` 
+              : `<strong>${escapeHtml(scanLimitStr)}</strong> Scans / month`
+          },
+          {
+            enabled: Boolean(Number(p.allow_dynamic)),
+            html: `Real-time Target URL Updates`
+          },
+          {
+            enabled: true,
+            html: `Standard PNG Downloads`
+          },
+          {
+            enabled: true,
+            html: Number(p.allow_advanced_analytics) ? `Advanced Geo & Device Analytics` : `Basic Scan Statistics`
+          },
+          {
+            enabled: Boolean(Number(p.allow_custom_colors)),
+            html: `Custom Hex Colors & Eye Styles`
+          },
+          {
+            enabled: Boolean(Number(p.allow_logo)),
+            html: `Center Brand Logo Upload`
+          },
+          {
+            enabled: Boolean(Number(p.allow_svg)),
+            html: `High-Res SVG Vector Export`
+          },
+          {
+            enabled: p.id > 1,
+            html: `Expiration Dates & Status Pause`
+          },
+          {
+            enabled: Boolean(Number(p.allow_api)),
+            html: `Full REST API & Webhooks`
+          }
+        ];
+
+        return `
+          <div class="pricing-card ${isFeatured ? 'featured' : ''}" id="card-plan-${p.id}">
+            ${isFeatured ? '<div class="pricing-badge">Most Popular</div>' : ''}
+            <h3 style="font-size:1.25rem;font-weight:700;">${escapeHtml(p.name)}</h3>
+            <p style="color:var(--slate-500);font-size:0.85rem;">${escapeHtml(p.description || '')}</p>
+            <div class="plan-price-wrap">
+              <div class="plan-price" id="price-plan-${p.id}">${priceHtml}</div>
+              <div class="plan-billing-subtext" id="subtext-plan-${p.id}">${subtext}</div>
+            </div>
+            <ul class="plan-features">
+              ${featuresList.map(f => `
+                <li>
+                  <i class="fas ${f.enabled ? 'fa-check' : 'fa-times'}"></i>
+                  <span>${f.html}</span>
+                </li>
+              `).join('')}
+            </ul>
+            <button onclick="subscribePlan(${p.id})" id="btn-plan-${p.id}" class="btn ${isFeatured ? 'btn-primary' : 'btn-outline'}" style="width:100%;">
+              ${p.id === 1 ? 'Current Plan' : (isFeatured ? 'Upgrade to Pro' : `Upgrade to ${escapeHtml(p.name)}`)}
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderComparisonTable(plans) {
+      const tableCard = document.getElementById('pricing-matrix-table-card') || document.querySelector('.pricing-matrix-table-card');
+      if (!tableCard || !plans || !plans.length) return;
+
+      const colSpanTotal = plans.length + 1;
+
+      const theadHtml = `
+        <tr>
+          <th class="col-feature">Features & Capabilities</th>
+          ${plans.map(p => {
+            const isFeatured = p.slug === 'pro' || p.id === 2;
+            return `
+              <th class="col-plan ${isFeatured ? 'plan-featured-col' : ''}">
+                ${escapeHtml(p.name)}
+                ${isFeatured ? '<span style="font-size:0.7rem;color:var(--primary);display:block;font-weight:600;">RECOMMENDED</span>' : ''}
+              </th>
+            `;
+          }).join('')}
+        </tr>
+      `;
+
+      const checkIcon = '<i class="fas fa-check" style="color:var(--success);"></i>';
+      const crossIcon = '<i class="fas fa-times" style="color:var(--slate-300);"></i>';
+
+      const rows = [
+        { isCategory: true, title: 'QR Code Generation & Limits', icon: 'fa-qrcode' },
+        {
+          feature: 'Active Dynamic QR Codes',
+          values: plans.map(p => {
+            const lim = formatQrLimit(p.qr_limit);
+            return lim === 'Unlimited' ? '<strong>Unlimited</strong>' : escapeHtml(lim);
+          })
+        },
+        {
+          feature: 'Monthly Scan Quota',
+          values: plans.map(p => {
+            const lim = formatScanLimit(p.scan_limit);
+            return lim === 'Unlimited' ? '<strong>Unlimited</strong>' : `${escapeHtml(lim)} / mo`;
+          })
+        },
+        {
+          feature: 'Dynamic Destination URL Changes',
+          values: plans.map(p => Boolean(Number(p.allow_dynamic)) ? `${checkIcon} Unlimited` : crossIcon)
+        },
+        {
+          feature: 'Campaign Expiration Dates & Status Pausing',
+          values: plans.map(p => p.id > 1 ? checkIcon : crossIcon)
+        },
+
+        { isCategory: true, title: 'Design, Styling & Branding', icon: 'fa-palette' },
+        {
+          feature: 'Custom Foreground & Background Colors',
+          values: plans.map(p => Boolean(Number(p.allow_custom_colors)) ? `${checkIcon} Hex & Picker` : crossIcon)
+        },
+        {
+          feature: 'Custom Dot Patterns (Square, Rounded, Dots)',
+          values: plans.map(p => Boolean(Number(p.allow_custom_colors)) ? 'All Patterns' : 'Standard Square')
+        },
+        {
+          feature: 'Corner Eye Customization',
+          values: plans.map(p => Boolean(Number(p.allow_custom_colors)) ? 'Multiple Styles' : 'Standard')
+        },
+        {
+          feature: 'Center Brand Logo Upload',
+          values: plans.map(p => Boolean(Number(p.allow_logo)) ? `${checkIcon} PNG/JPEG/SVG` : crossIcon)
+        },
+
+        { isCategory: true, title: 'Downloads & Print Quality', icon: 'fa-download' },
+        {
+          feature: 'Standard Raster PNG Downloads',
+          values: plans.map(p => p.id === 1 ? `${checkIcon} 300px` : (p.id === 2 ? `${checkIcon} Up to 1200px` : `${checkIcon} Up to 2400px HD`))
+        },
+        {
+          feature: 'Infinite Scalable Vector SVG Exports',
+          values: plans.map(p => Boolean(Number(p.allow_svg)) ? `${checkIcon} Print-Ready` : crossIcon)
+        },
+        {
+          feature: 'Print-Ready Packaging & Billboard Suitability',
+          values: plans.map(p => Boolean(Number(p.allow_svg)) ? `${checkIcon} Commercial Print` : 'Web Only')
+        },
+
+        { isCategory: true, title: 'Analytics & Telemetry', icon: 'fa-chart-line' },
+        {
+          feature: 'Real-Time Scan Counters',
+          values: plans.map(p => `${checkIcon} Real-Time`)
+        },
+        {
+          feature: 'Device & Operating System Breakdown',
+          values: plans.map(p => Boolean(Number(p.allow_advanced_analytics)) ? `${checkIcon} Deep Telemetry` : crossIcon)
+        },
+        {
+          feature: 'Country & Geolocation Analytics',
+          values: plans.map(p => Boolean(Number(p.allow_advanced_analytics)) ? `${checkIcon} Country Maps` : crossIcon)
+        },
+        {
+          feature: 'Analytics CSV / Excel Export',
+          values: plans.map(p => (Boolean(Number(p.allow_api)) || p.id >= 3) ? `${checkIcon} One-Click Export` : crossIcon)
+        },
+
+        { isCategory: true, title: 'Developer API & Speed', icon: 'fa-code' },
+        {
+          feature: 'REST API Access with Bearer Tokens',
+          values: plans.map(p => Boolean(Number(p.allow_api)) ? `${checkIcon} Full CRUD API` : crossIcon)
+        },
+        {
+          feature: 'Sub-millisecond Redis Caching Engine',
+          values: plans.map(p => p.id === 1 ? 'Shared' : (p.id === 2 ? 'High Priority' : 'Dedicated Tier'))
+        },
+        {
+          feature: 'GDPR-Compliant IP Anonymization',
+          values: plans.map(() => `${checkIcon} Included`)
+        },
+
+        { isCategory: true, title: 'Customer Support', icon: 'fa-headset' },
+        {
+          feature: 'Support Channels',
+          values: plans.map(p => p.id === 1 ? 'Documentation' : (p.id === 2 ? 'Priority Email' : '24/7 Dedicated Support'))
+        },
+        {
+          feature: 'Guaranteed Uptime SLA',
+          values: plans.map(p => p.id === 1 ? '99.5%' : (p.id === 2 ? '99.9%' : '<strong>99.99% Enterprise SLA</strong>'))
+        }
+      ];
+
+      const tbodyHtml = rows.map(r => {
+        if (r.isCategory) {
+          return `
+            <tr class="category-row">
+              <td colspan="${colSpanTotal}">
+                <i class="fas ${r.icon}" style="margin-right:0.4rem;color:var(--primary);"></i> ${escapeHtml(r.title)}
+              </td>
+            </tr>
+          `;
+        }
+        return `
+          <tr>
+            <td>${escapeHtml(r.feature)}</td>
+            ${r.values.map((val, idx) => {
+              const isFeatured = plans[idx]?.slug === 'pro' || plans[idx]?.id === 2;
+              return `<td class="col-plan ${isFeatured ? 'plan-featured-col' : ''}">${val}</td>`;
+            }).join('')}
+          </tr>
+        `;
+      }).join('');
+
+      tableCard.innerHTML = `
+        <table class="pricing-matrix-table">
+          <thead>${theadHtml}</thead>
+          <tbody>${tbodyHtml}</tbody>
+        </table>
+      `;
+    }
+
+    async function loadPlans() {
+      const user = await Auth.checkUser();
+      currentUser = user;
+
+      const sidebar = document.querySelector('aside.sidebar');
+      const mainContent = document.querySelector('main.main-content');
+      const publicNav = document.getElementById('public-navbar');
+      const topBar = document.querySelector('.top-bar');
+
+      if (!user) {
+        if (sidebar) sidebar.style.display = 'none';
+        if (mainContent) mainContent.style.marginLeft = '0';
+        if (publicNav) publicNav.style.display = 'flex';
+        if (topBar) topBar.style.display = 'none';
+        const pricingFooter = document.getElementById('pricing-footer');
+        if (pricingFooter) pricingFooter.style.display = 'block';
+      } else {
+        if (sidebar) sidebar.style.display = 'flex';
+        if (mainContent) mainContent.style.marginLeft = '';
+        if (publicNav) publicNav.style.display = 'none';
+        if (topBar) topBar.style.display = 'flex';
+        const pricingFooter = document.getElementById('pricing-footer');
+        if (pricingFooter) pricingFooter.style.display = 'none';
+      }
+
+      try {
+        const res = await API.get('/user/plans.php');
+        const billingEnabled = res.data?.billing_enabled;
+
+        if (!billingEnabled && (!user || user.role !== 'admin')) {
+          const contentBody = document.querySelector('.content-body');
+          if (contentBody) {
+            contentBody.innerHTML = `
+              <div class="empty-state" style="background:#fff;border-radius:var(--radius-xl);border:1px solid var(--slate-200);max-width:550px;margin:3rem auto;padding:3rem 2rem;text-align:center;">
+                <div class="empty-state-icon" style="background:var(--slate-100);color:var(--slate-400);margin:0 auto 1.25rem;"><i class="fas fa-crown"></i></div>
+                <h3 style="font-size:1.35rem;font-weight:700;color:var(--slate-900);margin-bottom:0.75rem;">Plans & Billing Disabled</h3>
+                <p style="color:var(--slate-500);font-size:0.95rem;line-height:1.6;margin-bottom:1.5rem;">
+                  Subscription plans and public billing are currently turned off by the platform administrator.
+                </p>
+                <a href="${user ? 'dashboard.html' : 'index.html'}" class="btn btn-primary"><i class="fas fa-${user ? 'th-large' : 'home'}"></i> Return to ${user ? 'Dashboard' : 'Home'}</a>
+              </div>
+            `;
+          }
+          return;
+        }
+
+        if (!billingEnabled && user?.role === 'admin') {
+          const targetBar = topBar || publicNav;
+          if (targetBar && !document.getElementById('admin-billing-disabled-banner')) {
+            const alert = document.createElement('div');
+            alert.id = 'admin-billing-disabled-banner';
+            alert.style.cssText = 'background:#fef3c7;border:1px solid #fde68a;color:#92400e;padding:0.75rem 1.25rem;border-radius:var(--radius-lg);margin:1rem auto;max-width:1050px;display:flex;align-items:center;justify-content:space-between;';
+            alert.innerHTML = `
+              <span><i class="fas fa-eye-slash" style="margin-right:0.5rem;"></i> <strong>Super Admin Notice:</strong> Billing is currently <strong>TURNED OFF</strong> and hidden from regular users.</span>
+              <a href="admin.html" class="btn btn-outline btn-sm" style="font-size:0.75rem;padding:0.25rem 0.6rem;background:#fff;">Manage in Admin</a>
+            `;
+            targetBar.insertAdjacentElement('afterend', alert);
+          }
+        }
+
+        if (res.data?.plans) {
+          cachedPlans = res.data.plans;
+          renderPricingCards(cachedPlans);
+          renderComparisonTable(cachedPlans);
+        }
+
+        const activePlan = res.data?.active_plan;
+        if (activePlan) {
+          activePlanId = parseInt(activePlan.id, 10);
+        }
+        updatePlanButtons(currentUser);
+
+        // Auto-open checkout if user came after register/login with ?plan=X
+        const urlParams = new URLSearchParams(window.location.search);
+        const autoPlan = parseInt(urlParams.get('plan'), 10);
+        if (autoPlan && user && autoPlan !== activePlanId) {
+          openCheckoutModal(autoPlan);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+
+      // Check PayPal configuration
+      checkPayPalConfig();
+    }
+
+    async function checkPayPalConfig() {
+      try {
+        const res = await API.get('/payment/paypal/config.php');
+        paypalConfig = res.data;
+      } catch (e) {
+        paypalConfig = null;
+      }
+    }
+
+    function updatePlanButtons(user = currentUser) {
+      if (!cachedPlans || !cachedPlans.length) return;
+
+      cachedPlans.forEach(p => {
+        const btn = document.getElementById(`btn-plan-${p.id}`);
+        if (!btn) return;
+
+        if (!user) {
+          if (p.id === 1) {
+            btn.textContent = 'Get Started Free';
+            btn.className = 'btn btn-outline';
+            btn.disabled = false;
+            btn.onclick = () => window.location.href = 'register.html';
+          } else {
+            const isFeatured = p.slug === 'pro' || p.id === 2;
+            btn.textContent = `Get Started with ${p.name}`;
+            btn.className = `btn ${isFeatured ? 'btn-primary' : 'btn-outline'}`;
+            btn.disabled = false;
+            btn.onclick = () => window.location.href = `register.html?plan=${p.id}`;
+          }
+          return;
+        }
+
+        btn.onclick = () => subscribePlan(p.id);
+
+        if (p.id === activePlanId) {
+          btn.textContent = 'Active Plan';
+          btn.className = 'btn btn-secondary';
+          btn.disabled = true;
+        } else if (p.id < activePlanId) {
+          btn.textContent = 'Downgrade';
+          btn.className = 'btn btn-outline';
+          btn.disabled = false;
+        } else {
+          const isFeatured = p.slug === 'pro' || p.id === 2;
+          btn.textContent = `Upgrade to ${p.name}`;
+          btn.className = `btn ${isFeatured ? 'btn-primary' : 'btn-outline'}`;
+          btn.disabled = false;
+        }
+      });
+    }
+
+    async function subscribePlan(planId) {
+      const user = Auth.getUser();
+      if (!user) {
+        window.location.href = `register.html?plan=${planId}`;
+        return;
+      }
+
+      if (planId === activePlanId) return;
+
+      if (planId === 1) {
+        if (!confirm('Are you sure you want to switch to the Free plan?')) return;
+        try {
+          const res = await API.post('/user/plans.php', { plan_id: 1 });
+          API.showToast(res.message, 'success');
+          activePlanId = 1;
+          updatePlanButtons(user);
+          Auth.checkUser();
+        } catch (e) {
+          API.showToast(e.message || 'Failed to switch plan', 'error');
+        }
+        return;
+      }
+
+      // Paid plan -> open checkout modal
+      selectedPlanId = planId;
+      selectedCycle = currentBillingCycle;
+      const cycleRadio = document.querySelector(`input[name="checkout_cycle"][value="${selectedCycle}"]`);
+      if (cycleRadio) cycleRadio.checked = true;
+
+      openCheckoutModal(planId);
+    }
+
+    function openCheckoutModal(planId) {
+      const targetPlan = (cachedPlans && cachedPlans.find(p => p.id == planId)) || { name: (planId === 2 ? 'Pro' : 'Business'), price_monthly: (planId === 2 ? 15 : 49) };
+      const planName = targetPlan.name;
+      const monthlyPrice = parseFloat(targetPlan.price_monthly) || 0;
+
+      document.getElementById('checkout-plan-title').innerHTML = `<i class="fab fa-paypal" style="color:#0079C1;margin-right:0.4rem;"></i> Upgrade to ${escapeHtml(planName)}`;
+      document.getElementById('checkout-summary-name').textContent = `${escapeHtml(planName)} Plan`;
+      updateCheckoutPrice(monthlyPrice, selectedCycle);
+
+      App.openModal('checkout-modal');
+      renderPayPalCheckout();
+    }
+
+    function changeBillingCycle(cycle) {
+      selectedCycle = cycle;
+      const targetPlan = (cachedPlans && cachedPlans.find(p => p.id == selectedPlanId)) || { price_monthly: (selectedPlanId === 2 ? 15 : 49) };
+      const monthlyPrice = parseFloat(targetPlan.price_monthly) || 0;
+      updateCheckoutPrice(monthlyPrice, cycle);
+      renderPayPalCheckout();
+    }
+
+    function updateCheckoutPrice(monthlyPrice, cycle) {
+      const priceEl = document.getElementById('checkout-summary-price');
+      if (!priceEl) return;
+      if (cycle === 'yearly') {
+        const yearlyTotal = (monthlyPrice * 10).toFixed(2);
+        priceEl.textContent = `$${yearlyTotal} / year`;
+      } else {
+        priceEl.textContent = `$${monthlyPrice.toFixed(2)} / month`;
+      }
+    }
+
+    async function renderPayPalCheckout() {
+      const wrapper = document.getElementById('paypal-wrapper');
+      const loading = document.getElementById('paypal-loading');
+      const btnContainer = document.getElementById('paypal-button-container');
+      const unconfiguredBox = document.getElementById('paypal-unconfigured-box');
+      const adminTestAction = document.getElementById('paypal-admin-test-action');
+
+      btnContainer.innerHTML = '';
+
+      if (!paypalConfig || !paypalConfig.paypal_enabled || !paypalConfig.client_id) {
+        wrapper.style.display = 'none';
+        unconfiguredBox.style.display = 'block';
+
+        const user = Auth.getUser();
+        if (user?.role === 'admin') {
+          adminTestAction.style.display = 'block';
+        } else {
+          adminTestAction.style.display = 'none';
+        }
+        return;
+      }
+
+      wrapper.style.display = 'block';
+      unconfiguredBox.style.display = 'none';
+      loading.style.display = 'block';
+
+      try {
+        const paypal = await loadPayPalSdk(paypalConfig.client_id, paypalConfig.currency || 'USD');
+        loading.style.display = 'none';
+
+        if (paypalButtonsInstance) {
+          try { paypalButtonsInstance.close(); } catch (e) {}
+        }
+
+        btnContainer.innerHTML = '';
+        paypalButtonsInstance = paypal.Buttons({
+          style: {
+            layout: 'vertical',
+            color: 'gold',
+            shape: 'rect',
+            label: 'pay'
+          },
+          createOrder: async () => {
+            try {
+              const res = await API.post('/payment/paypal/create-order.php', {
+                plan_id: selectedPlanId,
+                billing_cycle: selectedCycle
+              });
+              return res.data.order_id;
+            } catch (err) {
+              API.showToast(err.message || 'Failed to create PayPal order', 'error');
+              throw err;
+            }
+          },
+          onApprove: async (data) => {
+            btnContainer.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--slate-600);"><i class="fas fa-spinner fa-spin"></i> Processing & capturing PayPal payment...</div>';
+            try {
+              const res = await API.post('/payment/paypal/capture-order.php', {
+                order_id: data.orderID,
+                plan_id: selectedPlanId
+              });
+              API.showToast(res.message || 'Payment successful! Subscription upgraded.', 'success');
+              App.closeModal('checkout-modal');
+              activePlanId = selectedPlanId;
+              updatePlanButtons();
+              Auth.checkUser();
+            } catch (err) {
+              API.showToast(err.message || 'Payment capture failed', 'error');
+              renderPayPalCheckout();
+            }
+          },
+          onError: (err) => {
+            console.error('PayPal button error:', err);
+            API.showToast('PayPal payment cancelled or encountered an error.', 'error');
+          }
+        });
+
+        paypalButtonsInstance.render('#paypal-button-container');
+
+      } catch (err) {
+        loading.style.display = 'none';
+        btnContainer.innerHTML = `<div style="color:var(--danger);font-size:0.85rem;text-align:center;padding:1rem;">Failed to load PayPal: ${escapeHtml(err.message)}</div>`;
+      }
+    }
+
+    function loadPayPalSdk(clientId, currency) {
+      return new Promise((resolve, reject) => {
+        if (window.paypal) return resolve(window.paypal);
+
+        const existingScript = document.getElementById('paypal-sdk-script');
+        if (existingScript) existingScript.remove();
+
+        const script = document.createElement('script');
+        script.id = 'paypal-sdk-script';
+        script.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(clientId)}&currency=${encodeURIComponent(currency)}&intent=capture`;
+        script.onload = () => resolve(window.paypal);
+        script.onerror = () => reject(new Error('Failed to load PayPal SDK from paypal.com'));
+        document.head.appendChild(script);
+      });
+    }
+
+    async function directAdminUpgrade() {
+      try {
+        const res = await API.post('/user/plans.php', { plan_id: selectedPlanId, billing_cycle: selectedCycle });
+        API.showToast(res.message || 'Plan activated (Admin bypass)', 'success');
+        App.closeModal('checkout-modal');
+        activePlanId = selectedPlanId;
+        updatePlanButtons();
+        Auth.checkUser();
+      } catch (err) {
+        API.showToast(err.message || 'Failed to activate plan', 'error');
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function togglePricingMobileNav() {
+      const drawer = document.getElementById('pricing-mobile-drawer');
+      const toggle = document.getElementById('pricing-mobile-toggle');
+      if (!drawer) return;
+      const isOpen = drawer.classList.toggle('open');
+      if (toggle) {
+        toggle.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+      }
+    }
+
+    function initFaqAccordion() {
+      document.querySelectorAll('.pricing-faq-wrap .faq-item').forEach(item => {
+        const btn = item.querySelector('.faq-question');
+        if (btn) {
+          btn.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            document.querySelectorAll('.pricing-faq-wrap .faq-item').forEach(other => other.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+          });
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPlans();
+      initFaqAccordion();
+    });
+  </script>
+</body>
+</html>

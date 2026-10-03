@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy & GDPR - QuickQR SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .legal-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      color: #ffffff;
+      padding: 4.5rem 1.5rem 3.5rem;
+      text-align: center;
+      position: relative;
+    }
+    .legal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #a5b4fc;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .legal-container {
+      max-width: 900px;
+      margin: -2rem auto 4rem;
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      padding: 3rem 2.5rem;
+      position: relative;
+      z-index: 10;
+    }
+    .legal-toc {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .legal-toc-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .legal-toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.5rem 1.5rem;
+    }
+    .legal-toc a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition);
+    }
+    .legal-toc a:hover {
+      text-decoration: underline;
+    }
+    .legal-section {
+      margin-bottom: 2.5rem;
+      scroll-margin-top: 5rem;
+    }
+    .legal-section h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--slate-100);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .legal-section p {
+      color: var(--slate-600);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .legal-section ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--slate-600);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .callout-box {
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin: 1.5rem 0;
+    }
+    .callout-box p {
+      margin: 0;
+      color: var(--primary-text);
+      font-size: 0.925rem;
+      font-weight: 500;
+    }
+    @media (max-width: 768px) {
+      .legal-container {
+        margin: -1.5rem 1rem 3rem;
+        padding: 2rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">
+      <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+      QuickQR <span class="brand-tag">v2.0</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-house"></i> Home</a></li>
+      <li><a href="index.html#features" class="nav-link"><i class="fas fa-bolt"></i> Features</a></li>
+      <li><a href="pricing.html" class="nav-link"><i class="fas fa-crown"></i> Pricing</a></li>
+      <li><a href="faq.html" class="nav-link"><i class="fas fa-circle-question"></i> FAQ</a></li>
+      <li><a href="docs.html" class="nav-link"><i class="fas fa-book"></i> API Docs</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-auth-actions">
+      <a href="login.html" class="btn btn-outline btn-sm">Sign In</a>
+      <a href="register.html" class="btn btn-primary btn-sm"><i class="fas fa-rocket"></i> Get Started Free</a>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="legal-hero">
+    <div class="legal-badge">
+      <i class="fas fa-shield-halved"></i> GDPR & CCPA Ready
+    </div>
+    <h1 style="font-size:2.5rem;font-weight:800;margin-bottom:0.75rem;">Privacy Policy & GDPR Compliance</h1>
+    <p style="color:#cbd5e1;font-size:1.05rem;max-width:640px;margin:0 auto;">
+      We believe that QR scan analytics should never come at the expense of individual privacy. Learn how we safeguard your data and anonymize scanner telemetry.
+    </p>
+    <div style="margin-top:1rem;color:#94a3b8;font-size:0.85rem;">
+      <i class="far fa-clock"></i> Effective Date: October 2026 &bull; Version 2.4
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="legal-container">
+
+    <!-- Table of Contents -->
+    <div class="legal-toc">
+      <div class="legal-toc-title">
+        <i class="fas fa-list-ul" style="color:var(--primary);"></i> Table of Contents
+      </div>
+      <ul>
+        <li><a href="#overview"><i class="fas fa-angle-right"></i> 1. Overview & Principles</a></li>
+        <li><a href="#data-collection"><i class="fas fa-angle-right"></i> 2. Information We Collect</a></li>
+        <li><a href="#qr-telemetry"><i class="fas fa-angle-right"></i> 3. QR Scan Telemetry & Anonymization</a></li>
+        <li><a href="#cookies"><i class="fas fa-angle-right"></i> 4. Cookies & Trackers</a></li>
+        <li><a href="#data-usage"><i class="fas fa-angle-right"></i> 5. How We Use Data</a></li>
+        <li><a href="#data-sharing"><i class="fas fa-angle-right"></i> 6. Third Parties & Processors</a></li>
+        <li><a href="#user-rights"><i class="fas fa-angle-right"></i> 7. Your GDPR & Privacy Rights</a></li>
+        <li><a href="#security"><i class="fas fa-angle-right"></i> 8. Security Infrastructure</a></li>
+        <li><a href="#contact"><i class="fas fa-angle-right"></i> 9. Contact & DPO</a></li>
+      </ul>
+    </div>
+
+    <!-- Section 1 -->
+    <section class="legal-section" id="overview">
+      <h2><i class="fas fa-compass" style="color:var(--primary);font-size:1.1rem;"></i> 1. Overview & Principles</h2>
+      <p>
+        QuickQR ("we", "our", or "us") provides high-performance dynamic QR code routing, vector generation, and telemetry services. We design our systems according to the principle of <strong>Privacy by Design and Default</strong>.
+      </p>
+      <p>
+        We do not sell personal data, do not build cross-site behavioural profiles of scanners, and do not employ invasive fingerprinting or third-party advertising tracking libraries.
+      </p>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="legal-section" id="data-collection">
+      <h2><i class="fas fa-database" style="color:var(--primary);font-size:1.1rem;"></i> 2. Information We Collect</h2>
+      <p>We process information in two distinct roles: as an Account Provider (for registered users) and as a Dynamic Routing Provider (for visitors scanning QR codes).</p>
+      <ul>
+        <li><strong>Account Information:</strong> When you register an account, we collect your name, email address, password hash (hashed via bcrypt with high work factor), and plan preference.</li>
+        <li><strong>QR Campaign Configuration:</strong> We store the target destinations you configure (URLs, Wi-Fi keys, vCard contacts, emails), styling parameters (hex colors, error correction, margins), and custom names.</li>
+        <li><strong>Billing Data:</strong> If you upgrade to a paid subscription, payment transactions are securely handled directly by verified payment partners (such as PayPal). We store transaction IDs, subscription status, and billing cycle dates, but never store credit card numbers or banking secrets.</li>
+      </ul>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="legal-section" id="qr-telemetry">
+      <h2><i class="fas fa-fingerprint" style="color:var(--primary);font-size:1.1rem;"></i> 3. QR Scan Telemetry & Zero Raw-IP Storage</h2>
+      <div class="callout-box">
+        <p>
+          <i class="fas fa-shield-check" style="margin-right:0.35rem;"></i>
+          <strong>GDPR Anonymization Guarantee:</strong> QuickQR NEVER stores raw IP addresses in the database. All incoming scan requests are cryptographically salted and hashed using one-way SHA-256 before storage.
+        </p>
+      </div>
+      <p>When an end user scans a dynamic QR code pointing to <code>/r/{short_code}</code>, our edge router logs minimal, aggregate telemetry:</p>
+      <ul>
+        <li><strong>Cryptographic IP Hash:</strong> The IP address is hashed: <code>SHA256(IP + System_Salt)</code>. This allows deduplication of daily unique scans without revealing the visitor's true identity.</li>
+        <li><strong>Device Category & Platform:</strong> Parsed from the HTTP <code>User-Agent</code> header (e.g. Mobile, iOS, Chrome Mobile).</li>
+        <li><strong>Approximate Country & Region:</strong> Derived from non-identifying network headers (e.g. United States, Germany) for demographic reporting.</li>
+        <li><strong>HTTP Referrer:</strong> Originating browser referrer if provided.</li>
+        <li><strong>Timestamp:</strong> Date and time of scan for traffic volume analysis.</li>
+      </ul>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="legal-section" id="cookies">
+      <h2><i class="fas fa-cookie-bite" style="color:var(--primary);font-size:1.1rem;"></i> 4. Cookies & Local Storage</h2>
+      <p>
+        QuickQR uses strictly necessary functional cookies required for platform security and authentication:
+      </p>
+      <ul>
+        <li><code>PHPSESSID</code>: Session cookie to keep your dashboard login authenticated.</li>
+        <li><code>theme_preference</code>: Optional local preference for dark/light mode display.</li>
+      </ul>
+      <p>
+        We do <strong>NOT</strong> set third-party marketing cookies, Google AdSense cookies, Facebook Pixel beacons, or session recording spyware.
+      </p>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="legal-section" id="data-usage">
+      <h2><i class="fas fa-gears" style="color:var(--primary);font-size:1.1rem;"></i> 5. How We Use Data</h2>
+      <p>We process your data strictly to fulfill the contract of service:</p>
+      <ul>
+        <li>Operating the dynamic redirect router with sub-15ms latency.</li>
+        <li>Rendering scan analytics, timeline graphs, and device breakdowns in your user dashboard.</li>
+        <li>Protecting accounts with brute-force rate limiters and DDoS mitigation.</li>
+        <li>Generating vector SVG and high-resolution PNG QR images on demand.</li>
+      </ul>
+    </section>
+
+    <!-- Section 6 -->
+    <section class="legal-section" id="data-sharing">
+      <h2><i class="fas fa-handshake" style="color:var(--primary);font-size:1.1rem;"></i> 6. Third Parties & Data Processors</h2>
+      <p>We do not sell, rent, or monetize your information. We engage only reputable infrastructure providers bound by rigorous Data Processing Agreements (DPA):</p>
+      <ul>
+        <li><strong>Payment Gateways:</strong> PayPal REST API for subscription billing tokenization.</li>
+        <li><strong>CDN & Web Infrastructure:</strong> Secure hosting environments with DDoS protection.</li>
+      </ul>
+    </section>
+
+    <!-- Section 7 -->
+    <section class="legal-section" id="user-rights">
+      <h2><i class="fas fa-user-shield" style="color:var(--primary);font-size:1.1rem;"></i> 7. Your GDPR & Privacy Rights</h2>
+      <p>Under the EU General Data Protection Regulation (GDPR) and California Consumer Privacy Act (CCPA), you retain full control over your information:</p>
+      <ul>
+        <li><strong>Right to Access:</strong> You can view all stored campaigns and analytics directly in your dashboard or request a full data dump.</li>
+        <li><strong>Right to Rectification:</strong> Edit campaign names, target URLs, and account profile anytime in real time.</li>
+        <li><strong>Right to Erasure ("Right to be Forgotten"):</strong> Deleting a QR code removes it immediately. Account termination deletes all associated records.</li>
+        <li><strong>Data Portability:</strong> Export scan analytics in standard JSON / CSV formats and export QR codes in universal SVG vector format.</li>
+      </ul>
+    </section>
+
+    <!-- Section 8 -->
+    <section class="legal-section" id="security">
+      <h2><i class="fas fa-lock" style="color:var(--primary);font-size:1.1rem;"></i> 8. Security Infrastructure</h2>
+      <p>Our application implements modern defense-in-depth security measures:</p>
+      <ul>
+        <li>All transport channels enforce TLS 1.3 / HTTPS encryption.</li>
+        <li>Bcrypt algorithm with work factor 12 for password hashing.</li>
+        <li>100% prepared SQL statements to prevent SQL injection vulnerabilities.</li>
+        <li>Strict destination URL sanitization blocking <code>javascript:</code>, <code>data:</code>, and malicious schemes.</li>
+        <li>Automated IP-based and token-based rate limiting against brute force attempts.</li>
+      </ul>
+    </section>
+
+    <!-- Section 9 -->
+    <section class="legal-section" id="contact">
+      <h2><i class="fas fa-envelope-open-text" style="color:var(--primary);font-size:1.1rem;"></i> 9. Contact Our Data Protection Team</h2>
+      <p>
+        If you have questions regarding this Privacy Policy, wish to exercise your GDPR rights, or need a signed Data Processing Agreement (DPA) for your enterprise, please reach out:
+      </p>
+      <div style="background:var(--slate-50);border:1px solid var(--slate-200);border-radius:var(--radius-lg);padding:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <div style="font-weight:700;color:var(--slate-900);">QuickQR Privacy & Compliance Office</div>
+          <div style="color:var(--slate-600);font-size:0.9rem;">Email: privacy@quickqr.io &bull; dpo@quickqr.io</div>
+        </div>
+        <a href="contact.html" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Contact Support</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modern Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <a href="index.html" class="footer-brand-title">
+          <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+          QuickQR
+        </a>
+        <p class="footer-desc">Next-generation dynamic QR infrastructure with privacy-preserving telemetry.</p>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigation</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pricing.html">Pricing & Plans</a></li>
+          <li><a href="faq.html">Help & FAQ</a></li>
+          <li><a href="docs.html">Developer API</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Legal & Security</h4>
+        <ul class="footer-links-list">
+          <li><a href="privacy.html" style="color:var(--primary);font-weight:600;">Privacy Policy & GDPR</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 QuickQR SaaS Platform. All rights reserved.</div>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script>
+    // Update auth buttons if logged in
+    (async () => {
+      try {
+        const res = await API.get('/auth/me.php', {}, { skipAuthRedirect: true });
+        const user = res.data?.user || res.data;
+        if (user && user.id) {
+          const navAuth = document.getElementById('nav-auth-actions');
+          if (navAuth) {
+            navAuth.innerHTML = `
+              <a href="dashboard.html" class="btn btn-primary btn-sm"><i class="fas fa-th-large"></i> Go to Dashboard</a>
+            `;
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
+

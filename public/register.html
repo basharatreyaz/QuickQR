@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Free - QuickQR SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+    }
+    .auth-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+    }
+    .auth-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: var(--shadow-xl);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" style="background:transparent;border:none;">
+    <a href="index.html" class="brand-logo">
+      <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+      QuickQR
+    </a>
+    <div>
+      <span style="font-size:0.875rem;color:var(--slate-600);margin-right:0.5rem;">Already have an account?</span>
+      <a href="login.html" class="btn btn-outline btn-sm">Sign In</a>
+    </div>
+  </nav>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div style="text-align:center;margin-bottom:1.75rem;">
+        <h1 style="font-size:1.6rem;font-weight:800;color:var(--slate-900);margin-bottom:0.35rem;">Create Your Account</h1>
+        <p style="color:var(--slate-500);font-size:0.9rem;">Start creating and tracking dynamic QR codes for free</p>
+      </div>
+
+      <form id="register-form">
+        <div class="form-group">
+          <label class="form-label" for="name">Full Name</label>
+          <input type="text" id="name" class="form-control" placeholder="Alex Morgan" required autofocus>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="alex@domain.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="At least 6 characters" required minlength="6">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" class="form-control" placeholder="Re-enter password" required minlength="6">
+        </div>
+
+        <button type="submit" id="btn-submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;padding:0.75rem;">
+          <i class="fas fa-user-plus"></i> Create Free Account
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btn-submit');
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (password !== confirmPassword) {
+        API.showToast('Passwords do not match.', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+
+      try {
+        await API.post('/auth/register.php', { name, email, password });
+        API.showToast('Account created successfully! Welcome to QuickQR.', 'success');
+        const urlParams = new URLSearchParams(window.location.search);
+        const planParam = urlParams.get('plan');
+        setTimeout(() => {
+          if (planParam) {
+            window.location.href = `pricing.html?plan=${encodeURIComponent(planParam)}`;
+          } else {
+            window.location.href = 'dashboard.html';
+          }
+        }, 700);
+      } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Free Account';
+        API.showToast(err.message || 'Registration failed.', 'error');
+      }
+    });
+
+    // If already logged in, redirect to dashboard
+    API.get('/auth/me.php').then(res => {
+      if (res.data) window.location.href = 'dashboard.html';
+    }).catch(() => {});
+  </script>
+</body>
+</html>

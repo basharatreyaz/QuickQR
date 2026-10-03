@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>500 - Server Error | QuickQR SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #0f172a 100%);
+      color: #ffffff;
+    }
+    .error-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    .error-card {
+      max-width: 580px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius-xl);
+      padding: 3.5rem 2.5rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .glitch-code {
+      font-size: 5.5rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .glitch-icon {
+      font-size: 3.5rem;
+      color: #f43f5e;
+      -webkit-text-fill-color: #f43f5e;
+      animation: pulse 2s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" style="background:transparent;border-bottom:1px solid rgba(255,255,255,0.1);">
+    <a href="index.html" class="brand-logo" style="color:#ffffff;">
+      <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+      QuickQR <span class="brand-tag">v2.0</span>
+    </a>
+    <div>
+      <a href="index.html" class="btn btn-outline btn-sm" style="color:#ffffff;border-color:rgba(255,255,255,0.3);">
+        <i class="fas fa-house"></i> Home
+      </a>
+    </div>
+  </nav>
+
+  <!-- Error Wrapper -->
+  <div class="error-wrapper">
+    <div class="error-card">
+      <div class="glitch-code">
+        <span>5</span>
+        <i class="fas fa-triangle-exclamation glitch-icon"></i>
+        <span>0</span>
+      </div>
+      <h1 style="font-size:1.85rem;font-weight:800;margin-bottom:0.75rem;color:#ffffff;">Internal Server Error</h1>
+      <p style="color:#94a3b8;font-size:1rem;line-height:1.6;margin-bottom:2rem;">
+        An unexpected server error occurred while processing your request. Our engineering team has been notified, and the incident has been logged.
+      </p>
+
+      <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+        <a href="javascript:location.reload();" class="btn btn-primary" style="padding:0.75rem 1.5rem;">
+          <i class="fas fa-rotate"></i> Try Again
+        </a>
+        <a href="index.html" class="btn btn-outline" style="color:#ffffff;border-color:rgba(255,255,255,0.3);padding:0.75rem 1.5rem;">
+          <i class="fas fa-house"></i> Back to Homepage
+        </a>
+      </div>
+
+      <div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:center;gap:1.5rem;font-size:0.875rem;">
+        <a href="contact.html" style="color:#a5b4fc;text-decoration:none;"><i class="fas fa-envelope"></i> Contact Support</a>
+        <a href="faq.html" style="color:#a5b4fc;text-decoration:none;"><i class="fas fa-circle-question"></i> Help & FAQ</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

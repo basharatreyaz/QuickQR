@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service - QuickQR SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .legal-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      color: #ffffff;
+      padding: 4.5rem 1.5rem 3.5rem;
+      text-align: center;
+      position: relative;
+    }
+    .legal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      color: #a5b4fc;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .legal-container {
+      max-width: 900px;
+      margin: -2rem auto 4rem;
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      padding: 3rem 2.5rem;
+      position: relative;
+      z-index: 10;
+    }
+    .legal-toc {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .legal-toc-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .legal-toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.5rem 1.5rem;
+    }
+    .legal-toc a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition);
+    }
+    .legal-toc a:hover {
+      text-decoration: underline;
+    }
+    .legal-section {
+      margin-bottom: 2.5rem;
+      scroll-margin-top: 5rem;
+    }
+    .legal-section h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--slate-100);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .legal-section p {
+      color: var(--slate-600);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .legal-section ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--slate-600);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .callout-box {
+      background: var(--danger-light);
+      border-left: 4px solid var(--danger);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin: 1.5rem 0;
+    }
+    .callout-box p {
+      margin: 0;
+      color: #991b1b;
+      font-size: 0.925rem;
+      font-weight: 500;
+    }
+    @media (max-width: 768px) {
+      .legal-container {
+        margin: -1.5rem 1rem 3rem;
+        padding: 2rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">
+      <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+      QuickQR <span class="brand-tag">v2.0</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-house"></i> Home</a></li>
+      <li><a href="index.html#features" class="nav-link"><i class="fas fa-bolt"></i> Features</a></li>
+      <li><a href="pricing.html" class="nav-link"><i class="fas fa-crown"></i> Pricing</a></li>
+      <li><a href="faq.html" class="nav-link"><i class="fas fa-circle-question"></i> FAQ</a></li>
+      <li><a href="docs.html" class="nav-link"><i class="fas fa-book"></i> API Docs</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-auth-actions">
+      <a href="login.html" class="btn btn-outline btn-sm">Sign In</a>
+      <a href="register.html" class="btn btn-primary btn-sm"><i class="fas fa-rocket"></i> Get Started Free</a>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="legal-hero">
+    <div class="legal-badge">
+      <i class="fas fa-file-contract"></i> User Agreement
+    </div>
+    <h1 style="font-size:2.5rem;font-weight:800;margin-bottom:0.75rem;">Terms of Service</h1>
+    <p style="color:#cbd5e1;font-size:1.05rem;max-width:640px;margin:0 auto;">
+      Please read these terms carefully before accessing or using QuickQR's dynamic routing platform, API services, or vector generator.
+    </p>
+    <div style="margin-top:1rem;color:#94a3b8;font-size:0.85rem;">
+      <i class="far fa-clock"></i> Effective Date: October 2026 &bull; Version 2.2
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="legal-container">
+
+    <!-- Table of Contents -->
+    <div class="legal-toc">
+      <div class="legal-toc-title">
+        <i class="fas fa-list-ul" style="color:var(--primary);"></i> Table of Contents
+      </div>
+      <ul>
+        <li><a href="#acceptance"><i class="fas fa-angle-right"></i> 1. Acceptance of Terms</a></li>
+        <li><a href="#service-scope"><i class="fas fa-angle-right"></i> 2. Scope of Service</a></li>
+        <li><a href="#account-security"><i class="fas fa-angle-right"></i> 3. Account Responsibilities</a></li>
+        <li><a href="#acceptable-use"><i class="fas fa-angle-right"></i> 4. Acceptable Use & Anti-Abuse</a></li>
+        <li><a href="#subscriptions"><i class="fas fa-angle-right"></i> 5. Subscriptions & Billing</a></li>
+        <li><a href="#dynamic-redirects"><i class="fas fa-angle-right"></i> 6. Dynamic Redirections & SLA</a></li>
+        <li><a href="#ip-rights"><i class="fas fa-angle-right"></i> 7. Intellectual Property</a></li>
+        <li><a href="#liability"><i class="fas fa-angle-right"></i> 8. Limitation of Liability</a></li>
+        <li><a href="#termination"><i class="fas fa-angle-right"></i> 9. Account Termination</a></li>
+        <li><a href="#contact"><i class="fas fa-angle-right"></i> 10. Contact Information</a></li>
+      </ul>
+    </div>
+
+    <!-- Section 1 -->
+    <section class="legal-section" id="acceptance">
+      <h2><i class="fas fa-check-circle" style="color:var(--primary);font-size:1.1rem;"></i> 1. Acceptance of Terms</h2>
+      <p>
+        By creating an account, generating a QR code, utilizing our API endpoints, or visiting our dynamic redirect links, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must not access or use the platform.
+      </p>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="legal-section" id="service-scope">
+      <h2><i class="fas fa-cube" style="color:var(--primary);font-size:1.1rem;"></i> 2. Scope of Service</h2>
+      <p>
+        QuickQR grants you a non-exclusive, non-transferable, revocable license to access our platform for generating static QR codes, creating and maintaining dynamic QR campaigns, analyzing scan telemetry, and integrating our REST API according to your subscription tier limits.
+      </p>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="legal-section" id="account-security">
+      <h2><i class="fas fa-shield-alt" style="color:var(--primary);font-size:1.1rem;"></i> 3. Account Responsibilities</h2>
+      <p>
+        You are responsible for safeguarding your login credentials and API keys. Any activity initiated from your account or using your API secret token is your responsibility. You agree to notify us immediately of any unauthorized access or breach of security.
+      </p>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="legal-section" id="acceptable-use">
+      <h2><i class="fas fa-ban" style="color:var(--danger);font-size:1.1rem;"></i> 4. Acceptable Use & Strict Anti-Abuse Policy</h2>
+      <div class="callout-box">
+        <p>
+          <i class="fas fa-triangle-exclamation" style="margin-right:0.35rem;"></i>
+          <strong>Zero Abuse Tolerance:</strong> QuickQR strictly prohibits using dynamic QR codes for phishing, malware distribution, deceptive URL masquerading, fraud, harassment, or illegal material.
+        </p>
+      </div>
+      <p>You agree NOT to use the service to:</p>
+      <ul>
+        <li>Generate QR codes pointing to malicious software, exploit kits, or credential harvesting phishing sites.</li>
+        <li>Bypass security controls, inject client-side script vectors (<code>javascript:</code> or <code>data:</code> URIs), or perform denial-of-service attacks.</li>
+        <li>Resell or redistribute API access beyond the permissions of your subscribed plan.</li>
+        <li>Mislead end-users by disguising harmful destinations behind legitimate brand names.</li>
+      </ul>
+      <p>
+        Violations will result in instantaneous campaign deactivation, account termination, and potential reporting to law enforcement or threat intelligence clearinghouses.
+      </p>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="legal-section" id="subscriptions">
+      <h2><i class="fas fa-credit-card" style="color:var(--primary);font-size:1.1rem;"></i> 5. Subscriptions, Billing & Cancellations</h2>
+      <p>
+        QuickQR offers a lifetime Free tier as well as upgraded Pro and Business subscriptions billed monthly or annually.
+      </p>
+      <ul>
+        <li><strong>Automatic Renewal:</strong> Paid subscriptions automatically renew at the close of each billing cycle until cancelled.</li>
+        <li><strong>Plan Upgrades:</strong> You can upgrade your tier at any time through the dashboard or pricing portal. New quotas (QR code allowances, monthly scan allocations, vector SVG exports) become available immediately.</li>
+        <li><strong>Cancellation:</strong> You may cancel paid subscriptions anytime. Your plan benefits remain active until the end of the paid term.</li>
+        <li><strong>Refund Policy:</strong> We offer a 14-day money-back guarantee for first-time subscription purchases if you are unsatisfied with our service.</li>
+      </ul>
+    </section>
+
+    <!-- Section 6 -->
+    <section class="legal-section" id="dynamic-redirects">
+      <h2><i class="fas fa-bolt" style="color:var(--primary);font-size:1.1rem;"></i> 6. Dynamic Redirections & 99.99% Uptime SLA</h2>
+      <p>
+        We architect our redirect engine with Redis caching and sub-15ms execution to deliver high reliability. While we aim for 99.99% system availability, planned maintenance or external backbone disruptions may occasionally occur. QuickQR is not liable for commercial losses resulting from third-party network outages.
+      </p>
+    </section>
+
+    <!-- Section 7 -->
+    <section class="legal-section" id="ip-rights">
+      <h2><i class="fas fa-copyright" style="color:var(--primary);font-size:1.1rem;"></i> 7. Intellectual Property</h2>
+      <p>
+        You retain all proprietary rights, trademarks, and copyright to logos, destination links, and marketing media you upload or configure. QuickQR retains all ownership of our software, brand, algorithms, SVG generators, and database schema.
+      </p>
+    </section>
+
+    <!-- Section 8 -->
+    <section class="legal-section" id="liability">
+      <h2><i class="fas fa-scale-balanced" style="color:var(--primary);font-size:1.1rem;"></i> 8. Limitation of Liability</h2>
+      <p>
+        To the fullest extent permitted by law, QuickQR shall not be liable for any indirect, incidental, punitive, or consequential damages resulting from lost profits, printed material replacement costs, or inability to access the service.
+      </p>
+    </section>
+
+    <!-- Section 9 -->
+    <section class="legal-section" id="termination">
+      <h2><i class="fas fa-door-closed" style="color:var(--primary);font-size:1.1rem;"></i> 9. Account Termination</h2>
+      <p>
+        You can close your account at any time from your account settings. We reserve the right to suspend or delete accounts that engage in fraudulent actions, violate acceptable use, or fail to settle outstanding fees.
+      </p>
+    </section>
+
+    <!-- Section 10 -->
+    <section class="legal-section" id="contact">
+      <h2><i class="fas fa-comments" style="color:var(--primary);font-size:1.1rem;"></i> 10. Contact Information</h2>
+      <p>
+        For inquiries regarding these Terms of Service or to report abusive QR codes, contact our legal team:
+      </p>
+      <div style="background:var(--slate-50);border:1px solid var(--slate-200);border-radius:var(--radius-lg);padding:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <div style="font-weight:700;color:var(--slate-900);">QuickQR Legal & Trust Office</div>
+          <div style="color:var(--slate-600);font-size:0.9rem;">Email: legal@quickqr.io &bull; abuse@quickqr.io</div>
+        </div>
+        <a href="contact.html" class="btn btn-primary btn-sm"><i class="fas fa-envelope"></i> Contact Support</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modern Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <a href="index.html" class="footer-brand-title">
+          <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+          QuickQR
+        </a>
+        <p class="footer-desc">Next-generation dynamic QR infrastructure with privacy-preserving telemetry.</p>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigation</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pricing.html">Pricing & Plans</a></li>
+          <li><a href="faq.html">Help & FAQ</a></li>
+          <li><a href="docs.html">Developer API</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Legal & Security</h4>
+        <ul class="footer-links-list">
+          <li><a href="privacy.html">Privacy Policy & GDPR</a></li>
+          <li><a href="terms.html" style="color:var(--primary);font-weight:600;">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 QuickQR SaaS Platform. All rights reserved.</div>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script>
+    (async () => {
+      try {
+        const res = await API.get('/auth/me.php', {}, { skipAuthRedirect: true });
+        const user = res.data?.user || res.data;
+        if (user && user.id) {
+          const navAuth = document.getElementById('nav-auth-actions');
+          if (navAuth) {
+            navAuth.innerHTML = `
+              <a href="dashboard.html" class="btn btn-primary btn-sm"><i class="fas fa-th-large"></i> Go to Dashboard</a>
+            `;
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
+

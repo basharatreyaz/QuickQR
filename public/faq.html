@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions - QuickQR SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .faq-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #0f172a 100%);
+      color: #ffffff;
+      padding: 4.5rem 1.5rem 3.5rem;
+      text-align: center;
+      position: relative;
+    }
+    .faq-hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .faq-hero p {
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.6;
+    }
+    .faq-search-wrap {
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .faq-search-input {
+      width: 100%;
+      padding: 0.95rem 1.25rem 0.95rem 3rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+    .faq-search-input:focus {
+      background: rgba(255,255,255,0.2);
+      border-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.4);
+    }
+    .faq-search-input::placeholder {
+      color: #94a3b8;
+    }
+    .faq-search-icon {
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+    .faq-container {
+      max-width: 860px;
+      margin: 3rem auto 5rem;
+      padding: 0 1.5rem;
+    }
+    .faq-categories {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .faq-cat-btn {
+      padding: 0.5rem 1.15rem;
+      border-radius: 9999px;
+      border: 1px solid var(--slate-200);
+      background: #ffffff;
+      color: var(--slate-600);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .faq-cat-btn:hover, .faq-cat-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+    .faq-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+    .faq-card.active {
+      border-color: #c7d2fe;
+      box-shadow: 0 8px 24px rgba(79, 70, 229, 0.08);
+    }
+    .faq-trigger {
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      background: transparent;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      gap: 1rem;
+      transition: var(--transition);
+    }
+    .faq-trigger i {
+      color: var(--slate-400);
+      transition: transform 0.25s ease;
+      font-size: 0.95rem;
+    }
+    .faq-card.active .faq-trigger i {
+      transform: rotate(180deg);
+      color: var(--primary);
+    }
+    .faq-body {
+      display: none;
+      padding: 0 1.5rem 1.35rem;
+      color: var(--slate-600);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .faq-card.active .faq-body {
+      display: block;
+    }
+    .support-banner {
+      background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+      border: 1px solid #c7d2fe;
+      border-radius: var(--radius-xl);
+      padding: 2.25rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">
+      <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+      QuickQR <span class="brand-tag">v2.0</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-house"></i> Home</a></li>
+      <li><a href="index.html#features" class="nav-link"><i class="fas fa-bolt"></i> Features</a></li>
+      <li><a href="pricing.html" class="nav-link"><i class="fas fa-crown"></i> Pricing</a></li>
+      <li><a href="faq.html" class="nav-link active"><i class="fas fa-circle-question"></i> FAQ</a></li>
+      <li><a href="docs.html" class="nav-link"><i class="fas fa-book"></i> API Docs</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-auth-actions">
+      <a href="login.html" class="btn btn-outline btn-sm">Sign In</a>
+      <a href="register.html" class="btn btn-primary btn-sm"><i class="fas fa-rocket"></i> Get Started Free</a>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="faq-hero">
+    <div class="legal-badge" style="background:rgba(99,102,241,0.25);color:#a5b4fc;display:inline-flex;padding:0.35rem 0.85rem;border-radius:9999px;font-weight:700;font-size:0.8rem;margin-bottom:1rem;">
+      <i class="fas fa-circle-question"></i> Help Center & Knowledge Base
+    </div>
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know about dynamic QR codes, vector SVG printing, scan analytics, and plan upgrades.</p>
+    
+    <div class="faq-search-wrap">
+      <i class="fas fa-search faq-search-icon"></i>
+      <input type="text" id="faq-search" class="faq-search-input" placeholder="Search questions (e.g. SVG, limits, redirects)..." oninput="filterFaqs()">
+    </div>
+  </header>
+
+  <!-- Main FAQ Container -->
+  <div class="faq-container">
+
+    <!-- Categories Filter -->
+    <div class="faq-categories">
+      <button class="faq-cat-btn active" onclick="setCategory('all', this)">All Questions</button>
+      <button class="faq-cat-btn" onclick="setCategory('dynamic', this)">Dynamic QRs</button>
+      <button class="faq-cat-btn" onclick="setCategory('design', this)">Design & SVG</button>
+      <button class="faq-cat-btn" onclick="setCategory('analytics', this)">Telemetry & Privacy</button>
+      <button class="faq-cat-btn" onclick="setCategory('billing', this)">Billing & Plans</button>
+      <button class="faq-cat-btn" onclick="setCategory('api', this)">API & Devs</button>
+    </div>
+
+    <!-- FAQ Items List -->
+    <div id="faq-list">
+
+      <div class="faq-card active" data-category="dynamic">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span>What is the difference between static and dynamic QR codes?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-body">
+          Static QR codes encode the destination payload directly into the matrix pattern: once printed, it can never be altered. Dynamic QR codes encode a lightweight, cryptographically secure short link (such as <code>/r/smr2026k</code>) that forwards scanners to your desired destination. You can change the target URL anytime in your dashboard without reprinting stickers, packaging, or marketing collateral.
+        </div>
+      </div>
+
+      <div class="faq-card" data-category="dynamic">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span>Can I create and download QR codes without creating an account?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-body">
+          Yes! You can use our instant playground on the homepage to generate, customize colors, and download high-resolution PNG or SVG codes without signing up. If you want scan tracking, editable destination URLs, and saved campaigns, you can register for our free account anytime.
+        </div>
+      </div>
+
+      <div class="faq-card" data-category="dynamic">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span>Do dynamic QR codes ever expire?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-body">
+          Dynamic QR codes on active plans never expire unless you intentionally set an expiration date in the campaign settings or choose to pause them. Scanners will always be redirected smoothly without interruption.
+        </div>
+      </div>
+
+      <div class="faq-card" data-category="design">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span>Why is vector SVG export better for print media?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-body">
+          Standard raster formats like PNG and JPG become pixelated and blurry when scaled up for large printing. Vector SVG encodes the QR code as mathematical XML vectors, allowing you to scale it to any dimension—from a 1-inch product label to a 50-foot billboard—with absolute razor sharpness and 100% scan fidelity.
+        </div>
+      </div>
+
+      <div class="faq-card" data-category="design">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span>Can I customize foreground and background colors?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-body">
+          Yes! QuickQR provides a visual color picker and hex code input for both foreground and background colors. We recommend maintaining high contrast (such as a dark foreground on a white or light background) to ensure rapid optical scanning across all camera lenses.
+        </div>
+      </div>
+
+      <div class="faq-card" data-category="analytics">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span>How does QuickQR track scans while preserving GDPR privacy?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-body">
+          QuickQR never stores raw IP addresses in the database. Incoming scan requests are hashed using a one-way salted SHA-256 algorithm: <code>SHA256(IP + Salt)</code>. This allows us to report daily unique scan counts without retaining personal identifiers. We also extract non-identifying platform specs (e.g. iOS vs Android) and approximate countries.
+        </div>
+      </div>
+
+      <div class="faq-card" data-category="billing">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span>What happens when I hit my monthly scan allowance?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-body">
+          We never break your printed QR codes. If your campaign exceeds the monthly limit, redirects continue to resolve smoothly while an upgrade alert is presented in your dashboard. You can upgrade to Pro (50,000 scans) or Business (1,000,000 scans) anytime.
+        </div>
+      </div>
+
+      <div class="faq-card" data-category="billing">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span>Can I cancel or switch plans at any time?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-body">
+          Yes, there are no lock-in contracts. You can upgrade, downgrade, or cancel your subscription whenever you wish from the Plans & Billing page.
+        </div>
+      </div>
+
+      <div class="faq-card" data-category="api">
+        <button class="faq-trigger" onclick="toggleFaq(this)">
+          <span>How do I get access to the Developer REST API?</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="faq-body">
+          Every account receives a secret API key. You can view or regenerate your key under Account Settings &gt; API Keys. Pass this key via the <code>X-API-Key</code> HTTP header to programmatically generate codes, query analytics, and automate updates.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Need More Help Banner -->
+    <div class="support-banner">
+      <h3 style="font-size:1.4rem;font-weight:800;color:var(--slate-900);margin-bottom:0.5rem;">Still have questions?</h3>
+      <p style="color:var(--slate-600);margin-bottom:1.5rem;font-size:0.95rem;">Our customer success and technical teams are ready to help you with your QR campaigns.</p>
+      <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Contact Support</a>
+        <a href="docs.html" class="btn btn-outline"><i class="fas fa-book"></i> Read API Docs</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modern Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <a href="index.html" class="footer-brand-title">
+          <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+          QuickQR
+        </a>
+        <p class="footer-desc">Next-generation dynamic QR infrastructure with privacy-preserving telemetry.</p>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigation</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pricing.html">Pricing & Plans</a></li>
+          <li><a href="faq.html" style="color:var(--primary);font-weight:600;">Help & FAQ</a></li>
+          <li><a href="docs.html">Developer API</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Legal & Security</h4>
+        <ul class="footer-links-list">
+          <li><a href="privacy.html">Privacy Policy & GDPR</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 QuickQR SaaS Platform. All rights reserved.</div>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script>
+    function toggleFaq(btn) {
+      const card = btn.closest('.faq-card');
+      card.classList.toggle('active');
+    }
+
+    let currentCategory = 'all';
+
+    function setCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.faq-cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterFaqs();
+    }
+
+    function filterFaqs() {
+      const query = document.getElementById('faq-search').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.faq-card');
+
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const matchesCat = (currentCategory === 'all' || card.dataset.category === currentCategory);
+        const matchesQuery = (!query || text.includes(query));
+
+        if (matchesCat && matchesQuery) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    (async () => {
+      try {
+        const res = await API.get('/auth/me.php', {}, { skipAuthRedirect: true });
+        const user = res.data?.user || res.data;
+        if (user && user.id) {
+          const navAuth = document.getElementById('nav-auth-actions');
+          if (navAuth) {
+            navAuth.innerHTML = `
+              <a href="dashboard.html" class="btn btn-primary btn-sm"><i class="fas fa-th-large"></i> Go to Dashboard</a>
+            `;
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
+

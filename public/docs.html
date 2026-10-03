@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Documentation - QuickQR SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    code, pre {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .docs-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #0f172a 100%);
+      color: #ffffff;
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      position: relative;
+    }
+    .docs-hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .docs-hero p {
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .docs-layout {
+      max-width: 1200px;
+      margin: 2rem auto 5rem;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2.5rem;
+      align-items: flex-start;
+    }
+    .docs-sidebar {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      position: sticky;
+      top: 5.5rem;
+      max-height: calc(100vh - 7rem);
+      overflow-y: auto;
+      box-shadow: var(--shadow-sm);
+    }
+    .docs-sidebar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--slate-400);
+      font-weight: 700;
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .docs-sidebar-title:first-child {
+      margin-top: 0;
+    }
+    .docs-sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--slate-600);
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: 0.45rem 0.65rem;
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      font-weight: 500;
+    }
+    .docs-sidebar-link:hover, .docs-sidebar-link.active {
+      color: var(--primary);
+      background: var(--primary-light);
+      font-weight: 600;
+    }
+    .docs-sidebar-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      margin-left: auto;
+    }
+    .badge-get { background: #dbeafe; color: #1e40af; }
+    .badge-post { background: #dcfce7; color: #166534; }
+    
+    .docs-content {
+      min-width: 0;
+    }
+    .docs-card {
+      background: #ffffff;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-xl);
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+      scroll-margin-top: 5rem;
+    }
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .endpoint-method {
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-md);
+      font-size: 0.8125rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .endpoint-method.get { background: #dbeafe; color: #1d4ed8; }
+    .endpoint-method.post { background: #dcfce7; color: #15803d; }
+    .endpoint-path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--slate-900);
+      word-break: break-all;
+    }
+    .code-block {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin: 1rem 0;
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: #ffffff;
+      padding: 0.3rem 0.6rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .copy-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+    .param-table th {
+      text-align: left;
+      padding: 0.65rem 0.75rem;
+      background: var(--slate-50);
+      color: var(--slate-700);
+      border-bottom: 2px solid var(--slate-200);
+      font-weight: 700;
+    }
+    .param-table td {
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--slate-100);
+      color: var(--slate-600);
+    }
+    .param-name {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .param-required {
+      color: var(--danger);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      margin-left: 0.3rem;
+    }
+    @media (max-width: 900px) {
+      .docs-layout {
+        grid-template-columns: 1fr;
+      }
+      .docs-sidebar {
+        position: static;
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="index.html" class="brand-logo">
+      <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+      QuickQR <span class="brand-tag">v2.0</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-house"></i> Home</a></li>
+      <li><a href="index.html#features" class="nav-link"><i class="fas fa-bolt"></i> Features</a></li>
+      <li><a href="pricing.html" class="nav-link"><i class="fas fa-crown"></i> Pricing</a></li>
+      <li><a href="faq.html" class="nav-link"><i class="fas fa-circle-question"></i> FAQ</a></li>
+      <li><a href="docs.html" class="nav-link active"><i class="fas fa-book"></i> API Docs</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-auth-actions">
+      <a href="login.html" class="btn btn-outline btn-sm">Sign In</a>
+      <a href="register.html" class="btn btn-primary btn-sm"><i class="fas fa-rocket"></i> Get Started Free</a>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="docs-hero">
+    <div class="legal-badge" style="background:rgba(99,102,241,0.25);color:#a5b4fc;display:inline-flex;padding:0.35rem 0.85rem;border-radius:9999px;font-weight:700;font-size:0.8rem;margin-bottom:1rem;">
+      <i class="fas fa-code"></i> Developer Reference v2.0
+    </div>
+    <h1>QuickQR REST API</h1>
+    <p>
+      Programmatically generate dynamic QR codes, update destination URLs on the fly, export infinite-resolution SVGs, and pull real-time scan analytics into your applications.
+    </p>
+    <div style="margin-top:1.5rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a href="settings.html" class="btn btn-primary btn-sm"><i class="fas fa-key"></i> Get Your API Key</a>
+      <a href="#authentication" class="btn btn-outline btn-sm" style="color:#ffffff;border-color:rgba(255,255,255,0.4);">
+        <i class="fas fa-bolt"></i> Quickstart
+      </a>
+    </div>
+  </header>
+
+  <!-- Documentation Layout -->
+  <div class="docs-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="docs-sidebar">
+      <div class="docs-sidebar-title">Getting Started</div>
+      <a href="#overview" class="docs-sidebar-link active"><i class="fas fa-compass"></i> Overview</a>
+      <a href="#authentication" class="docs-sidebar-link"><i class="fas fa-key"></i> Authentication</a>
+      <a href="#responses" class="docs-sidebar-link"><i class="fas fa-code-merge"></i> Responses & Errors</a>
+
+      <div class="docs-sidebar-title">QR Code Endpoints</div>
+      <a href="#endpoint-create-qr" class="docs-sidebar-link">
+        <span>Create QR</span> <span class="docs-sidebar-badge badge-post">POST</span>
+      </a>
+      <a href="#endpoint-list-qr" class="docs-sidebar-link">
+        <span>List QRs</span> <span class="docs-sidebar-badge badge-get">GET</span>
+      </a>
+      <a href="#endpoint-get-qr" class="docs-sidebar-link">
+        <span>Get QR</span> <span class="docs-sidebar-badge badge-get">GET</span>
+      </a>
+      <a href="#endpoint-update-qr" class="docs-sidebar-link">
+        <span>Update QR</span> <span class="docs-sidebar-badge badge-post">POST</span>
+      </a>
+      <a href="#endpoint-preview-qr" class="docs-sidebar-link">
+        <span>Render Preview</span> <span class="docs-sidebar-badge badge-get">GET</span>
+      </a>
+      <a href="#endpoint-download-qr" class="docs-sidebar-link">
+        <span>Download Asset</span> <span class="docs-sidebar-badge badge-get">GET</span>
+      </a>
+
+      <div class="docs-sidebar-title">Analytics & Telemetry</div>
+      <a href="#endpoint-analytics" class="docs-sidebar-link">
+        <span>QR Telemetry</span> <span class="docs-sidebar-badge badge-get">GET</span>
+      </a>
+      <a href="#endpoint-public-stats" class="docs-sidebar-link">
+        <span>Global Stats</span> <span class="docs-sidebar-badge badge-get">GET</span>
+      </a>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="docs-content">
+
+      <!-- Section: Overview -->
+      <section class="docs-card" id="overview">
+        <h2 style="font-size:1.6rem;font-weight:800;color:var(--slate-900);margin-bottom:0.75rem;">
+          <i class="fas fa-compass" style="color:var(--primary);margin-right:0.4rem;"></i> API Overview
+        </h2>
+        <p style="color:var(--slate-600);line-height:1.7;">
+          The QuickQR API is organized around predictable RESTful endpoints. All requests communicate over standard HTTPS and accept/return JSON payloads.
+        </p>
+        <div style="background:var(--slate-50);border:1px solid var(--slate-200);border-radius:var(--radius-lg);padding:1rem 1.25rem;margin:1rem 0;">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--slate-500);text-transform:uppercase;">Base API URL</div>
+          <code style="font-size:0.95rem;color:var(--primary);font-weight:600;">http://localhost/sass/api</code>
+        </div>
+      </section>
+
+      <!-- Section: Authentication -->
+      <section class="docs-card" id="authentication">
+        <h2 style="font-size:1.6rem;font-weight:800;color:var(--slate-900);margin-bottom:0.75rem;">
+          <i class="fas fa-key" style="color:var(--primary);margin-right:0.4rem;"></i> Authentication
+        </h2>
+        <p style="color:var(--slate-600);line-height:1.7;">
+          QuickQR supports dual authentication modes: PHP session cookies (for web dashboard sessions) and persistent API secret keys (for programmatic backend integrations).
+        </p>
+        <p style="color:var(--slate-600);line-height:1.7;">
+          Pass your secret API key in the HTTP request headers using either <code>X-API-Key</code> or the standard <code>Authorization: Bearer &lt;key&gt;</code>:
+        </p>
+        <div class="code-block">
+          <button class="copy-btn" onclick="navigator.clipboard.writeText('X-API-Key: qk_live_a1b2c3d4e5f6'); API.showToast('Header copied to clipboard!', 'success');">Copy</button>
+<pre>X-API-Key: qk_live_a1b2c3d4e5f67890abcdef123456</pre>
+        </div>
+        <p style="font-size:0.875rem;color:var(--slate-500);margin-top:0.5rem;">
+          You can generate, view, and cycle your API Key anytime inside your <a href="settings.html" style="color:var(--primary);font-weight:600;">Account Settings</a>.
+        </p>
+      </section>
+
+      <!-- Section: Response Envelope -->
+      <section class="docs-card" id="responses">
+        <h2 style="font-size:1.6rem;font-weight:800;color:var(--slate-900);margin-bottom:0.75rem;">
+          <i class="fas fa-code-merge" style="color:var(--primary);margin-right:0.4rem;"></i> Standard JSON Envelopes
+        </h2>
+        <p style="color:var(--slate-600);line-height:1.7;">
+          All API responses adhere to a consistent contract. Successful calls return <code>success: true</code> with the data object. Errors return <code>success: false</code> accompanied by machine-readable error codes.
+        </p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:1rem;">
+          <div>
+            <div style="font-size:0.8rem;font-weight:700;color:var(--success);margin-bottom:0.35rem;"><i class="fas fa-check-circle"></i> Success Envelope (200 OK)</div>
+            <div class="code-block" style="margin:0;">
+<pre>{
+  "success": true,
+  "data": { ... },
+  "message": "Operation completed"
+}</pre>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:0.8rem;font-weight:700;color:var(--danger);margin-bottom:0.35rem;"><i class="fas fa-times-circle"></i> Error Envelope (4xx / 5xx)</div>
+            <div class="code-block" style="margin:0;">
+<pre>{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid URL destination"
+  }
+}</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Create QR -->
+      <section class="docs-card" id="endpoint-create-qr">
+        <div class="endpoint-header">
+          <span class="endpoint-method post">POST</span>
+          <span class="endpoint-path">/api/qr/create.php</span>
+        </div>
+        <p style="color:var(--slate-600);line-height:1.7;">
+          Creates a new dynamic QR code with short-redirect URL, custom hex branding colors, and telemetry tracking.
+        </p>
+
+        <h4 style="font-size:0.95rem;font-weight:700;margin-top:1.25rem;">Request Parameters (JSON Body)</h4>
+        <table class="param-table">
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="param-name">name</span> <span class="param-required">Required</span></td>
+              <td>string</td>
+              <td>Human-readable label for the QR campaign (e.g. "Summer Promo")</td>
+            </tr>
+            <tr>
+              <td><span class="param-name">type</span> <span class="param-required">Required</span></td>
+              <td>string</td>
+              <td>Payload type: <code>url</code>, <code>wifi</code>, <code>vcard</code>, <code>email</code>, <code>phone</code>, <code>sms</code></td>
+            </tr>
+            <tr>
+              <td><span class="param-name">destination</span> <span class="param-required">Required</span></td>
+              <td>string</td>
+              <td>Target URL (must be valid <code>http://</code> or <code>https://</code>)</td>
+            </tr>
+            <tr>
+              <td><span class="param-name">config</span></td>
+              <td>object</td>
+              <td>Design options: <code>fg_color</code> (hex), <code>bg_color</code> (hex), <code>size</code> (px), <code>ecc</code> (L/M/Q/H)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4 style="font-size:0.95rem;font-weight:700;margin-top:1.25rem;">Example cURL Request</h4>
+        <div class="code-block">
+          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); API.showToast('Copied to clipboard!', 'success');">Copy</button>
+<pre>curl -X POST http://localhost/sass/api/qr/create.php \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -d '{
+    "name": "Product Launch 2026",
+    "type": "url",
+    "destination": "https://example.com/launch",
+    "config": {
+      "fg_color": "#4f46e5",
+      "bg_color": "#ffffff",
+      "ecc": "M"
+    }
+  }'</pre>
+        </div>
+      </section>
+
+      <!-- Section: List QRs -->
+      <section class="docs-card" id="endpoint-list-qr">
+        <div class="endpoint-header">
+          <span class="endpoint-method get">GET</span>
+          <span class="endpoint-path">/api/qr/list.php</span>
+        </div>
+        <p style="color:var(--slate-600);line-height:1.7;">
+          Retrieves a paginated list of QR campaigns belonging to the authenticated account. Supports filtering by search keyword and status.
+        </p>
+        <div class="code-block">
+          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); API.showToast('Copied to clipboard!', 'success');">Copy</button>
+<pre>curl -X GET "http://localhost/sass/api/qr/list.php?page=1&limit=10&status=active" \
+  -H "X-API-Key: YOUR_API_KEY"</pre>
+        </div>
+      </section>
+
+      <!-- Section: Preview QR -->
+      <section class="docs-card" id="endpoint-preview-qr">
+        <div class="endpoint-header">
+          <span class="endpoint-method get">GET</span>
+          <span class="endpoint-path">/api/qr/preview.php</span>
+        </div>
+        <p style="color:var(--slate-600);line-height:1.7;">
+          Instantly renders a live QR code image in SVG or PNG format. Can be used without authentication for on-the-fly rendering widgets.
+        </p>
+        <div class="code-block">
+          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); API.showToast('Copied to clipboard!', 'success');">Copy</button>
+<pre>curl -X GET "http://localhost/sass/api/qr/preview.php?destination=https://example.com&format=svg"</pre>
+        </div>
+      </section>
+
+      <!-- Section: Analytics -->
+      <section class="docs-card" id="endpoint-analytics">
+        <div class="endpoint-header">
+          <span class="endpoint-method get">GET</span>
+          <span class="endpoint-path">/api/analytics/stats.php</span>
+        </div>
+        <p style="color:var(--slate-600);line-height:1.7;">
+          Returns comprehensive scan telemetry including total scans, unique scanners, daily scan volumes, device distributions (Mobile vs Desktop vs Tablet), operating systems, and country geolocation statistics.
+        </p>
+        <div class="code-block">
+          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.innerText); API.showToast('Copied to clipboard!', 'success');">Copy</button>
+<pre>curl -X GET "http://localhost/sass/api/analytics/stats.php?qr_id=1&days=30" \
+  -H "X-API-Key: YOUR_API_KEY"</pre>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modern Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <a href="index.html" class="footer-brand-title">
+          <div class="logo-icon"><i class="fas fa-qrcode"></i></div>
+          QuickQR
+        </a>
+        <p class="footer-desc">Next-generation dynamic QR infrastructure with privacy-preserving telemetry.</p>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigation</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="pricing.html">Pricing & Plans</a></li>
+          <li><a href="faq.html">Help & FAQ</a></li>
+          <li><a href="docs.html" style="color:var(--primary);font-weight:600;">Developer API</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Legal & Security</h4>
+        <ul class="footer-links-list">
+          <li><a href="privacy.html">Privacy Policy & GDPR</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 QuickQR SaaS Platform. All rights reserved.</div>
+      <div style="display:flex;gap:1.5rem;">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script>
+    (async () => {
+      try {
+        const res = await API.get('/auth/me.php', {}, { skipAuthRedirect: true });
+        const user = res.data?.user || res.data;
+        if (user && user.id) {
+          const navAuth = document.getElementById('nav-auth-actions');
+          if (navAuth) {
+            navAuth.innerHTML = `
+              <a href="dashboard.html" class="btn btn-primary btn-sm"><i class="fas fa-th-large"></i> Go to Dashboard</a>
+            `;
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
+
